@@ -1,19 +1,20 @@
-﻿using Microsoft.Xna.Framework;
+﻿
+using game1.View;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SharpDX.Direct3D9;
 using System.Collections.Generic;
 
-namespace game1
+namespace game1.Model
 {
-    public class Player : GameObject
+    public class Item : GameObject
     {
         public int HealthPoints { get; set; }
 
-        public Player()
+        public Item()
         {
-            Position = new Vector2(80, 700);
-
+            Position = new Vector2(600, 750);
         }
     }
 }

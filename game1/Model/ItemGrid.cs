@@ -1,0 +1,34 @@
+﻿
+using game1.View;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using SharpDX.Direct3D9;
+using System.Collections.Generic;
+
+namespace game1.Model
+{
+    public class ItemGrid : GameObject
+    {
+        public List<Item> Items { get; set; }
+        public ItemGrid()
+        {
+            Box = new Rectangle(500, 800, 10000, 400);
+            Items = new List<Item>() { new Item(), new Item(), new Item(), new Item() };
+        }
+
+        public void Draw(SpriteBatch _spriteBatch)
+        {
+            int distance = 10;
+            int itemWidth = 300;
+            int itemHeight = 300;
+
+            for (var i = 0; i < Items.Count; i++)
+            {
+                Items[i].Box = new Rectangle(Box.X + i * (itemWidth + distance), Box.Y,
+                    itemWidth, itemHeight);
+                _spriteBatch.Draw(Items[i].Texture, Items[i].Box, Items[i].Color);
+            }
+        }
+    }
+}

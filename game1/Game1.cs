@@ -1,59 +1,20 @@
-﻿using Microsoft.Xna.Framework;
+﻿using game1.Model;
+using game1.View;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+//using SharpDX.Direct2D1;
 using SharpDX.Direct3D9;
 using System.Collections.Generic;
 //using System.Drawing;
 
 namespace game1;
 
-public class Item : GameObject
-{
-    public int HealthPoints { get; set; }
-
-    public Item()
-    {
-        Position = new Vector2(600, 750);
-    }
-}
-
-public class ItemGrid : GameObject
-{
-    public List<Item> Items { get; set; }
-    public ItemGrid()
-    {
-        Box = new Rectangle(500, 800, 10000, 400);
-        Items = new List<Item>() { new Item(), new Item(), new Item(), new Item() };
-    }
-
-    public void RecalculateItemBoxes()
-    {
-        
-        int distance = 10;
-        int itemWidth = 300;
-        int itemHeight = 300;
-        for (var i = 0; i < Items.Count; i++)
-        {
-            Items[i].Box = new Rectangle(Box.X + i * (itemWidth+distance), Box.Y, 
-                itemWidth, itemHeight);
-        }
-    }
-
-    public void Draw(SpriteBatch _spriteBatch)
-    {
-        foreach (var item in Items)
-        {
-            _spriteBatch.Draw(item.Texture, item.Box, item.Color);
-        }
-    }
-
-}
-
 public class Game1 : Game
 {
-    Player Player;
-    
-    ItemGrid ItemGrid;
+    public Player Player { get; private set; }
+    public Enemy Enemy { get; private set; }
+    public ItemGrid ItemGrid { get; private set; }
 
 
     private GraphicsDeviceManager _graphics;
@@ -66,9 +27,8 @@ public class Game1 : Game
     public Game1()
     {
         Player = new Player();
-        
         ItemGrid = new ItemGrid();
-
+        Enemy = new Enemy();
 
         _graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
@@ -96,9 +56,11 @@ public class Game1 : Game
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
         Player.Texture = Content.Load<Texture2D>("player");
-        
 
-        foreach(var item in ItemGrid.Items)
+        Enemy.Texture = Content.Load<Texture2D>("enemies/ptichka");
+
+
+        foreach (var item in ItemGrid.Items)
         {
             item.Texture = Content.Load<Texture2D>("items/sword");
         }
@@ -116,7 +78,6 @@ public class Game1 : Game
         float verScaling = backbufferHeight / baseScreenSize.Y;
         Vector3 screenScalingFactor = new Vector3(horScaling, verScaling, 1);
         globalTransformation = Matrix.CreateScale(screenScalingFactor);
-        System.Diagnostics.Debug.WriteLine("Screen Size - Width[" + GraphicsDevice.PresentationParameters.BackBufferWidth + "] Height [" + GraphicsDevice.PresentationParameters.BackBufferHeight + "]");
     }
     protected override void Update(GameTime gameTime)
     {
@@ -137,12 +98,10 @@ public class Game1 : Game
     {
         GraphicsDevice.Clear(Microsoft.Xna.Framework.Color.CornflowerBlue);
 
+
         _spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, globalTransformation);
-
-        _spriteBatch.Draw(Player.Texture, Player.Position, Microsoft.Xna.Framework.Color.White);
-
-        ItemGrid.RecalculateItemBoxes();
-
+        Enemy.Draw(_spriteBatch);
+        Player.Draw(_spriteBatch);
         ItemGrid.Draw(_spriteBatch);
 
         _spriteBatch.End();
