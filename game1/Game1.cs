@@ -1,4 +1,5 @@
-﻿using game1.Model;
+﻿using game1.Controller;
+using game1.Model;
 using game1.View;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -19,6 +20,7 @@ public class Game1 : Game
 
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
+    public SpriteFont BaseFont;
 
     Vector2 baseScreenSize = new Vector2(2000, 1500);
     private Matrix globalTransformation;
@@ -53,12 +55,15 @@ public class Game1 : Game
 
     protected override void LoadContent()
     {
+        BaseFont = Content.Load<SpriteFont>("Fonts/Hud");
+
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
         Player.Texture = Content.Load<Texture2D>("player");
-
+        Player.Font = BaseFont;
+        Enemy.Font = BaseFont;
         Enemy.Texture = Content.Load<Texture2D>("enemies/ptichka");
-
+        
 
         foreach (var item in ItemGrid.Items)
         {
@@ -81,13 +86,14 @@ public class Game1 : Game
     }
     protected override void Update(GameTime gameTime)
     {
+        InputManager.Update();
+        Player.Update(gameTime);
         if (backbufferHeight != GraphicsDevice.PresentationParameters.BackBufferHeight ||
                 backbufferWidth != GraphicsDevice.PresentationParameters.BackBufferWidth)
         {
             ScalePresentationArea();
         }
-        if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-            Exit();
+        
 
         // TODO: Add your update logic here
 
@@ -96,10 +102,11 @@ public class Game1 : Game
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(Microsoft.Xna.Framework.Color.CornflowerBlue);
+        GraphicsDevice.Clear(Color.CornflowerBlue);
 
 
         _spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, globalTransformation);
+
         Enemy.Draw(_spriteBatch);
         Player.Draw(_spriteBatch);
         ItemGrid.Draw(_spriteBatch);

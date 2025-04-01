@@ -25,6 +25,13 @@
 /processorParam:TextureFormat=Color
 /build:enemies/Снимок экрана 2025-04-01 192615.png;enemies/ptichka.png
 
+#begin Fonts/Hud.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/Hud.spritefont
+
 #begin items/sword.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
