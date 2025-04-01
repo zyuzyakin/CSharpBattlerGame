@@ -19,19 +19,41 @@ public class Item : GameObject
 
 public class ItemGrid : GameObject
 {
-    public List<Item> ItemList { get; set; }
+    public List<Item> Items { get; set; }
     public ItemGrid()
     {
-        ItemList = new List<Item>();
+        Box = new Rectangle(500, 800, 10000, 400);
+        Items = new List<Item>() { new Item(), new Item(), new Item(), new Item() };
     }
 
+    public void RecalculateItemBoxes()
+    {
+        
+        int distance = 10;
+        int itemWidth = 300;
+        int itemHeight = 300;
+        for (var i = 0; i < Items.Count; i++)
+        {
+            Items[i].Box = new Rectangle(Box.X + i * (itemWidth+distance), Box.Y, 
+                itemWidth, itemHeight);
+        }
+    }
+
+    public void Draw(SpriteBatch _spriteBatch)
+    {
+        foreach (var item in Items)
+        {
+            _spriteBatch.Draw(item.Texture, item.Box, item.Color);
+        }
+    }
 
 }
 
 public class Game1 : Game
 {
     Player Player;
-    Item Item;
+    
+    ItemGrid ItemGrid;
 
 
     private GraphicsDeviceManager _graphics;
@@ -44,7 +66,8 @@ public class Game1 : Game
     public Game1()
     {
         Player = new Player();
-        Item = new Item();
+        
+        ItemGrid = new ItemGrid();
 
 
         _graphics = new GraphicsDeviceManager(this);
@@ -73,9 +96,12 @@ public class Game1 : Game
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
         Player.Texture = Content.Load<Texture2D>("player");
-        Item.Texture = Content.Load<Texture2D>("items/sword");
+        
 
-
+        foreach(var item in ItemGrid.Items)
+        {
+            item.Texture = Content.Load<Texture2D>("items/sword");
+        }
         
 
         ScalePresentationArea();
@@ -114,9 +140,10 @@ public class Game1 : Game
         _spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, globalTransformation);
 
         _spriteBatch.Draw(Player.Texture, Player.Position, Microsoft.Xna.Framework.Color.White);
-        _spriteBatch.Draw(Item.Texture, 
-            new Microsoft.Xna.Framework.Rectangle((int)Item.Position.X, (int)Item.Position.Y, 300, 300), 
-            Microsoft.Xna.Framework.Color.White);
+
+        ItemGrid.RecalculateItemBoxes();
+
+        ItemGrid.Draw(_spriteBatch);
 
         _spriteBatch.End();
 
