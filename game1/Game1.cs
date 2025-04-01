@@ -17,6 +17,17 @@ public class Item : GameObject
     }
 }
 
+public class ItemGrid : GameObject
+{
+    public List<Item> ItemList { get; set; }
+    public ItemGrid()
+    {
+        ItemList = new List<Item>();
+    }
+
+
+}
+
 public class Game1 : Game
 {
     Player Player;
