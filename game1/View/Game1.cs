@@ -1,6 +1,5 @@
 ﻿using game1.Controller;
 using game1.Model;
-using game1.View;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -9,13 +8,15 @@ using SharpDX.Direct3D9;
 using System.Collections.Generic;
 //using System.Drawing;
 
-namespace game1;
+namespace game1.View;
 
 public class Game1 : Game
 {
     public Player Player { get; private set; }
     public Enemy Enemy { get; private set; }
     public ItemGrid ItemGrid { get; private set; }
+
+    public EndTurnButton EndTurnButton { get; private set; }
 
 
     private GraphicsDeviceManager _graphics;
@@ -31,6 +32,7 @@ public class Game1 : Game
         Player = new Player();
         ItemGrid = new ItemGrid();
         Enemy = new Enemy();
+        EndTurnButton = new EndTurnButton();
 
         _graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
@@ -48,7 +50,6 @@ public class Game1 : Game
 
     protected override void Initialize()
     {
-        // TODO: Add your initialization logic here
         
         base.Initialize();
     }
@@ -57,11 +58,17 @@ public class Game1 : Game
     {
         BaseFont = Content.Load<SpriteFont>("Fonts/Hud");
 
-        _spriteBatch = new SpriteBatch(GraphicsDevice);
-
-        Player.Texture = Content.Load<Texture2D>("player");
+        EndTurnButton.Font = BaseFont;
         Player.Font = BaseFont;
         Enemy.Font = BaseFont;
+
+
+        _spriteBatch = new SpriteBatch(GraphicsDevice);
+
+
+        EndTurnButton.Texture = Content.Load<Texture2D>("Buttons/endturn");
+        Player.Texture = Content.Load<Texture2D>("player");
+        
         Enemy.Texture = Content.Load<Texture2D>("enemies/ptichka");
         
 
@@ -72,7 +79,7 @@ public class Game1 : Game
         
 
         ScalePresentationArea();
-        // TODO: use this.Content to load your game content here
+       
     }
     public void ScalePresentationArea()
     {
@@ -95,7 +102,7 @@ public class Game1 : Game
         }
         
 
-        // TODO: Add your update logic here
+       
 
         base.Update(gameTime);
     }
@@ -110,10 +117,10 @@ public class Game1 : Game
         Enemy.Draw(_spriteBatch);
         Player.Draw(_spriteBatch);
         ItemGrid.Draw(_spriteBatch);
-
+        EndTurnButton.Draw(_spriteBatch);
         _spriteBatch.End();
 
-        // TODO: Add your drawing code here
+        
 
         base.Draw(gameTime);
     }

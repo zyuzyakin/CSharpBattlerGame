@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-//using SharpDX.Direct2D1;
 using SharpDX.Direct3D9;
 using System.Collections.Generic;
 
