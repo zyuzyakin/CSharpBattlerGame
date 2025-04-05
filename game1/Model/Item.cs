@@ -10,11 +10,18 @@ namespace game1.Model
 {
     public class Item : GameObject
     {
-        public int HealthPoints { get; set; }
-
         public Item()
         {
-            Position = new Vector2(600, 750);
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+           
+        }
+
+        public override void Update(GameTime gameTime, Game1 game)
+        {
+            
         }
     }
 }

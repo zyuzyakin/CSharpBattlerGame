@@ -12,7 +12,5 @@ namespace game1.Model
         static bool IsItShopTime;
         static bool IsItPlayerTurn;
         static bool IsItEnemyTurn;
-
-
     }
 }

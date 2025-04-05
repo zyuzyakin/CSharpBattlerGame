@@ -1,22 +1,31 @@
 ﻿using game1.Controller;
 using game1.Model;
+using game1.View.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 //using SharpDX.Direct2D1;
 using SharpDX.Direct3D9;
 using System.Collections.Generic;
+
 //using System.Drawing;
 
 namespace game1.View;
 
 public class Game1 : Game
 {
-    public Player Player { get; private set; }
-    public Enemy Enemy { get; private set; }
-    public ItemGrid ItemGrid { get; private set; }
 
-    public EndTurnButton EndTurnButton { get; private set; }
+    private State _currentState;
+    private State _nextState;
+
+    public StartMenuState startMenuState { get; set; }
+
+    public GameState gameState { get; set; }
+
+    public ShopState shopState { get; set; }
+
+
+
 
 
     private GraphicsDeviceManager _graphics;
@@ -29,10 +38,8 @@ public class Game1 : Game
 
     public Game1()
     {
-        Player = new Player();
-        ItemGrid = new ItemGrid();
-        Enemy = new Enemy();
-        EndTurnButton = new EndTurnButton();
+        
+
 
         _graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
@@ -45,9 +52,12 @@ public class Game1 : Game
         
         _graphics.SupportedOrientations = DisplayOrientation.LandscapeLeft | DisplayOrientation.LandscapeRight;
 
-
+        
     }
-
+    public void ChangeState(State state)
+    {
+        _nextState = state;
+    }
     protected override void Initialize()
     {
         
@@ -56,27 +66,13 @@ public class Game1 : Game
 
     protected override void LoadContent()
     {
-        BaseFont = Content.Load<SpriteFont>("Fonts/Hud");
+        startMenuState = new StartMenuState(this, Content, _graphics.GraphicsDevice);
+        gameState = new GameState(this, Content, _graphics.GraphicsDevice);
 
-        EndTurnButton.Font = BaseFont;
-        Player.Font = BaseFont;
-        Enemy.Font = BaseFont;
-
+        _currentState = startMenuState;
 
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-
-        EndTurnButton.Texture = Content.Load<Texture2D>("Buttons/endturn");
-        Player.Texture = Content.Load<Texture2D>("player");
-        
-        Enemy.Texture = Content.Load<Texture2D>("enemies/ptichka");
-        
-
-        foreach (var item in ItemGrid.Items)
-        {
-            item.Texture = Content.Load<Texture2D>("items/sword");
-        }
-        
 
         ScalePresentationArea();
        
@@ -94,33 +90,37 @@ public class Game1 : Game
     protected override void Update(GameTime gameTime)
     {
         InputManager.Update();
-        Player.Update(gameTime);
+
+        if(_nextState != null)
+        {
+            _currentState = _nextState;
+            _nextState = null;
+        }
+
+        _currentState.Update(gameTime, this);
+
+
+
+        
+
+
+
         if (backbufferHeight != GraphicsDevice.PresentationParameters.BackBufferHeight ||
                 backbufferWidth != GraphicsDevice.PresentationParameters.BackBufferWidth)
         {
             ScalePresentationArea();
         }
-        
-
-       
 
         base.Update(gameTime);
     }
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(Color.CornflowerBlue);
-
-
-        _spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, globalTransformation);
-
-        Enemy.Draw(_spriteBatch);
-        Player.Draw(_spriteBatch);
-        ItemGrid.Draw(_spriteBatch);
-        EndTurnButton.Draw(_spriteBatch);
-        _spriteBatch.End();
+        _currentState.Draw(gameTime, _spriteBatch, globalTransformation);
 
         
+
+
 
         base.Draw(gameTime);
     }

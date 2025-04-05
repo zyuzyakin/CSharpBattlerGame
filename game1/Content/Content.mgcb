@@ -13,7 +13,14 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin Buttons/this_rabbit_smiles_like_Joker_seed535868130_online_video_cutter - frame at 0m0s.jpg
+#begin ../../../../../Desktop/Hud.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:../../../../../Desktop/Hud.spritefont;fonts/Hud.spritefont
+
+#begin controls/button.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -23,7 +30,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Buttons/this_rabbit_smiles_like_Joker_seed535868130_online_video_cutter - frame at 0m0s.jpg;Buttons/endturn.jpg
+/build:controls/button.png
 
 #begin enemies/Снимок экрана 2025-04-01 192615.png
 /importer:TextureImporter
@@ -37,12 +44,12 @@
 /processorParam:TextureFormat=Color
 /build:enemies/Снимок экрана 2025-04-01 192615.png;enemies/ptichka.png
 
-#begin Fonts/Hud.spritefont
+#begin fonts/Hud.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
-/build:Fonts/Hud.spritefont
+/build:fonts/Hud.spritefont
 
 #begin items/sword.jpg
 /importer:TextureImporter

@@ -1,4 +1,5 @@
 ﻿using game1.Controller;
+using game1.View;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -21,12 +22,12 @@ namespace game1.Model
             Position = new Vector2(80, 700);
             Box = new Rectangle(80, 700, 480, 480);
         }
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime, Game1 game)
         {
             if (InputManager.Hover(Box))
             {
                 
-                Color = Color.Black;
+                Color = Color.LightBlue;
 
                 if (InputManager.LeftClicked)
                 {
@@ -42,13 +43,13 @@ namespace game1.Model
                 Color = Color.White;
             }
         }
-        public void Draw(SpriteBatch _spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
             string value = $"HP:{HealthPoints}/{MaxHealthPoints}";
 
-            _spriteBatch.Draw(Texture, Box, Color);
+            spriteBatch.Draw(Texture, Box, Color);
 
-            _spriteBatch.DrawString(Font, value, new Vector2(Box.X, Box.Y + Box.Height) 
+            spriteBatch.DrawString(Font, value, new Vector2(Box.X, Box.Y + Box.Height) 
                 + new Vector2(1.0f, 1.0f), Color.White);
         }
     }

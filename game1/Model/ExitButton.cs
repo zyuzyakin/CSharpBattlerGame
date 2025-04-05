@@ -1,21 +1,21 @@
 ﻿using game1.Controller;
 using game1.View;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using SharpDX.Direct3D9;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace game1.Model
 {
-    public class EndTurnButton : Button
+    public class ExitButton : Button
     {
-        public EndTurnButton()
+        public ExitButton()
         {
-            Box = new Rectangle(100, 1300, 150, 150);
-            Text = "END\nTURN";
+            Box = new Rectangle(100, 800, 150, 150);
+            Text = "Exit";
         }
-
         public override void Update(GameTime gameTime, Game1 game)
         {
             if (InputManager.Hover(Box))

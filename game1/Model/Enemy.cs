@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using game1.View;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SharpDX.Direct3D9;
@@ -10,7 +11,6 @@ namespace game1.Model
     {
         public int MaxHealthPoints { get; set; }
         public int HealthPoints { get; set; }
-
         public SpriteFont Font { get; set; }
 
         public Enemy()
@@ -21,13 +21,18 @@ namespace game1.Model
             Box = new Rectangle(800, 80, 400, 400);
         }
 
-        public void Draw(SpriteBatch _spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
-            _spriteBatch.Draw(Texture, Box, Color);
+            spriteBatch.Draw(Texture, Box, Color);
 
             string value = $"HP:{HealthPoints}/{MaxHealthPoints}";
-            _spriteBatch.DrawString(Font, value, new Vector2(Box.X, Box.Y + Box.Height)
+            spriteBatch.DrawString(Font, value, new Vector2(Box.X, Box.Y + Box.Height)
                 + new Vector2(1.0f, 1.0f), Color.White);
+        }
+
+        public override void Update(GameTime gameTime, Game1 game)
+        {
+           
         }
     }
 }

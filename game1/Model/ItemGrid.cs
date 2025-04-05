@@ -17,18 +17,22 @@ namespace game1.Model
             Items = new List<Item>() { new Item(), new Item(), new Item(), new Item() };
         }
 
-        public void Draw(SpriteBatch _spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
-            int distance = 10;
-            int itemWidth = 300;
-            int itemHeight = 300;
+            var distance = 10;
+            var itemWidth = 300;
+            var itemHeight = 300;
 
             for (var i = 0; i < Items.Count; i++)
             {
                 Items[i].Box = new Rectangle(Box.X + i * (itemWidth + distance), Box.Y,
                     itemWidth, itemHeight);
-                _spriteBatch.Draw(Items[i].Texture, Items[i].Box, Items[i].Color);
+                spriteBatch.Draw(Items[i].Texture, Items[i].Box, Items[i].Color);
             }
+        }
+
+        public override void Update(GameTime gameTime, Game1 game)
+        {
         }
     }
 }
