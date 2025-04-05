@@ -21,6 +21,10 @@ namespace game1.Model
             if (InputManager.Hover(Box))
             {
                 Color = Color.Blue;
+                if (InputManager.LeftClicked)
+                {
+                    game.Exit();
+                }
             }
             else
             {

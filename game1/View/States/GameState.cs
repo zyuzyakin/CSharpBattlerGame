@@ -13,32 +13,38 @@ namespace game1.View.States
     public class GameState : State
     {
         public Player Player { get; private set; }
-        public Enemy Enemy { get; private set; }
+        public Enemy CurrentEnemy { get; private set; }
         public ItemGrid ItemGrid { get; private set; }
         public EndTurnButton EndTurnButton { get; private set; }
+
+        public Money Money { get; private set; }
 
         public GameState(Game1 game, ContentManager content, GraphicsDevice graphicsDevice) : base(game, content, graphicsDevice)
         {
             Player = new Player();
             ItemGrid = new ItemGrid();
-            Enemy = new Enemy();
+            CurrentEnemy = new Enemy();
             EndTurnButton = new EndTurnButton();
+            Money = new Money();
 
 
             var BaseFont = Content.Load<SpriteFont>("fonts/Hud");
 
             EndTurnButton.Font = BaseFont;
             Player.Font = BaseFont;
-            Enemy.Font = BaseFont;
+            CurrentEnemy.Font = BaseFont;
+            Money.Font = BaseFont;
 
             EndTurnButton.Texture = Content.Load<Texture2D>("controls/button");
+            Money.Texture = Content.Load<Texture2D>("controls/button");
             Player.Texture = Content.Load<Texture2D>("player");
-            Enemy.Texture = Content.Load<Texture2D>("enemies/ptichka");
+            CurrentEnemy.Texture = Content.Load<Texture2D>("enemies/ptichka");
 
 
             foreach (var item in ItemGrid.Items)
             {
                 item.Texture = Content.Load<Texture2D>("items/sword");
+                item.Font = BaseFont;
             }
         }
 
@@ -47,10 +53,11 @@ namespace game1.View.States
             Game.GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, globalTransformation);
 
-            Enemy.Draw(spriteBatch);
+            CurrentEnemy.Draw(spriteBatch);
             Player.Draw(spriteBatch);
             ItemGrid.Draw(spriteBatch);
             EndTurnButton.Draw(spriteBatch);
+            Money.Draw(spriteBatch);
 
             spriteBatch.End();
         }

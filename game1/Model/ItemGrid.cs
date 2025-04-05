@@ -1,4 +1,5 @@
 ﻿
+using game1.Model.ItemTypes;
 using game1.View;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -14,7 +15,7 @@ namespace game1.Model
         public ItemGrid()
         {
             Box = new Rectangle(500, 800, 10000, 400);
-            Items = new List<Item>() { new Item(), new Item(), new Item(), new Item() };
+            Items = new List<Item>() { new Sword(), new Sword(), new Sword(), new Sword() };
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -27,7 +28,7 @@ namespace game1.Model
             {
                 Items[i].Box = new Rectangle(Box.X + i * (itemWidth + distance), Box.Y,
                     itemWidth, itemHeight);
-                spriteBatch.Draw(Items[i].Texture, Items[i].Box, Items[i].Color);
+                Items[i].Draw(spriteBatch);
             }
         }
 

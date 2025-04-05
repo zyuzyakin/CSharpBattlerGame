@@ -26,8 +26,6 @@ public class Game1 : Game
 
 
 
-
-
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
     public SpriteFont BaseFont;
@@ -38,10 +36,9 @@ public class Game1 : Game
 
     public Game1()
     {
-        
-
 
         _graphics = new GraphicsDeviceManager(this);
+
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
         
@@ -99,12 +96,6 @@ public class Game1 : Game
 
         _currentState.Update(gameTime, this);
 
-
-
-        
-
-
-
         if (backbufferHeight != GraphicsDevice.PresentationParameters.BackBufferHeight ||
                 backbufferWidth != GraphicsDevice.PresentationParameters.BackBufferWidth)
         {
@@ -117,11 +108,6 @@ public class Game1 : Game
     protected override void Draw(GameTime gameTime)
     {
         _currentState.Draw(gameTime, _spriteBatch, globalTransformation);
-
-        
-
-
-
         base.Draw(gameTime);
     }
 }
