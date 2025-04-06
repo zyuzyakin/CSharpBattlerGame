@@ -15,10 +15,10 @@ namespace game1.Model
         public ItemGrid()
         {
             Box = new Rectangle(500, 800, 10000, 400);
-            Items = new List<Item>() { };
+            Items = new List<Item>() { new Sword(), new Sword(), new Sword(), new Sword() };
         }
 
-        public override void Draw(Game1 game, SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
             var distance = 10;
             var itemWidth = 300;
@@ -28,7 +28,7 @@ namespace game1.Model
             {
                 Items[i].Box = new Rectangle(Box.X + i * (itemWidth + distance), Box.Y,
                     itemWidth, itemHeight);
-                Items[i].Draw(game, spriteBatch);
+                Items[i].Draw(spriteBatch);
             }
         }
 

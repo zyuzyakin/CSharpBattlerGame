@@ -16,7 +16,7 @@ namespace game1.Model
 
         public Color Color { get; set; } = Color.White;
 
-        public abstract void Draw(Game1 game, SpriteBatch spriteBatch);
+        public abstract void Draw(SpriteBatch spriteBatch);
         public abstract void Update(GameTime gameTime, Game1 game);
     }
 }

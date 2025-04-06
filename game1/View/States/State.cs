@@ -11,18 +11,19 @@ namespace game1.View.States
 {
     public abstract class State
     {
-
+        public Game1 Game { get; set; }
         public ContentManager Content { get; set; }
         public GraphicsDevice GraphicDevice { get; set; }
 
 
         public State(Game1 game, ContentManager content, GraphicsDevice graphicsDevice)
         {
+            Game = game;
             Content = content;
             GraphicDevice = graphicsDevice;
         }
 
-        public abstract void Draw(Game1 game, GameTime gameTime, SpriteBatch spriteBatch, Matrix globalTransformation);
+        public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch, Matrix globalTransformation);
 
         public abstract void Update(GameTime gameTime, Game1 game);
 

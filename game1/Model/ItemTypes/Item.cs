@@ -18,11 +18,8 @@ namespace game1.Model
         public Item()
         {
         }
-        public void Act()
-        {
 
-        }
-        public override void Draw(Game1 game, SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(Texture, Box, Color);
             spriteBatch.DrawString(Font, Order == 0 ? "" : Order.ToString(), 

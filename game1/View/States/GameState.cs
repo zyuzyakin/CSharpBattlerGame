@@ -12,52 +12,59 @@ namespace game1.View.States
 {
     public class GameState : State
     {
-        
+        public Player Player { get; private set; }
+        public Enemy CurrentEnemy { get; private set; }
+        public ItemGrid ItemGrid { get; private set; }
         public EndTurnButton EndTurnButton { get; private set; }
+
+        public Money Money { get; private set; }
 
         public GameState(Game1 game, ContentManager content, GraphicsDevice graphicsDevice) : base(game, content, graphicsDevice)
         {
-            
+            Player = new Player();
+            ItemGrid = new ItemGrid();
+            CurrentEnemy = new Enemy();
             EndTurnButton = new EndTurnButton();
+            Money = new Money();
 
 
             var BaseFont = Content.Load<SpriteFont>("fonts/Hud");
 
             EndTurnButton.Font = BaseFont;
-            game.Player.Font = BaseFont;
-            game.CurrentEnemy.Font = BaseFont;
-            game.Money.Font = BaseFont;
+            Player.Font = BaseFont;
+            CurrentEnemy.Font = BaseFont;
+            Money.Font = BaseFont;
 
             EndTurnButton.Texture = Content.Load<Texture2D>("controls/button");
-            game.Money.Texture = Content.Load<Texture2D>("controls/button");
-            game.Player.Texture = Content.Load<Texture2D>("player");
-            game.CurrentEnemy.Texture = Content.Load<Texture2D>("enemies/ptichka");
+            Money.Texture = Content.Load<Texture2D>("controls/button");
+            Player.Texture = Content.Load<Texture2D>("player");
+            CurrentEnemy.Texture = Content.Load<Texture2D>("enemies/ptichka");
 
 
-            foreach (var item in game.ItemGrid.Items)
+            foreach (var item in ItemGrid.Items)
             {
                 item.Texture = Content.Load<Texture2D>("items/sword");
                 item.Font = BaseFont;
             }
         }
 
-        public override void Draw(Game1 game, GameTime gameTime, SpriteBatch spriteBatch, Matrix globalTransformation)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, Matrix globalTransformation)
         {
-            game.GraphicsDevice.Clear(Color.CornflowerBlue);
+            Game.GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, globalTransformation);
 
-            game.CurrentEnemy.Draw(game, spriteBatch);
-            game.Player.Draw(game, spriteBatch);
-            game.ItemGrid.Draw(game, spriteBatch);
-            EndTurnButton.Draw(game, spriteBatch);
-            game.Money.Draw(game, spriteBatch);
+            CurrentEnemy.Draw(spriteBatch);
+            Player.Draw(spriteBatch);
+            ItemGrid.Draw(spriteBatch);
+            EndTurnButton.Draw(spriteBatch);
+            Money.Draw(spriteBatch);
 
             spriteBatch.End();
         }
 
         public override void Update(GameTime gameTime, Game1 game)
         {
-            game.Player.Update(gameTime, game);
+            Player.Update(gameTime, game);
             EndTurnButton.Update(gameTime, game);
         }
     }
