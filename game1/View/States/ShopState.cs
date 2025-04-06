@@ -16,14 +16,14 @@ namespace game1.View.States
 
         }
 
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, Matrix globalTransformation)
+        public override void Draw(Game1 game, GameTime gameTime, SpriteBatch spriteBatch, Matrix globalTransformation)
         {
-            throw new NotImplementedException();
+            
         }
 
         public override void Update(GameTime gameTime, Game1 game)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

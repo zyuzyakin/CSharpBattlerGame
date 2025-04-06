@@ -1,4 +1,5 @@
 ﻿using game1.Controller;
+using game1.View;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -18,7 +19,7 @@ namespace game1.Model
 
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public override void Draw(Game1 game, SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(Texture, Box, Color);
             spriteBatch.DrawString(Font, Text, new Vector2(Box.X, Box.Y), Color);

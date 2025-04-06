@@ -29,22 +29,22 @@ namespace game1.View.States
             exitButton.Font = content.Load<SpriteFont>("fonts/Hud");
         }
 
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, Matrix globalTransformation)
+        public override void Draw(Game1 game, GameTime gameTime, SpriteBatch spriteBatch, Matrix globalTransformation)
         {
-            Game.GraphicsDevice.Clear(Color.CornflowerBlue);
+            game.GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, globalTransformation);
 
-            playButton.Draw(spriteBatch);
-            exitButton.Draw(spriteBatch);
+            playButton.Draw(game, spriteBatch);
+            exitButton.Draw(game, spriteBatch);
            
             spriteBatch.End();
         }
 
         public override void Update(GameTime gameTime, Game1 game)
         {
-            playButton.Update(gameTime, Game);
-            exitButton.Update(gameTime, Game);
+            playButton.Update(gameTime, game);
+            exitButton.Update(gameTime, game);
         }
     }
 }

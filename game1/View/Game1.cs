@@ -18,6 +18,13 @@ public class Game1 : Game
     private State _currentState;
     private State _nextState;
 
+
+    public Player Player { get; private set; }
+    public Money Money { get; private set; }
+    public ItemGrid ItemGrid { get; private set; }
+    public Enemy CurrentEnemy { get; private set; }
+
+
     public StartMenuState startMenuState { get; set; }
 
     public GameState gameState { get; set; }
@@ -49,7 +56,10 @@ public class Game1 : Game
         
         _graphics.SupportedOrientations = DisplayOrientation.LandscapeLeft | DisplayOrientation.LandscapeRight;
 
-        
+        Player = new Player();
+        ItemGrid = new ItemGrid();
+        CurrentEnemy = new Enemy();
+
     }
     public void ChangeState(State state)
     {
@@ -62,7 +72,7 @@ public class Game1 : Game
     }
 
     protected override void LoadContent()
-    {
+    {   
         startMenuState = new StartMenuState(this, Content, _graphics.GraphicsDevice);
         gameState = new GameState(this, Content, _graphics.GraphicsDevice);
 
@@ -107,7 +117,7 @@ public class Game1 : Game
 
     protected override void Draw(GameTime gameTime)
     {
-        _currentState.Draw(gameTime, _spriteBatch, globalTransformation);
+        _currentState.Draw(this, gameTime, _spriteBatch, globalTransformation);
         base.Draw(gameTime);
     }
 }

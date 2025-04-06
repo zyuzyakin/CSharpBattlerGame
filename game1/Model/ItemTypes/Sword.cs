@@ -8,6 +8,13 @@ namespace game1.Model.ItemTypes
 {
     public class Sword : Item
     {
+        public Sword()
+        {
+        }
 
+        public void Act()
+        {
+
+        }
     }
 }

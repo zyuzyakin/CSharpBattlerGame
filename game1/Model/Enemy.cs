@@ -21,7 +21,7 @@ namespace game1.Model
             Box = new Rectangle(800, 80, 400, 400);
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public override void Draw(Game1 game, SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(Texture, Box, Color);
 

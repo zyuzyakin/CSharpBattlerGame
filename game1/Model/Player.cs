@@ -43,7 +43,7 @@ namespace game1.Model
                 Color = Color.White;
             }
         }
-        public override void Draw(SpriteBatch spriteBatch)
+        public override void Draw(Game1 game, SpriteBatch spriteBatch)
         {
             string value = $"HP:{HealthPoints}/{MaxHealthPoints}";
 
