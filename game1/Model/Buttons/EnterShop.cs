@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 
 namespace game1.Model.Buttons
 {
-    public class ExitShopButton : Button
+    public class EnterShop : Button
     {
-        public ExitShopButton()
+        public EnterShop()
         {
             Box = new Rectangle(600, 600, 150, 150);
-            Text = "exit shop";
+            Text = "enter shop";
         }
 
         public override void Update(GameTime gameTime, Game1 game)
@@ -25,8 +25,7 @@ namespace game1.Model.Buttons
                 Color = Color.Blue;
                 if (InputManager.LeftClicked)
                 {
-                    game.ChangeState(game.gameState);
-                    game.shopState.RefreshShop();
+                    game.ChangeState(game.shopState);
                 }
             }
             else

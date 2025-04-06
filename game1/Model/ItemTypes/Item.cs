@@ -16,8 +16,8 @@ namespace game1.Model
 
         public SpriteFont Font { get; set; }
 
-
         public bool IsAtShop { get; set; }
+        
         public int Cost { get; set; }
 
         public Item()

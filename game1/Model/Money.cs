@@ -20,7 +20,7 @@ namespace game1.Model
             Box = new Rectangle(1600, 100, 150, 150);
             Text = $"Money:{MoneyValue}";
         }
-
+        
         public override void Update(GameTime gameTime, Game1 game)
         {
             Text = $"Money:{MoneyValue}";

@@ -34,6 +34,10 @@ namespace game1.Model
 
         public override void Update(GameTime gameTime, Game1 game)
         {
+            foreach (var item in Items)
+            {
+                item.Update(gameTime, game);
+            }
         }
     }
 }

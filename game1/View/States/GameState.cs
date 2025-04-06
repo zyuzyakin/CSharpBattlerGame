@@ -19,7 +19,9 @@ namespace game1.View.States
         public ItemGrid ItemGrid { get; private set; }
         public EndTurnButton EndTurnButton { get; private set; }
 
-        public Money Money { get; private set; }
+        public EnterShop EnterShop { get; private set; }
+
+
 
         public GameState(Game1 game, ContentManager content, GraphicsDevice graphicsDevice) : base(game, content, graphicsDevice)
         {
@@ -27,18 +29,19 @@ namespace game1.View.States
             ItemGrid = new ItemGrid();
             CurrentEnemy = new Enemy();
             EndTurnButton = new EndTurnButton();
-            Money = new Money();
+            EnterShop = new EnterShop();
             
 
             var BaseFont = Content.Load<SpriteFont>("fonts/Hud");
 
             EndTurnButton.Font = BaseFont;
+            EnterShop.Font = BaseFont;
             Player.Font = BaseFont;
             CurrentEnemy.Font = BaseFont;
-            Money.Font = BaseFont;
+            
 
             EndTurnButton.Texture = Content.Load<Texture2D>("controls/button");
-            Money.Texture = Content.Load<Texture2D>("controls/button");
+            EnterShop.Texture = Content.Load<Texture2D>("controls/button");
             Player.Texture = Content.Load<Texture2D>("player");
             CurrentEnemy.Texture = Content.Load<Texture2D>("enemies/ptichka");
 
@@ -50,16 +53,19 @@ namespace game1.View.States
             }
         }
 
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, Matrix globalTransformation)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             Game.GraphicsDevice.Clear(Color.CornflowerBlue);
-            spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, globalTransformation);
+            spriteBatch.Begin();
 
             CurrentEnemy.Draw(spriteBatch);
             Player.Draw(spriteBatch);
             ItemGrid.Draw(spriteBatch);
             EndTurnButton.Draw(spriteBatch);
-            Money.Draw(spriteBatch);
+            EnterShop.Draw(spriteBatch);
+
+            Game.shopState.Money.Draw(spriteBatch);
+            
 
             spriteBatch.End();
         }
@@ -68,6 +74,10 @@ namespace game1.View.States
         {
             Player.Update(gameTime, game);
             EndTurnButton.Update(gameTime, game);
+
+            EnterShop.Update(gameTime, game);
+
+
         }
     }
 }

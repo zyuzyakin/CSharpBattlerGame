@@ -23,7 +23,7 @@ namespace game1.View.States
             GraphicDevice = graphicsDevice;
         }
 
-        public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch, Matrix globalTransformation);
+        public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
 
         public abstract void Update(GameTime gameTime, Game1 game);
 

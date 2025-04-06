@@ -17,6 +17,8 @@ namespace game1.View.States
     {   
         public ItemGrid ShopItemGrid { get; set; }
 
+        public Money Money { get;  set; }
+
         public ExitShopButton ExitShopButton { get; set; }
 
         public ShopState(Game1 game, ContentManager content, GraphicsDevice graphicsDevice) : base(game, content, graphicsDevice)
@@ -26,11 +28,12 @@ namespace game1.View.States
             ShopItemGrid.Items = new List<Item>() { new Sword(), new Shield() };
 
             ExitShopButton = new ExitShopButton();
-
+            Money = new Money();
             
 
             var BaseFont = Content.Load<SpriteFont>("fonts/Hud");
-
+            Money.Texture = Content.Load<Texture2D>("controls/button");
+            Money.Font = BaseFont;
             ExitShopButton.Texture = Content.Load<Texture2D>("controls/button");
             ExitShopButton.Font = BaseFont;
 
@@ -40,15 +43,27 @@ namespace game1.View.States
                 item.Font = BaseFont;
             }
         }
+        public void RefreshShop()
+        {
+            ShopItemGrid.Items = new List<Item>() { new Sword(), new Shield() };
 
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, Matrix globalTransformation)
+            var BaseFont = Content.Load<SpriteFont>("fonts/Hud");
+            foreach (var item in ShopItemGrid.Items)
+            {
+                item.Texture = Content.Load<Texture2D>($"items/{item.TextureName}");
+                item.Font = BaseFont;
+            }
+        }
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             Game.GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, globalTransformation);
+            spriteBatch.Begin();
 
             ShopItemGrid.Draw(spriteBatch);
+            Game.gameState.ItemGrid.Draw(spriteBatch);
             ExitShopButton.Draw(spriteBatch);
+            Money.Draw(spriteBatch);
 
             spriteBatch.End();
             
@@ -57,6 +72,8 @@ namespace game1.View.States
         public override void Update(GameTime gameTime, Game1 game)
         {
             ExitShopButton.Update(gameTime, game);
+            ShopItemGrid.Update(gameTime, game);
+            Money.Update(gameTime, game);
         }
     }
 }

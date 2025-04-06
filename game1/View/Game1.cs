@@ -30,9 +30,6 @@ public class Game1 : Game
     private SpriteBatch _spriteBatch;
     public SpriteFont BaseFont;
 
-    Vector2 baseScreenSize = new Vector2(2000, 1500);
-    private Matrix globalTransformation;
-    int backbufferWidth, backbufferHeight;
 
     public Game1()
     {
@@ -70,21 +67,9 @@ public class Game1 : Game
         _currentState = startMenuState;
 
         _spriteBatch = new SpriteBatch(GraphicsDevice);
-
-
-        ScalePresentationArea();
        
     }
-    public void ScalePresentationArea()
-    {
-        //Work out how much we need to scale our graphics to fill the screen
-        backbufferWidth = GraphicsDevice.PresentationParameters.BackBufferWidth;
-        backbufferHeight = GraphicsDevice.PresentationParameters.BackBufferHeight;
-        float horScaling = backbufferWidth / baseScreenSize.X;
-        float verScaling = backbufferHeight / baseScreenSize.Y;
-        Vector3 screenScalingFactor = new Vector3(horScaling, verScaling, 1);
-        globalTransformation = Matrix.CreateScale(screenScalingFactor);
-    }
+    
     protected override void Update(GameTime gameTime)
     {
         InputManager.Update();
@@ -97,18 +82,12 @@ public class Game1 : Game
 
         _currentState.Update(gameTime, this);
 
-        if (backbufferHeight != GraphicsDevice.PresentationParameters.BackBufferHeight ||
-                backbufferWidth != GraphicsDevice.PresentationParameters.BackBufferWidth)
-        {
-            ScalePresentationArea();
-        }
-
         base.Update(gameTime);
     }
 
     protected override void Draw(GameTime gameTime)
     {
-        _currentState.Draw(gameTime, _spriteBatch, globalTransformation);
+        _currentState.Draw(gameTime, _spriteBatch);
         base.Draw(gameTime);
     }
 }

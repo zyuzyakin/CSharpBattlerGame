@@ -29,11 +29,11 @@ namespace game1.View.States
             exitButton.Font = content.Load<SpriteFont>("fonts/Hud");
         }
 
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch, Matrix globalTransformation)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             Game.GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, globalTransformation);
+            spriteBatch.Begin();
 
             playButton.Draw(spriteBatch);
             exitButton.Draw(spriteBatch);
