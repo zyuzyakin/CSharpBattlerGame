@@ -65,6 +65,7 @@ public class Game1 : Game
     {
         startMenuState = new StartMenuState(this, Content, _graphics.GraphicsDevice);
         gameState = new GameState(this, Content, _graphics.GraphicsDevice);
+        shopState = new ShopState(this, Content, _graphics.GraphicsDevice);
 
         _currentState = startMenuState;
 

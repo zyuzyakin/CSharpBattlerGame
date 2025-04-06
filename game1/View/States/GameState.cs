@@ -1,4 +1,6 @@
 ﻿using game1.Model;
+using game1.Model.Buttons;
+using game1.Model.ItemTypes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -26,7 +28,7 @@ namespace game1.View.States
             CurrentEnemy = new Enemy();
             EndTurnButton = new EndTurnButton();
             Money = new Money();
-
+            
 
             var BaseFont = Content.Load<SpriteFont>("fonts/Hud");
 
@@ -43,7 +45,7 @@ namespace game1.View.States
 
             foreach (var item in ItemGrid.Items)
             {
-                item.Texture = Content.Load<Texture2D>("items/sword");
+                item.Texture = Content.Load<Texture2D>($"items/{item.TextureName}");
                 item.Font = BaseFont;
             }
         }

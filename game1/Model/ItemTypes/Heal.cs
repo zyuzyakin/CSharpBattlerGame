@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace game1.Model.ItemTypes
 {
-    class Heal
+    public class Heal
     {
+        public Heal()
+        {
+        }
     }
 }

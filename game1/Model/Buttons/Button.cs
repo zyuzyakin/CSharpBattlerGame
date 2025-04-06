@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace game1.Model
+namespace game1.Model.Buttons
 {
     public abstract class Button : GameObject
     {

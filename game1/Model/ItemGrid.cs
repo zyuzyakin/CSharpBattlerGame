@@ -15,7 +15,7 @@ namespace game1.Model
         public ItemGrid()
         {
             Box = new Rectangle(500, 800, 10000, 400);
-            Items = new List<Item>() { new Sword(), new Sword(), new Sword(), new Sword() };
+            Items = new List<Item>();
         }
 
         public override void Draw(SpriteBatch spriteBatch)

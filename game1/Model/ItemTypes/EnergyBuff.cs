@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace game1.Model.ItemTypes
 {
-    class EnergyBuff
+    public class EnergyBuff
     {
     }
 }

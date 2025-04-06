@@ -8,14 +8,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace game1.Model
+namespace game1.Model.Buttons
 {
-    public class PlayButton : Button
+    public class ExitShopButton : Button
     {
-        public PlayButton()
+        public ExitShopButton()
         {
-            Box = new Rectangle(100, 600, 150, 150);
-            Text = "Play";
+            Box = new Rectangle(600, 600, 150, 150);
+            Text = "exit shop";
         }
 
         public override void Update(GameTime gameTime, Game1 game)
