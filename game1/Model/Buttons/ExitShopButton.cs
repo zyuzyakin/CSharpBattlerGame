@@ -25,8 +25,8 @@ namespace game1.Model.Buttons
                 Color = Color.Blue;
                 if (InputManager.LeftClicked)
                 {
-                    game.ChangeState(game.GameState);
-                    game.ShopState.RefreshShop();
+                    game.ChangeState(game.gameState);
+                    game.shopState.RefreshShop();
                 }
             }
             else
