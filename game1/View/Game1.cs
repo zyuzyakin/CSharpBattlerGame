@@ -15,14 +15,14 @@ namespace game1.View;
 public class Game1 : Game
 {
 
-    private State _currentState;
-    private State _nextState;
+    public State CurrentState { get; set; }
+    public State NextState { get; set; }
 
-    public StartMenuState startMenuState { get; set; }
+    public StartMenuState StartMenuState { get; set; }
 
-    public GameState gameState { get; set; }
+    public GameState GameState { get; set; }
 
-    public ShopState shopState { get; set; }
+    public ShopState ShopState { get; set; }
 
 
 
@@ -50,7 +50,7 @@ public class Game1 : Game
     }
     public void ChangeState(State state)
     {
-        _nextState = state;
+        NextState = state;
     }
     protected override void Initialize()
     {
@@ -60,11 +60,11 @@ public class Game1 : Game
 
     protected override void LoadContent()
     {
-        startMenuState = new StartMenuState(this, Content, _graphics.GraphicsDevice);
-        gameState = new GameState(this, Content, _graphics.GraphicsDevice);
-        shopState = new ShopState(this, Content, _graphics.GraphicsDevice);
+        StartMenuState = new StartMenuState(this, Content, _graphics.GraphicsDevice);
+        GameState = new GameState(this, Content, _graphics.GraphicsDevice);
+        ShopState = new ShopState(this, Content, _graphics.GraphicsDevice);
 
-        _currentState = startMenuState;
+        CurrentState = StartMenuState;
 
         _spriteBatch = new SpriteBatch(GraphicsDevice);
        
@@ -74,20 +74,20 @@ public class Game1 : Game
     {
         InputManager.Update();
 
-        if(_nextState != null)
+        if(NextState != null)
         {
-            _currentState = _nextState;
-            _nextState = null;
+            CurrentState = NextState;
+            NextState = null;
         }
 
-        _currentState.Update(gameTime, this);
+        CurrentState.Update(gameTime, this);
 
         base.Update(gameTime);
     }
 
     protected override void Draw(GameTime gameTime)
     {
-        _currentState.Draw(gameTime, _spriteBatch);
+        CurrentState.Draw(gameTime, _spriteBatch);
         base.Draw(gameTime);
     }
 }

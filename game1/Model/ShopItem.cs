@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace game1.Model.ItemTypes
+namespace game1.Model
 {
-    public class EnergyBuff
+    class ShopItem
     {
     }
 }

@@ -16,7 +16,7 @@ namespace game1.Model
 
         public SpriteFont Font { get; set; }
 
-        public bool IsAtShop { get; set; }
+        public bool IsEnabled { get; set; }
         
         public int Cost { get; set; }
 
@@ -30,7 +30,7 @@ namespace game1.Model
             spriteBatch.DrawString(Font, Order == 0 ? "" : Order.ToString(), 
                 new Vector2(Box.X, Box.Y), Color);
 
-            if (IsAtShop)
+            if (IsEnabled)
             {
                 spriteBatch.DrawString(Font, Cost.ToString(),
                 new Vector2(Box.X, Box.Y), Color.Yellow);

@@ -25,7 +25,7 @@ namespace game1.View.States
         {
             ShopItemGrid = new ItemGrid();
             ShopItemGrid.Box = new Rectangle(100, 100, 10000, 300);
-            ShopItemGrid.Items = new List<Item>() { new Sword(), new Shield() };
+            RefreshShop();
 
             ExitShopButton = new ExitShopButton();
             Money = new Money();
@@ -37,15 +37,15 @@ namespace game1.View.States
             ExitShopButton.Texture = Content.Load<Texture2D>("controls/button");
             ExitShopButton.Font = BaseFont;
 
-            foreach (var item in ShopItemGrid.Items)
-            {
-                item.Texture = Content.Load<Texture2D>($"items/{item.TextureName}");
-                item.Font = BaseFont;
-            }
+            
         }
         public void RefreshShop()
         {
-            ShopItemGrid.Items = new List<Item>() { new Sword(), new Shield() };
+            ShopItemGrid.Items = new List<Item>()
+            {
+                new Sword(),
+                new Shield()
+            };
 
             var BaseFont = Content.Load<SpriteFont>("fonts/Hud");
             foreach (var item in ShopItemGrid.Items)
@@ -61,7 +61,7 @@ namespace game1.View.States
             spriteBatch.Begin();
 
             ShopItemGrid.Draw(spriteBatch);
-            Game.gameState.ItemGrid.Draw(spriteBatch);
+            Game.GameState.ItemGrid.Draw(spriteBatch);
             ExitShopButton.Draw(spriteBatch);
             Money.Draw(spriteBatch);
 

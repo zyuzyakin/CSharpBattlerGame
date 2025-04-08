@@ -51,7 +51,7 @@
 /processorParam:TextureFormat=Compressed
 /build:fonts/Hud.spritefont
 
-#begin items/cat_purr.gif
+#begin items/7029147572.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -61,7 +61,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:items/cat_purr.gif
+/build:items/7029147572.jpg;items/shield.jpg
 
 #begin items/cat_walk.gif
 /importer:TextureImporter

@@ -64,7 +64,7 @@ namespace game1.View.States
             EndTurnButton.Draw(spriteBatch);
             EnterShop.Draw(spriteBatch);
 
-            Game.shopState.Money.Draw(spriteBatch);
+            Game.ShopState.Money.Draw(spriteBatch);
             
 
             spriteBatch.End();
