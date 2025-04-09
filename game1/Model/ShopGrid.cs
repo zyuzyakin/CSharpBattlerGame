@@ -1,5 +1,4 @@
 ﻿
-using game1.Model.ItemTypes;
 using game1.View;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -9,12 +8,12 @@ using System.Collections.Generic;
 
 namespace game1.Model
 {
-    public class ItemGrid : GameObject
+    public class ShopGrid : GameObject
     {
         public List<Item> Items { get; set; }
-        public ItemGrid()
+        public ShopGrid()
         {
-            Box = new Rectangle(500, 800, 10000, 400);
+            Box = new Rectangle(100, 100, 10000, 300);
             Items = new List<Item>();
         }
 
@@ -36,7 +35,7 @@ namespace game1.Model
         {
             foreach (var item in Items)
             {
-                item.Update(gameTime, game);
+                item.ShopUpdate(gameTime, game);
             }
         }
     }

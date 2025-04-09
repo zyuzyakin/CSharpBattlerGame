@@ -15,8 +15,8 @@ namespace game1.View;
 public class Game1 : Game
 {
 
-    private State _currentState;
-    private State _nextState;
+    public State currentState;
+    public State nextState;
 
     public StartMenuState startMenuState { get; set; }
 
@@ -50,7 +50,7 @@ public class Game1 : Game
     }
     public void ChangeState(State state)
     {
-        _nextState = state;
+        nextState = state;
     }
     protected override void Initialize()
     {
@@ -64,7 +64,7 @@ public class Game1 : Game
         gameState = new GameState(this, Content, _graphics.GraphicsDevice);
         shopState = new ShopState(this, Content, _graphics.GraphicsDevice);
 
-        _currentState = startMenuState;
+        currentState = startMenuState;
 
         _spriteBatch = new SpriteBatch(GraphicsDevice);
        
@@ -74,20 +74,20 @@ public class Game1 : Game
     {
         InputManager.Update();
 
-        if(_nextState != null)
+        if(nextState != null)
         {
-            _currentState = _nextState;
-            _nextState = null;
+            currentState = nextState;
+            nextState = null;
         }
 
-        _currentState.Update(gameTime, this);
+        currentState.Update(gameTime, this);
 
         base.Update(gameTime);
     }
 
     protected override void Draw(GameTime gameTime)
     {
-        _currentState.Draw(gameTime, _spriteBatch);
+        currentState.Draw(gameTime, _spriteBatch);
         base.Draw(gameTime);
     }
 }

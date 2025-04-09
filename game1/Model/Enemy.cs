@@ -15,8 +15,8 @@ namespace game1.Model
 
         public Enemy()
         {
-            MaxHealthPoints = 10;
-            HealthPoints = 10;
+            MaxHealthPoints = 30;
+            HealthPoints = 30;
             Position = new Vector2(800, 80);
             Box = new Rectangle(800, 80, 400, 400);
         }
@@ -33,6 +33,11 @@ namespace game1.Model
         public override void Update(GameTime gameTime, Game1 game)
         {
            
+        }
+
+        public void Atack(GameTime gameTime, Game1 game)
+        {
+            game.gameState.Player.HealthPoints -= 1;
         }
     }
 }

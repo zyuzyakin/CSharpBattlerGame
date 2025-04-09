@@ -13,35 +13,21 @@ namespace game1.Model
         public int MaxHealthPoints { get; set; }
         public int HealthPoints { get; set; }
 
+
+        public PlayerArsenal PlayerArsenal { get; set; }
         public SpriteFont Font { get; set; }
 
         public Player()
         {
             HealthPoints = 40;
             MaxHealthPoints = 40;
+            PlayerArsenal = new PlayerArsenal();
             Position = new Vector2(80, 700);
             Box = new Rectangle(80, 700, 480, 480);
         }
         public override void Update(GameTime gameTime, Game1 game)
         {
-            if (InputManager.Hover(Box))
-            {
-                
-                Color = Color.LightBlue;
-
-                if (InputManager.LeftClicked)
-                {
-                    HealthPoints--;
-                }
-                if (InputManager.RightClicked)
-                {
-                    HealthPoints++;
-                }
-            }
-            else
-            {
-                Color = Color.White;
-            }
+            PlayerArsenal.Update(gameTime, game);
         }
         public override void Draw(SpriteBatch spriteBatch)
         {

@@ -1,6 +1,6 @@
 ﻿using game1.Model;
 using game1.Model.Buttons;
-using game1.Model.ItemTypes;
+using game1.Model;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -15,7 +15,7 @@ namespace game1.View.States
 {
     public class ShopState : State
     {   
-        public ItemGrid ShopItemGrid { get; set; }
+        public ShopGrid ShopGrid { get; set; }
 
         public Money Money { get;  set; }
 
@@ -23,9 +23,9 @@ namespace game1.View.States
 
         public ShopState(Game1 game, ContentManager content, GraphicsDevice graphicsDevice) : base(game, content, graphicsDevice)
         {
-            ShopItemGrid = new ItemGrid();
-            ShopItemGrid.Box = new Rectangle(100, 100, 10000, 300);
-            ShopItemGrid.Items = new List<Item>() { new Sword(), new Shield() };
+            ShopGrid = new ShopGrid();
+            
+            RefreshShop();
 
             ExitShopButton = new ExitShopButton();
             Money = new Money();
@@ -37,21 +37,19 @@ namespace game1.View.States
             ExitShopButton.Texture = Content.Load<Texture2D>("controls/button");
             ExitShopButton.Font = BaseFont;
 
-            foreach (var item in ShopItemGrid.Items)
-            {
-                item.Texture = Content.Load<Texture2D>($"items/{item.TextureName}");
-                item.Font = BaseFont;
-            }
         }
         public void RefreshShop()
         {
-            ShopItemGrid.Items = new List<Item>() { new Sword(), new Shield() };
+            ShopGrid.Items = new List<Item>()
+            {
+                new Item(){ItemType = ItemType.sword, TextureName = "sword", Cost = 5, ChargePerElapsed = 1},
+                new Item(){ItemType = ItemType.shield, TextureName = "shield", Cost = 2}
+            };
 
-            var BaseFont = Content.Load<SpriteFont>("fonts/Hud");
-            foreach (var item in ShopItemGrid.Items)
+            foreach (var item in ShopGrid.Items)
             {
                 item.Texture = Content.Load<Texture2D>($"items/{item.TextureName}");
-                item.Font = BaseFont;
+                item.Font = Content.Load<SpriteFont>("fonts/Hud");
             }
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -60,8 +58,8 @@ namespace game1.View.States
 
             spriteBatch.Begin();
 
-            ShopItemGrid.Draw(spriteBatch);
-            Game.gameState.ItemGrid.Draw(spriteBatch);
+            ShopGrid.Draw(spriteBatch);
+            Game.gameState.Player.PlayerArsenal.Draw(spriteBatch);
             ExitShopButton.Draw(spriteBatch);
             Money.Draw(spriteBatch);
 
@@ -72,7 +70,7 @@ namespace game1.View.States
         public override void Update(GameTime gameTime, Game1 game)
         {
             ExitShopButton.Update(gameTime, game);
-            ShopItemGrid.Update(gameTime, game);
+            ShopGrid.Update(gameTime, game);
             Money.Update(gameTime, game);
         }
     }

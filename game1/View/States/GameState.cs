@@ -1,6 +1,5 @@
 ﻿using game1.Model;
 using game1.Model.Buttons;
-using game1.Model.ItemTypes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -16,8 +15,9 @@ namespace game1.View.States
     {
         public Player Player { get; private set; }
         public Enemy CurrentEnemy { get; private set; }
-        public ItemGrid ItemGrid { get; private set; }
-        public EndTurnButton EndTurnButton { get; private set; }
+        
+        
+
 
         public EnterShop EnterShop { get; private set; }
 
@@ -26,27 +26,26 @@ namespace game1.View.States
         public GameState(Game1 game, ContentManager content, GraphicsDevice graphicsDevice) : base(game, content, graphicsDevice)
         {
             Player = new Player();
-            ItemGrid = new ItemGrid();
-            CurrentEnemy = new Enemy();
-            EndTurnButton = new EndTurnButton();
-            EnterShop = new EnterShop();
             
+            CurrentEnemy = new Enemy();
+ 
+            EnterShop = new EnterShop();
 
             var BaseFont = Content.Load<SpriteFont>("fonts/Hud");
 
-            EndTurnButton.Font = BaseFont;
+    
             EnterShop.Font = BaseFont;
             Player.Font = BaseFont;
             CurrentEnemy.Font = BaseFont;
             
 
-            EndTurnButton.Texture = Content.Load<Texture2D>("controls/button");
+            
             EnterShop.Texture = Content.Load<Texture2D>("controls/button");
             Player.Texture = Content.Load<Texture2D>("player");
             CurrentEnemy.Texture = Content.Load<Texture2D>("enemies/ptichka");
 
 
-            foreach (var item in ItemGrid.Items)
+            foreach (var item in Player.PlayerArsenal.Items)
             {
                 item.Texture = Content.Load<Texture2D>($"items/{item.TextureName}");
                 item.Font = BaseFont;
@@ -60,10 +59,9 @@ namespace game1.View.States
 
             CurrentEnemy.Draw(spriteBatch);
             Player.Draw(spriteBatch);
-            ItemGrid.Draw(spriteBatch);
-            EndTurnButton.Draw(spriteBatch);
+            Player.PlayerArsenal.Draw(spriteBatch);
             EnterShop.Draw(spriteBatch);
-
+            
             Game.shopState.Money.Draw(spriteBatch);
             
 
@@ -73,11 +71,8 @@ namespace game1.View.States
         public override void Update(GameTime gameTime, Game1 game)
         {
             Player.Update(gameTime, game);
-            EndTurnButton.Update(gameTime, game);
-
+            
             EnterShop.Update(gameTime, game);
-
-
         }
     }
 }
