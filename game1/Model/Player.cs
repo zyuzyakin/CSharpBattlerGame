@@ -13,7 +13,7 @@ namespace game1.Model
         public int MaxHealthPoints { get; set; }
         public int HealthPoints { get; set; }
 
-
+        public int ShieldPoints { get; set; }
         public PlayerArsenal PlayerArsenal { get; set; }
         public SpriteFont Font { get; set; }
 
@@ -31,12 +31,15 @@ namespace game1.Model
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
-            string value = $"HP:{HealthPoints}/{MaxHealthPoints}";
+            string hpDisplay = $"HP:{HealthPoints}/{MaxHealthPoints}";
+            string shieldDisplay = "SHIELD:" + (ShieldPoints == 0 ? "" : ShieldPoints.ToString());
 
             spriteBatch.Draw(Texture, Box, Color);
 
-            spriteBatch.DrawString(Font, value, new Vector2(Box.X, Box.Y + Box.Height) 
-                + new Vector2(1.0f, 1.0f), Color.White);
+            spriteBatch.DrawString(Font, hpDisplay, new Vector2(Box.X, Box.Y + Box.Height) 
+                + new Vector2(0.0f, 10.0f), Color.White);
+            spriteBatch.DrawString(Font, shieldDisplay, new Vector2(Box.X, Box.Y + Box.Height)
+                + new Vector2(0.0f, 70.0f), Color.White);
         }
     }
 }

@@ -28,6 +28,7 @@ namespace game1.Model
             {
                 Items[i].Box = new Rectangle(Box.X + i * (itemWidth + distance), Box.Y,
                     itemWidth, itemHeight);
+               
                 Items[i].Draw(spriteBatch);
             }
         }

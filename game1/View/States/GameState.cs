@@ -15,11 +15,9 @@ namespace game1.View.States
     {
         public Player Player { get; private set; }
         public Enemy CurrentEnemy { get; private set; }
-        
-        
-
-
-        public EnterShop EnterShop { get; private set; }
+        public bool IsPaused {get;set;}
+        public Button EnterShopButton { get; private set; }
+        public Button PauseButton { get; set; }
 
 
 
@@ -28,26 +26,39 @@ namespace game1.View.States
             Player = new Player();
             
             CurrentEnemy = new Enemy();
- 
-            EnterShop = new EnterShop();
+
+            EnterShopButton = new Button()
+            {
+                Box = new Rectangle(1600, 1200, 150, 150),
+                Text = "enter\nshop"
+            };
+
+            PauseButton = new Button()
+            {
+                Box = new Rectangle(1600, 300, 150, 150),
+                Text = "pause"
+            };
 
             var BaseFont = Content.Load<SpriteFont>("fonts/Hud");
 
     
-            EnterShop.Font = BaseFont;
+            EnterShopButton.Font = BaseFont;
+            PauseButton.Font = BaseFont;
             Player.Font = BaseFont;
             CurrentEnemy.Font = BaseFont;
             
 
             
-            EnterShop.Texture = Content.Load<Texture2D>("controls/button");
+            EnterShopButton.Texture = Content.Load<Texture2D>("controls/button");
+            PauseButton.Texture = Content.Load<Texture2D>("controls/button");
             Player.Texture = Content.Load<Texture2D>("player");
             CurrentEnemy.Texture = Content.Load<Texture2D>("enemies/ptichka");
-
+            CurrentEnemy.ChargeBarTexture = Content.Load<Texture2D>("enemies/mobbarsheet");
 
             foreach (var item in Player.PlayerArsenal.Items)
             {
                 item.Texture = Content.Load<Texture2D>($"items/{item.TextureName}");
+                item.ChargeBarTexture = Content.Load<Texture2D>($"items/barsheet");
                 item.Font = BaseFont;
             }
         }
@@ -60,8 +71,9 @@ namespace game1.View.States
             CurrentEnemy.Draw(spriteBatch);
             Player.Draw(spriteBatch);
             Player.PlayerArsenal.Draw(spriteBatch);
-            EnterShop.Draw(spriteBatch);
-            
+            EnterShopButton.Draw(spriteBatch);
+            PauseButton.Draw(spriteBatch);
+
             Game.shopState.Money.Draw(spriteBatch);
             
 
@@ -71,8 +83,15 @@ namespace game1.View.States
         public override void Update(GameTime gameTime, Game1 game)
         {
             Player.Update(gameTime, game);
-            
-            EnterShop.Update(gameTime, game);
+            CurrentEnemy.Update(gameTime, game);
+            EnterShopButton.Update(gameTime, game, EnterShop);
+            PauseButton.Update(gameTime, game, PauseUnpauseGame);
         }
+
+        void EnterShop()
+        { 
+            Game.ChangeState(Game.shopState); 
+        }
+        void PauseUnpauseGame() => IsPaused = !IsPaused;
     }
 }

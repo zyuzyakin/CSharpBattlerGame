@@ -13,14 +13,22 @@ namespace game1.View.States
 {
     public class StartMenuState : State
     {
-        public PlayButton playButton;
-        public ExitButton exitButton;
+        public Button playButton { get; set; }
+        public Button exitButton;
 
 
         public StartMenuState(Game1 game, ContentManager content, GraphicsDevice graphicsDevice) : base(game, content, graphicsDevice)
         {
-            playButton = new PlayButton();
-            exitButton = new ExitButton();
+            playButton = new Button()
+            {
+                Box = new Rectangle(100, 600, 150, 150),
+                Text = "Play",
+            };
+            exitButton = new Button()
+            {
+                Box = new Rectangle(100, 800, 150, 150),
+                Text = "Exit",
+            };
 
             playButton.Texture = content.Load<Texture2D>("controls/button");
             playButton.Font = content.Load<SpriteFont>("fonts/Hud");
@@ -43,8 +51,13 @@ namespace game1.View.States
 
         public override void Update(GameTime gameTime, Game1 game)
         {
-            playButton.Update(gameTime, Game);
-            exitButton.Update(gameTime, Game);
+            playButton.Update(gameTime, game, StartGame);
+            exitButton.Update(gameTime, game, ExitGame);
         }
+
+        void StartGame() => Game.ChangeState(Game.shopState);
+        void ExitGame() => Game.Exit();
+
+
     }
 }
