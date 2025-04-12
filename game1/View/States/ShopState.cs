@@ -46,8 +46,8 @@ namespace game1.View.States
         {
             ShopGrid.Items = new List<Item>()
             {
-                new Item(){ItemType = ItemType.sword, TextureName = "sword", Cost = 5, ChargePerPeriod = 50},
-                new Item(){ItemType = ItemType.shield, TextureName = "shield", Cost = 2}
+                new Item(){ItemType = ItemType.sword, TextureName = "swordsheet", Cost = 1},
+                new Item(){ItemType = ItemType.shield, TextureName = "shieldsheet", Cost = 2}
             };
 
             foreach (var item in ShopGrid.Items)

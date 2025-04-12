@@ -38,7 +38,7 @@ namespace game1.Model
         public int Cost { get; set; } 
 
         public int currentTime { get; set; } = 0;// сколько времени прошло
-        public int period { get; set; } = 200; // частота обновления в миллисекундах
+        public int period { get; set; } = 50; // частота обновления в миллисекундах
         public Item()
         {
             IsEnabled = true;;
@@ -48,15 +48,25 @@ namespace game1.Model
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Texture, Box, Color);
+            DrawFrame(spriteBatch, Charge / 5);
 
             DrawBarFrame(spriteBatch, Charge / 5);
 
             if (IsEnabled && !IsItOwned)
             {
                 spriteBatch.DrawString(Font, Cost.ToString(),
-                new Vector2(Box.X, Box.Y), Color.Red);
+                new Vector2(Box.X, Box.Y), Color.Yellow);
             }
+        }
+        public void DrawFrame(SpriteBatch spriteBatch, int frame)
+        {
+            int FrameWidth = Texture.Width / 20;
+
+
+            Rectangle sourcerect = new Rectangle(FrameWidth * frame, 0,
+                FrameWidth, Texture.Height);
+
+            spriteBatch.Draw(Texture, Box, sourcerect, Color);
         }
         public void DrawBarFrame(SpriteBatch spriteBatch, int frame)
         {

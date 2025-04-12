@@ -27,8 +27,8 @@ namespace game1.Model
 
         public Enemy()
         {
-            MaxHealthPoints = 30;
-            HealthPoints = 30;
+            MaxHealthPoints = 300;
+            HealthPoints = 300;
             Damage = 5;
             Text = "";
             MaxCharge = 100;
