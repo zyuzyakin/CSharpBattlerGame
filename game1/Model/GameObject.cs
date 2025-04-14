@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace game1.Model
 {
-    public abstract class GameObject
+    public class GameObject
     {
         public Vector2 Position { get; set; }
         public Texture2D Texture { get; set; }
@@ -16,7 +16,13 @@ namespace game1.Model
 
         public Color Color { get; set; } = Color.White;
 
-        public abstract void Draw(SpriteBatch spriteBatch);
-        public abstract void Update(GameTime gameTime, Game1 game);
+        public virtual void Draw(SpriteBatch spriteBatch)
+        {
+
+        }
+        public virtual void Update(GameTime gameTime, Game1 game) 
+        { 
+
+        }
     }
 }

@@ -5,11 +5,6 @@ using game1.View.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using SharpDX.Direct2D1.Effects;
-using SharpDX.Direct3D9;
-using System.Collections.Generic;
-using static System.Net.Mime.MediaTypeNames;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace game1.Model
 {
@@ -51,7 +46,7 @@ namespace game1.Model
             DrawFrame(spriteBatch, Charge / 5);
 
             DrawBarFrame(spriteBatch, Charge / 5);
-
+            
             if (IsEnabled && !IsItOwned)
             {
                 spriteBatch.DrawString(Font, Cost.ToString(),
@@ -106,7 +101,7 @@ namespace game1.Model
         {
             switch (ItemType)
             {
-                case ItemType.sword : 
+                case ItemType.sword: 
                     game.gameState.CurrentEnemy.HealthPoints -= 1;
                     break;
                 case ItemType.shield:

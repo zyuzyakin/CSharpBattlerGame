@@ -14,7 +14,11 @@ namespace game1.Model
         public PlayerArsenal()
         {
             Box = new Rectangle(500, 800, 10000, 400);
-            Items = new List<Item>();
+            Items = new List<Item>()
+            {
+                new Item(){ItemType = ItemType.sword, TextureName = "swordsheet", Cost = 1, IsItOwned=true},
+                new Item(){ItemType = ItemType.shield, TextureName = "shieldsheet", Cost = 2, IsItOwned=true}
+            };
            
         }
 

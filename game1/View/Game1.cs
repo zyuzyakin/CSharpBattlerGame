@@ -18,6 +18,8 @@ public class Game1 : Game
 
     public StartMenuState startMenuState { get; set; }
 
+    public MapState mapState { get; set; }
+
     public GameState gameState { get; set; }
 
     public ShopState shopState { get; set; }
@@ -59,6 +61,7 @@ public class Game1 : Game
     protected override void LoadContent()
     {
         startMenuState = new StartMenuState(this, Content, _graphics.GraphicsDevice);
+        mapState = new MapState(this, Content, _graphics.GraphicsDevice);
         gameState = new GameState(this, Content, _graphics.GraphicsDevice);
         shopState = new ShopState(this, Content, _graphics.GraphicsDevice);
 
