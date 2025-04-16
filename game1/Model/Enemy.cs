@@ -1,5 +1,6 @@
 ﻿using game1.View;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SharpDX.Direct3D9;
@@ -18,21 +19,19 @@ namespace game1.Model
 
         public string Text { get; set; }
         public int Charge { get; set; }
-        public int MaxCharge { get; set; }
         public int ChargePerPeriod { get; set; }
 
         public Texture2D ChargeBarTexture { get; set; }
         public int currentTime { get; set; } = 0; // сколько времени прошло
-        public int period { get; set; } = 500; // частота обновления в миллисекундах
+        public int period { get; set; } = 50; // частота обновления в миллисекундах
 
         public Enemy()
         {
-            MaxHealthPoints = 300;
-            HealthPoints = 300;
+            MaxHealthPoints = 30;
+            HealthPoints = 30;
             Damage = 5;
             Text = "";
-            MaxCharge = 100;
-            ChargePerPeriod = 5;
+            ChargePerPeriod = 1;
 
             Position = new Vector2(800, 80);
             Box = new Rectangle(800, 80, 400, 400);
@@ -44,15 +43,17 @@ namespace game1.Model
             {
                 spriteBatch.Draw(Texture, Box, Color);
 
-                string value = $"HP:{HealthPoints}/{MaxHealthPoints}";
+                string hpDisplay = $"HP:{HealthPoints}/{MaxHealthPoints}";
 
-                spriteBatch.DrawString(Font, value, new Vector2(Box.X, Box.Y + Box.Height)
+                spriteBatch.DrawString(Font, hpDisplay, new Vector2(Box.X, Box.Y + Box.Height)
                     + new Vector2(0.0f, 0.0f), Color.White);
 
                 spriteBatch.DrawString(Font, Damage.ToString(), new Vector2(Box.X + Box.Width, Box.Y + Box.Height)
                     + new Vector2(0.0f, 0.0f), Color.Red);
 
                 DrawBarFrame(spriteBatch, Charge / 5);
+
+                
             }
         }
 
@@ -87,16 +88,16 @@ namespace game1.Model
                         currentTime -= period;
                         Charge += ChargePerPeriod;
                         Text = Charge.ToString();
-                        if (Charge >= MaxCharge)
+                        if (Charge >= 100)
                         {
                             Charge = 0;
-                            Atack(gameTime, game);
+                            AtackPlayer(gameTime, game);
                         }
                     }
                 }
             }
         }
-        public void Atack(GameTime gameTime, Game1 game)
+        public void AtackPlayer(GameTime gameTime, Game1 game)
         {
             
             game.gameState.Player.ShieldPoints -= Damage;
@@ -106,6 +107,13 @@ namespace game1.Model
 
             if (game.gameState.Player.ShieldPoints < 0) 
                 game.gameState.Player.ShieldPoints = 0;
+        }
+
+        public override void LoadContent(ContentManager content)
+        {
+            Texture = content.Load<Texture2D>("enemies/ptichka");
+            Font = content.Load<SpriteFont>("fonts/Hud");
+            ChargeBarTexture = content.Load<Texture2D>("enemies/mobbarsheet");
         }
     }
 }

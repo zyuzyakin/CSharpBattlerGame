@@ -21,7 +21,7 @@ namespace game1.View.States
         public Button ExitShopButton { get; set; }
 
         public ShopState(Game1 game, ContentManager content, GraphicsDevice graphicsDevice) : base(game, content, graphicsDevice)
-        {
+        {   
             ShopGrid = new ShopGrid();
 
             RefreshShop();
@@ -29,33 +29,25 @@ namespace game1.View.States
             ExitShopButton = new Button()
             {
                 Box = new Rectangle(1800, 1300, 150, 150),
-                Text = "exit\nshop"
+                Text = "exit\nshop",
+                OnClick = Button.ExitShop
             };
 
             Money = new Money();
 
-
-            var BaseFont = Content.Load<SpriteFont>("fonts/Hud");
-            Money.Texture = Content.Load<Texture2D>("controls/button");
-            Money.Font = BaseFont;
-            ExitShopButton.Texture = Content.Load<Texture2D>("controls/button");
-            ExitShopButton.Font = BaseFont;
+            Money.LoadContent(content);
+            ExitShopButton.LoadContent(content);
 
         }
         public void RefreshShop()
         {
             ShopGrid.Items = new List<Item>()
             {
-                new Item(){ItemType = ItemType.sword, TextureName = "swordsheet", Cost = 1},
-                new Item(){ItemType = ItemType.shield, TextureName = "shieldsheet", Cost = 2}
+                new Item(){ItemType = ItemType.sword,  Cost = 1},
+                new Item(){ItemType = ItemType.shield, Cost = 2}
             };
 
-            foreach (var item in ShopGrid.Items)
-            {
-                item.Texture = Content.Load<Texture2D>($"items/{item.TextureName}");
-                item.ChargeBarTexture = Content.Load<Texture2D>($"items/barsheet");
-                item.Font = Content.Load<SpriteFont>("fonts/Hud");
-            }
+            ShopGrid.LoadContent(Content);
         }
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
@@ -64,9 +56,7 @@ namespace game1.View.States
             spriteBatch.Begin();
 
             ShopGrid.Draw(spriteBatch);
-
             Game.gameState.Player.PlayerArsenal.Draw(spriteBatch);
-
             ExitShopButton.Draw(spriteBatch);
             Money.Draw(spriteBatch);
 
@@ -76,15 +66,10 @@ namespace game1.View.States
 
         public override void Update(GameTime gameTime, Game1 game)
         {
-            ExitShopButton.Update(gameTime, game, ExitShop);
+            ExitShopButton.Update(gameTime, game);
             ShopGrid.Update(gameTime, game);
             Money.Update(gameTime, game);
         }
 
-        void ExitShop() 
-        { 
-            Game.ChangeState(Game.gameState);
-            Game.shopState.RefreshShop();
-        }
     }
 }

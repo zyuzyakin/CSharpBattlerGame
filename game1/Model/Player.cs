@@ -1,10 +1,12 @@
 ﻿using game1.Controller;
 using game1.View;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SharpDX.Direct3D9;
 using System.Collections.Generic;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace game1.Model
 {
@@ -13,6 +15,7 @@ namespace game1.Model
         public int MaxHealthPoints { get; set; }
         public int HealthPoints { get; set; }
 
+        
         public int ShieldPoints { get; set; }
         public PlayerArsenal PlayerArsenal { get; set; }
         public SpriteFont Font { get; set; }
@@ -40,6 +43,13 @@ namespace game1.Model
                 + new Vector2(0.0f, 10.0f), Color.White);
             spriteBatch.DrawString(Font, shieldDisplay, new Vector2(Box.X, Box.Y + Box.Height)
                 + new Vector2(0.0f, 70.0f), Color.White);
+        }
+
+        public override void LoadContent(ContentManager content)
+        {
+            Texture = content.Load<Texture2D>("player");
+            
+            Font = content.Load<SpriteFont>("fonts/Hud");
         }
     }
 }

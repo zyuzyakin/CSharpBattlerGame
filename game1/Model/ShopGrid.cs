@@ -1,9 +1,11 @@
 ﻿
 using game1.View;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SharpDX.Direct3D9;
+using System;
 using System.Collections.Generic;
 
 namespace game1.Model
@@ -36,6 +38,14 @@ namespace game1.Model
             foreach (var item in Items)
             {
                 item.ShopUpdate(gameTime, game);
+            }
+        }
+
+        public override void LoadContent(ContentManager content)
+        {
+            foreach (var item in Items)
+            {
+                item.LoadContent(content);
             }
         }
     }

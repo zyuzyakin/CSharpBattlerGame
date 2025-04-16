@@ -1,10 +1,12 @@
 ﻿using game1.Controller;
 using game1.View;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,6 +14,8 @@ namespace game1.Model.Buttons
 {
     public class Button : GameObject
     {
+        public delegate void ClickEvent(Game1 game); //делегат для событий от нажатия кнопки
+        public ClickEvent OnClick { get; set; }
         public bool IsEnabled { get; set; } 
         public SpriteFont Font { get; set; }
         public string Text { get; set; }
@@ -31,10 +35,6 @@ namespace game1.Model.Buttons
 
         public override void Update(GameTime gameTime, Game1 game)
         {
-        }
-
-        public void Update(GameTime gameTime, Game1 game, Action buttonClicked)
-        {
             if (IsEnabled)
             {
                 if (InputManager.Hover(Box))
@@ -42,7 +42,7 @@ namespace game1.Model.Buttons
                     Color = Color.Green;
                     if (InputManager.LeftClicked)
                     {
-                        buttonClicked();
+                        OnClick(game);
                     }
                 }
                 else
@@ -52,6 +52,23 @@ namespace game1.Model.Buttons
             }
         }
 
-        
+        //Функционал кнопок
+        public static void StartGame(Game1 game) => game.ChangeState(game.shopState);
+        public static void ExitGame(Game1 game) => game.Exit();
+        public static void ExitShop(Game1 game)
+        {
+            game.ChangeState(game.gameState);
+            game.shopState.RefreshShop();
+        }
+        public static void EnterShop(Game1 game) => game.ChangeState(game.shopState);
+        public static void PauseUnpauseGame(Game1 game) 
+            => game.gameState.IsPaused = !game.gameState.IsPaused;
+
+
+        public override void LoadContent(ContentManager content)
+        {
+            Texture = content.Load<Texture2D>("controls/button");
+            Font = content.Load<SpriteFont>("fonts/Hud");
+        }
     }
 }

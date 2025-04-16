@@ -1,6 +1,7 @@
 ﻿
 using game1.View;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SharpDX.Direct3D9;
@@ -14,12 +15,7 @@ namespace game1.Model
         public PlayerArsenal()
         {
             Box = new Rectangle(500, 800, 10000, 400);
-            Items = new List<Item>()
-            {
-                new Item(){ItemType = ItemType.sword, TextureName = "swordsheet", Cost = 1, IsItOwned=true},
-                new Item(){ItemType = ItemType.shield, TextureName = "shieldsheet", Cost = 2, IsItOwned=true}
-            };
-           
+            Items = new List<Item>();
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -45,12 +41,13 @@ namespace game1.Model
             }
         }
 
-        public void ResetOrdersOfItems()
+        public override void LoadContent(ContentManager content)
         {
-            foreach(var i in Items)
+            foreach (var item in Items)
             {
-                i.IsEnabled = true;
+                item.LoadContent(content);
             }
         }
+
     }
 }

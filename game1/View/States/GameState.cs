@@ -30,37 +30,27 @@ namespace game1.View.States
             EnterShopButton = new Button()
             {
                 Box = new Rectangle(1600, 1200, 150, 150),
-                Text = "enter\nshop"
+                Text = "enter\nshop",
+                OnClick = Button.StartGame
+
             };
 
             PauseButton = new Button()
             {
                 Box = new Rectangle(1600, 300, 150, 150),
-                Text = "pause"
+                Text = "pause",
+                OnClick = Button.PauseUnpauseGame
             };
 
-            var BaseFont = Content.Load<SpriteFont>("fonts/Hud");
 
-    
-            EnterShopButton.Font = BaseFont;
-            PauseButton.Font = BaseFont;
-            Player.Font = BaseFont;
-            CurrentEnemy.Font = BaseFont;
+            CurrentEnemy.LoadContent(content);
+
+            Player.LoadContent(content);
+            EnterShopButton.LoadContent(content);
+            PauseButton.LoadContent(content);
+            Player.PlayerArsenal.LoadContent(content);
+
             
-
-            
-            EnterShopButton.Texture = Content.Load<Texture2D>("controls/button");
-            PauseButton.Texture = Content.Load<Texture2D>("controls/button");
-            Player.Texture = Content.Load<Texture2D>("player");
-            CurrentEnemy.Texture = Content.Load<Texture2D>("enemies/ptichka");
-            CurrentEnemy.ChargeBarTexture = Content.Load<Texture2D>("enemies/mobbarsheet");
-
-            foreach (var item in Player.PlayerArsenal.Items)
-            {
-                item.Texture = Content.Load<Texture2D>($"items/{item.TextureName}");
-                item.ChargeBarTexture = Content.Load<Texture2D>($"items/barsheet");
-                item.Font = BaseFont;
-            }
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -84,14 +74,9 @@ namespace game1.View.States
         {
             Player.Update(gameTime, game);
             CurrentEnemy.Update(gameTime, game);
-            EnterShopButton.Update(gameTime, game, EnterShop);
-            PauseButton.Update(gameTime, game, PauseUnpauseGame);
+            EnterShopButton.Update(gameTime, game);
+            PauseButton.Update(gameTime, game);
         }
 
-        void EnterShop()
-        { 
-            Game.ChangeState(Game.shopState); 
-        }
-        void PauseUnpauseGame() => IsPaused = !IsPaused;
     }
 }

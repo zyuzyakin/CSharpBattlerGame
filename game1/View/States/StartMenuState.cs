@@ -23,11 +23,13 @@ namespace game1.View.States
             {
                 Box = new Rectangle(100, 600, 150, 150),
                 Text = "Play",
+                OnClick = Button.StartGame
             };
             exitButton = new Button()
             {
                 Box = new Rectangle(100, 800, 150, 150),
                 Text = "Exit",
+                OnClick = Button.ExitGame
             };
 
             playButton.Texture = content.Load<Texture2D>("controls/button");
@@ -51,13 +53,11 @@ namespace game1.View.States
 
         public override void Update(GameTime gameTime, Game1 game)
         {
-            playButton.Update(gameTime, game, StartGame);
-            exitButton.Update(gameTime, game, ExitGame);
+            playButton.Update(gameTime, game);
+            exitButton.Update(gameTime, game);
         }
 
-        void StartGame() => Game.ChangeState(Game.shopState);
-        void ExitGame() => Game.Exit();
-
+        
 
     }
 }

@@ -3,8 +3,11 @@ using game1.Model;
 using game1.View;
 using game1.View.States;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace game1.Model
 {
@@ -14,9 +17,6 @@ namespace game1.Model
     }
     public class Item : GameObject
     {
-
-        
-        public string TextureName { get; set; }
 
         public SpriteFont Font { get; set; }
 
@@ -36,11 +36,21 @@ namespace game1.Model
         public int period { get; set; } = 50; // частота обновления в миллисекундах
         public Item()
         {
-            IsEnabled = true;;
+            IsEnabled = true;
             ChargePerPeriod = 5;
 
         }
-
+        public Item(Item item)
+        {
+            Texture = item.Texture;
+            ChargeBarTexture = item.ChargeBarTexture;
+            ItemType = item.ItemType;
+            //TextureName = item.TextureName;
+            IsEnabled = true;
+            IsItOwned = true;
+            Font = item.Font;
+            ChargePerPeriod = item.ChargePerPeriod;
+        }
         public override void Draw(SpriteBatch spriteBatch)
         {
             DrawFrame(spriteBatch, Charge / 5);
@@ -122,17 +132,7 @@ namespace game1.Model
                         {
                             game.shopState.Money.MoneyValue -= Cost;
                             IsEnabled = false;
-                            game.gameState.Player.PlayerArsenal.Items.Add(new Item()
-                            {
-                                Texture = Texture,
-                                ChargeBarTexture = ChargeBarTexture,
-                                ItemType = ItemType,
-                                TextureName = TextureName,
-                                IsEnabled = true,
-                                IsItOwned = true,
-                                Font = Font,
-                                ChargePerPeriod = ChargePerPeriod
-                            });
+                            game.gameState.Player.PlayerArsenal.Items.Add(new Item(this));
                             Color = Color.Red;
                         }
                     }
@@ -142,6 +142,13 @@ namespace game1.Model
                     Color = Color.White;
                 }
             }
+        }
+
+        public override void LoadContent(ContentManager content)
+        {
+            Texture = content.Load<Texture2D>($"items/{ItemType}sheet");
+            ChargeBarTexture = content.Load<Texture2D>($"items/barsheet");
+            Font = content.Load<SpriteFont>("fonts/Hud");
         }
     }
 }
