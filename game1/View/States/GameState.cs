@@ -1,22 +1,16 @@
 ﻿using game1.Model;
-using game1.Model.Buttons;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace game1.View.States
 {
     public class GameState : State
     {
         public Player Player { get; private set; }
-        public Enemy CurrentEnemy { get; private set; }
+        public Enemy CurrentEnemy { get; set; }
         public bool IsPaused {get;set;}
-        public Button EnterShopButton { get; private set; }
+        public Button BackToMapButton { get; private set; }
         public Button PauseButton { get; set; }
 
 
@@ -27,11 +21,11 @@ namespace game1.View.States
             
             CurrentEnemy = new Enemy();
 
-            EnterShopButton = new Button()
+            BackToMapButton = new Button()
             {
                 Box = new Rectangle(1600, 1200, 150, 150),
-                Text = "enter\nshop",
-                OnClick = Button.StartGame
+                Text = "to\nmap",
+                OnClick = Button.BackToMap
 
             };
 
@@ -46,7 +40,7 @@ namespace game1.View.States
             CurrentEnemy.LoadContent(content);
 
             Player.LoadContent(content);
-            EnterShopButton.LoadContent(content);
+            BackToMapButton.LoadContent(content);
             PauseButton.LoadContent(content);
             Player.PlayerArsenal.LoadContent(content);
 
@@ -61,7 +55,7 @@ namespace game1.View.States
             CurrentEnemy.Draw(spriteBatch);
             Player.Draw(spriteBatch);
             Player.PlayerArsenal.Draw(spriteBatch);
-            EnterShopButton.Draw(spriteBatch);
+            BackToMapButton.Draw(spriteBatch);
             PauseButton.Draw(spriteBatch);
 
             Game.shopState.Money.Draw(spriteBatch);
@@ -74,7 +68,7 @@ namespace game1.View.States
         {
             Player.Update(gameTime, game);
             CurrentEnemy.Update(gameTime, game);
-            EnterShopButton.Update(gameTime, game);
+            BackToMapButton.Update(gameTime, game);
             PauseButton.Update(gameTime, game);
         }
 

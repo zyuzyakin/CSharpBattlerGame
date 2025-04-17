@@ -45,7 +45,7 @@ namespace game1.Model
             Texture = item.Texture;
             ChargeBarTexture = item.ChargeBarTexture;
             ItemType = item.ItemType;
-            //TextureName = item.TextureName;
+            
             IsEnabled = true;
             IsItOwned = true;
             Font = item.Font;
@@ -119,29 +119,6 @@ namespace game1.Model
                     break;
             }
             
-        }
-        public void ShopUpdate(GameTime gameTime, Game1 game)
-        {
-            if (IsEnabled)
-            {
-                if (InputManager.Hover(Box))
-                {
-                    Color = Color.Yellow;
-                    if (InputManager.LeftClicked)
-                    {   if (game.shopState.Money.MoneyValue >= Cost)
-                        {
-                            game.shopState.Money.MoneyValue -= Cost;
-                            IsEnabled = false;
-                            game.gameState.Player.PlayerArsenal.Items.Add(new Item(this));
-                            Color = Color.Red;
-                        }
-                    }
-                }
-                else
-                {
-                    Color = Color.White;
-                }
-            }
         }
 
         public override void LoadContent(ContentManager content)

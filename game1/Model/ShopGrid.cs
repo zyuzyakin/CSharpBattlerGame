@@ -1,4 +1,5 @@
 ﻿
+using game1.Controller;
 using game1.View;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -7,6 +8,7 @@ using Microsoft.Xna.Framework.Input;
 using SharpDX.Direct3D9;
 using System;
 using System.Collections.Generic;
+using System.Reflection.Metadata;
 
 namespace game1.Model
 {
@@ -16,9 +18,16 @@ namespace game1.Model
         public ShopGrid()
         {
             Box = new Rectangle(100, 100, 10000, 300);
-            Items = new List<Item>();
+            RefreshShopGrid();
         }
-
+        public void RefreshShopGrid()
+        {
+            Items = new List<Item>()
+            {
+                new Item(){ItemType = ItemType.sword,  Cost = 1},
+                new Item(){ItemType = ItemType.shield, Cost = 2}
+            };
+        }
         public override void Draw(SpriteBatch spriteBatch)
         {
             var distance = 10;
@@ -34,10 +43,31 @@ namespace game1.Model
         }
 
         public override void Update(GameTime gameTime, Game1 game)
-        {
+        {   
+
             foreach (var item in Items)
             {
-                item.ShopUpdate(gameTime, game);
+                if (item.IsEnabled)
+                {
+                    if (InputManager.Hover(item.Box))
+                    {
+                        item.Color = Color.Yellow;
+                        if (InputManager.LeftClicked)
+                        {
+                            if (game.shopState.Money.MoneyValue >= item.Cost)
+                            {
+                                game.shopState.Money.MoneyValue -= item.Cost;
+                                item.IsEnabled = false;
+                                game.gameState.Player.PlayerArsenal.Items.Add(new Item(item));
+                                item.Color = Color.Red;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        item.Color = Color.White;
+                    }
+                }
             }
         }
 

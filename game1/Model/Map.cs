@@ -9,6 +9,8 @@ using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace game1.Model
@@ -19,6 +21,8 @@ namespace game1.Model
 
         public MapElement CurrentMapElem { get; set; }
 
+
+
         public Texture2D roadPointTexture { get; set; }
         public Random rnd { get; set; }
 
@@ -26,47 +30,54 @@ namespace game1.Model
         {
             MapElems = new List<MapElement>();
             rnd = new Random();
-            int startY = 1300;
+            CurrentMapElem = null;
+
+            int startY = 1500;
             int startX = 800;
             int size = 150;
-            MapElems.Add(new MapElement()
-            {
-                Box = new Rectangle(startX, startY, size, size),
-                LevelNumber = 0,
+            int totalLevels = 7;
 
-            });
-            CurrentMapElem = MapElems[0];
-            for (var levelNum = 1; levelNum < 5; levelNum++)
+            for (var levelNum = 1; levelNum <= totalLevels; levelNum++)
             {
-                var dotNumber = rnd.Next(2, 5);
-                for (int i = 0; i < dotNumber; i++)
+                if (levelNum == 1 || levelNum == (totalLevels + 1) / 2  || levelNum == totalLevels-1)
                 {
                     MapElems.Add(new MapElement()
                     {
-                        Box = new Rectangle(startX - 150 * (dotNumber - 1) + i * 300,
-                            startY - levelNum * 200, size, size),
+                        Box = new Rectangle(startX,
+                                startY - levelNum * 200, size, size),
                         LevelNumber = levelNum,
-                    });
+                        PointType = PointType.shop
 
+                    });
+                }
+                else if(levelNum == totalLevels)
+                {
+                    MapElems.Add(new MapElement()
+                    {
+                        Box = new Rectangle(startX - 50, startY - 200 * totalLevels - 100, 300, 300),
+                        LevelNumber = levelNum,
+                        PointType = PointType.boss
+                    });
+                }
+                else
+                {
+                    var dotNumber = rnd.Next(2, 5);
+                    for (int i = 0; i < dotNumber; i++)
+                    {
+                        MapElems.Add(new MapElement()
+                        {
+                            Box = new Rectangle(startX - 150 * (dotNumber - 1) + i * 300,
+                                startY - levelNum * 200, size, size),
+                            LevelNumber = levelNum,
+                            PointType = (PointType)Enum.GetValues(typeof(PointType)).GetValue(rnd.Next(0, 3))
+                        });
+                    }
                 }
             }
 
-            MapElems.Add(new MapElement()
-            {
-                Box = new Rectangle(startX, startY - 200 * 5, size, size),
-                LevelNumber = 5,
-
-            });
-            MapElems.Add(new MapElement()
-            {
-                Box = new Rectangle(startX - 50, startY - 200 * 6 - 100, 300, 300),
-                LevelNumber = 6,
-            });
-
-
             foreach (var elem in MapElems)
             {
-                if (elem.LevelNumber != 0)
+                if (elem.LevelNumber != 1)
                 {
                     if (!elem.Previous.Any())
                     {
@@ -77,7 +88,7 @@ namespace game1.Model
                         prevelem.Next.Add(elem);
                     }
                 }
-                if (elem.LevelNumber != 6)
+                if (elem.LevelNumber != totalLevels)
                 {
                     if (!elem.Next.Any())
                     {
@@ -90,6 +101,7 @@ namespace game1.Model
                 }
             }
         }
+        
         public override void Draw(SpriteBatch spriteBatch)
         {
             foreach (var elem in MapElems)
@@ -158,9 +170,10 @@ namespace game1.Model
         public override void LoadContent(ContentManager content)
         {
             roadPointTexture = content.Load<Texture2D>("mapIcons/roadPoint");
+
             foreach (var elem in MapElems)
             {
-                elem.Texture = content.Load<Texture2D>("mapIcons/shop");
+                elem.LoadContent(content);
             }
         }
     }

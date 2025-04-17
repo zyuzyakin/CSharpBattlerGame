@@ -10,7 +10,7 @@ using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace game1.Model.Buttons
+namespace game1.Model
 {
     public class Button : GameObject
     {
@@ -53,12 +53,11 @@ namespace game1.Model.Buttons
         }
 
         //Функционал кнопок
-        public static void StartGame(Game1 game) => game.ChangeState(game.shopState);
+        public static void StartGame(Game1 game) => game.ChangeState(game.mapState);
         public static void ExitGame(Game1 game) => game.Exit();
-        public static void ExitShop(Game1 game)
+        public static void BackToMap(Game1 game)
         {
-            game.ChangeState(game.gameState);
-            game.shopState.RefreshShop();
+            game.ChangeState(game.mapState);
         }
         public static void EnterShop(Game1 game) => game.ChangeState(game.shopState);
         public static void PauseUnpauseGame(Game1 game) 

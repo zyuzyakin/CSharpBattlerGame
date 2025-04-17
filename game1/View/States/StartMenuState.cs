@@ -1,4 +1,4 @@
-﻿using game1.Model.Buttons;
+﻿using game1.Model;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;

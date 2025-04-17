@@ -3,6 +3,7 @@ using game1.Model;
 using game1.View;
 using game1.View.States;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
@@ -11,12 +12,14 @@ namespace game1.Model
 {   
     public enum PointType
     {
-        Shop,Battle,HardBattle,Boss,Chest
+        battle, hardbattle, chest, shop, boss
     }
     public class MapElement : GameObject
     {
         public int LevelNumber { get; set; }
         public PointType PointType { get; set; }
+
+        public bool IsAvailable { get; set; }
         public List<MapElement> Next { get; set; }
         public List<MapElement> Previous { get; set; }
         public MapElement()
@@ -31,19 +34,56 @@ namespace game1.Model
 
         public override void Update(GameTime gameTime, Game1 game)
         {
-                if (InputManager.Hover(Box))
+            var curelem = game.mapState.Map.CurrentMapElem;
+            IsAvailable = curelem == null && LevelNumber == 1
+                || curelem != null && curelem.Next.Contains(this);
+
+            if (InputManager.Hover(Box))
+            {
+                Color = Color.Green;
+                if (InputManager.LeftClicked && IsAvailable)
                 {
-                    Color = Color.Blue;
-                    if (InputManager.LeftClicked)
-                    {
-                        
-                    }
+                    game.mapState.Map.CurrentMapElem = this;
+                    CreateLevel(game);
                 }
+            }
+            else
+            {
+                if (IsAvailable)
+                    Color = Color.YellowGreen;
                 else
-                {
                     Color = Color.White;
-                }
+            }
             
+        }
+        public void CreateLevel(Game1 game)
+        {
+            switch (PointType)
+            {
+                case PointType.chest:
+                    ;
+                    break;
+                case PointType.battle:
+                    game.ChangeState(game.gameState);
+                    game.gameState.CurrentEnemy = new Enemy();
+                    game.gameState.CurrentEnemy.LoadContent(game.Content);
+                    break;
+                case PointType.hardbattle:
+                    ;
+                    break;
+                case PointType.shop:
+                    game.ChangeState(game.shopState);
+                    game.shopState.Shop = new Shop();
+                    game.shopState.Shop.LoadContent(game.Content);
+                    break;
+                case PointType.boss:
+                    ;
+                    break;
+            }
+        }
+        public override void LoadContent(ContentManager content)
+        {
+            Texture = content.Load<Texture2D>($"mapIcons/{PointType}");
         }
     }
 }
