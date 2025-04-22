@@ -14,6 +14,7 @@ namespace game1.Model
         public int HealthPoints { get; set; }
         public bool IsDefeated { get; set; }
 
+        public int MoneyReward { get; set; }
         public int Damage { get; set; }
         public SpriteFont Font { get; set; }
 
@@ -22,17 +23,18 @@ namespace game1.Model
         public int ChargePerPeriod { get; set; }
 
         public Texture2D ChargeBarTexture { get; set; }
-        public int currentTime { get; set; } = 0; // сколько времени прошло
-        public int period { get; set; } = 50; // частота обновления в миллисекундах
+        public int TotalElapsed { get; set; } = 0; // сколько времени прошло
+        public int Period { get; set; } = 50; // частота обновления в миллисекундах
 
         public Enemy()
         {
             MaxHealthPoints = 30;
             HealthPoints = 30;
-            Damage = 5;
+            Damage = 1;
             Text = "";
-            ChargePerPeriod = 1;
+            ChargePerPeriod = 5;
 
+            MoneyReward = 10;
             Position = new Vector2(800, 80);
             Box = new Rectangle(800, 80, 400, 400);
         }
@@ -74,7 +76,11 @@ namespace game1.Model
         {   
             if(HealthPoints <= 0)
             {
+                if (!IsDefeated)
+                    game.shopState.Money.MoneyValue += MoneyReward;
+
                 IsDefeated = true;
+                
                 game.gameState.IsPaused = true;
                 game.gameState.PauseButton.IsEnabled = false;
             }
@@ -82,10 +88,10 @@ namespace game1.Model
             {
                 if (!game.gameState.IsPaused)
                 {
-                    currentTime += gameTime.ElapsedGameTime.Milliseconds;
-                    if (currentTime > period)
+                    TotalElapsed += gameTime.ElapsedGameTime.Milliseconds;
+                    if (TotalElapsed > Period)
                     {
-                        currentTime -= period;
+                        TotalElapsed -= Period;
                         Charge += ChargePerPeriod;
                         Text = Charge.ToString();
                         if (Charge >= 100)

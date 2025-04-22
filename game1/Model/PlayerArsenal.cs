@@ -1,5 +1,4 @@
-﻿
-using game1.View;
+﻿using game1.View;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -7,15 +6,18 @@ using Microsoft.Xna.Framework.Input;
 using SharpDX.Direct3D9;
 using System.Collections.Generic;
 
+
 namespace game1.Model
 {
     public class PlayerArsenal : GameObject
     {   
         public List<Item> Items { get; set; }
+        public int MaxSize { get; set; }
         public PlayerArsenal()
         {
             Box = new Rectangle(500, 800, 10000, 400);
             Items = new List<Item>();
+            MaxSize = 8;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -26,8 +28,11 @@ namespace game1.Model
 
             for (var i = 0; i < Items.Count; i++)
             {
-                Items[i].Box = new Rectangle(Box.X + i * (itemWidth + distance), Box.Y,
+
+                Items[i].Box = new Rectangle(Box.X + i % 4 * (itemWidth + distance),
+                    Box.Y + (i / 4) * (itemHeight + distance),
                     itemWidth, itemHeight);
+
                
                 Items[i].Draw(spriteBatch);
             }

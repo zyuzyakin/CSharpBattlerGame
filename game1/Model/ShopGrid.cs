@@ -25,7 +25,10 @@ namespace game1.Model
             Items = new List<Item>()
             {
                 new Item(){ItemType = ItemType.sword,  Cost = 1},
-                new Item(){ItemType = ItemType.shield, Cost = 2}
+                new Item(){ItemType = ItemType.shield, Cost = 2},
+                new Item(){ItemType = ItemType.bomb, Cost = 2},
+                new Item(){ItemType = ItemType.ice, Cost = 2},
+                new Item(){ItemType = ItemType.healpotion, Cost = 2},
             };
         }
         public override void Draw(SpriteBatch spriteBatch)
@@ -36,8 +39,10 @@ namespace game1.Model
 
             for (var i = 0; i < Items.Count; i++)
             {
-                Items[i].Box = new Rectangle(Box.X + i * (itemWidth + distance), Box.Y,
+                Items[i].Box = new Rectangle(Box.X + i % 4 * (itemWidth + distance),
+                    Box.Y + (i / 4) * (itemHeight + distance),
                     itemWidth, itemHeight);
+
                 Items[i].Draw(spriteBatch);
             }
         }
@@ -51,13 +56,13 @@ namespace game1.Model
                 {
                     if (InputManager.Hover(item.Box))
                     {
-                        item.Color = Color.Yellow;
+                        item.Color = Color.Blue;
                         if (InputManager.LeftClicked)
                         {
                             if (game.shopState.Money.MoneyValue >= item.Cost)
                             {
                                 game.shopState.Money.MoneyValue -= item.Cost;
-                                item.IsEnabled = false;
+                                
                                 game.gameState.Player.PlayerArsenal.Items.Add(new Item(item));
                                 item.Color = Color.Red;
                             }

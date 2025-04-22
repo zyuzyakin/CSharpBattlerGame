@@ -1,5 +1,4 @@
-﻿using game1.Model;
-using game1.View;
+﻿using game1.View;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -61,7 +60,7 @@ namespace game1.Model
                 }
                 else
                 {
-                    var dotNumber = rnd.Next(2, 5);
+                    var dotNumber = rnd.Next(2, 4);
                     for (int i = 0; i < dotNumber; i++)
                     {
                         MapElems.Add(new MapElement()

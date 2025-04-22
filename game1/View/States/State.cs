@@ -11,6 +11,7 @@ namespace game1.View.States
 {
     public abstract class State
     {
+        public Texture2D Background { get; set; }
         public Game1 Game { get; set; }
         public ContentManager Content { get; set; }
         public GraphicsDevice GraphicDevice { get; set; }

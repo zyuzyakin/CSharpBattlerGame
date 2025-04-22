@@ -21,14 +21,14 @@ namespace game1.View.States
         {
             playButton = new Button()
             {
-                Box = new Rectangle(100, 600, 150, 150),
-                Text = "Play",
+                Box = new Rectangle(100, 600, 500, 150),
+                Text = "Начать игру",
                 OnClick = Button.StartGame
             };
             exitButton = new Button()
             {
-                Box = new Rectangle(100, 800, 150, 150),
-                Text = "Exit",
+                Box = new Rectangle(100, 800, 500, 150),
+                Text = "Выход",
                 OnClick = Button.ExitGame
             };
 

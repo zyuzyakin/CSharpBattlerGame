@@ -19,7 +19,9 @@ namespace game1.View.States
         public Button BackToMapButton { get; set; }
 
         public ShopState(Game1 game, ContentManager content, GraphicsDevice graphicsDevice) : base(game, content, graphicsDevice)
-        {   
+        {
+            Background = content.Load<Texture2D>("backgrounds/bgshop");
+
             Shop = new Shop();
 
             Shop.LoadContent(content);
@@ -27,7 +29,7 @@ namespace game1.View.States
             BackToMapButton = new Button()
             {
                 Box = new Rectangle(1800, 1300, 150, 150),
-                Text = "to\nmap",
+                Text = "назад",
                 OnClick = Button.BackToMap
             };
 
@@ -44,6 +46,7 @@ namespace game1.View.States
 
             spriteBatch.Begin();
 
+            spriteBatch.Draw(Background, new Rectangle(0, 0, 2000, 1500), Color.White);
             Shop.Draw(spriteBatch);
             Game.gameState.Player.PlayerArsenal.Draw(spriteBatch);
             BackToMapButton.Draw(spriteBatch);
@@ -55,6 +58,7 @@ namespace game1.View.States
 
         public override void Update(GameTime gameTime, Game1 game)
         {
+            
             BackToMapButton.Update(gameTime, game);
             Shop.Update(gameTime, game);
             Money.Update(gameTime, game);

@@ -28,21 +28,29 @@ namespace game1.Model
             Position = new Vector2(80, 700);
             Box = new Rectangle(80, 700, 480, 480);
         }
+
+
+        public void Heal(int value)
+        {
+            HealthPoints += value;
+            if (HealthPoints > MaxHealthPoints) 
+                HealthPoints = MaxHealthPoints;
+        }
         public override void Update(GameTime gameTime, Game1 game)
         {
             PlayerArsenal.Update(gameTime, game);
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
-            string hpDisplay = $"HP:{HealthPoints}/{MaxHealthPoints}";
-            string shieldDisplay = "SHIELD:" + (ShieldPoints == 0 ? "" : ShieldPoints.ToString());
+            string hpDisplay = $"ЗДОРОВЬЕ:\n{HealthPoints}/{MaxHealthPoints}";
+            string shieldDisplay = "ЩИТ:" + (ShieldPoints == 0 ? "" : ShieldPoints.ToString());
 
             spriteBatch.Draw(Texture, Box, Color);
 
             spriteBatch.DrawString(Font, hpDisplay, new Vector2(Box.X, Box.Y + Box.Height) 
                 + new Vector2(0.0f, 10.0f), Color.White);
             spriteBatch.DrawString(Font, shieldDisplay, new Vector2(Box.X, Box.Y + Box.Height)
-                + new Vector2(0.0f, 70.0f), Color.White);
+                + new Vector2(0.0f, 150.0f), Color.White);
         }
 
         public override void LoadContent(ContentManager content)

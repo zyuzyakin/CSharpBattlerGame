@@ -1,5 +1,4 @@
 ﻿using game1.Controller;
-using game1.Model;
 using game1.View;
 using game1.View.States;
 using Microsoft.Xna.Framework;
@@ -65,10 +64,15 @@ namespace game1.Model
                     break;
                 case PointType.battle:
                     game.ChangeState(game.gameState);
+                    game.gameState.IsPaused = false;
                     game.gameState.CurrentEnemy = new Enemy();
                     game.gameState.CurrentEnemy.LoadContent(game.Content);
                     break;
                 case PointType.hardbattle:
+                    game.ChangeState(game.gameState);
+                    game.gameState.IsPaused = false;
+                    game.gameState.CurrentEnemy = new Enemy();
+                    game.gameState.CurrentEnemy.LoadContent(game.Content);
                     ;
                     break;
                 case PointType.shop:
@@ -77,6 +81,10 @@ namespace game1.Model
                     game.shopState.Shop.LoadContent(game.Content);
                     break;
                 case PointType.boss:
+                    game.ChangeState(game.gameState);
+                    game.gameState.IsPaused = false;
+                    game.gameState.CurrentEnemy = new Enemy();
+                    game.gameState.CurrentEnemy.LoadContent(game.Content);
                     ;
                     break;
             }

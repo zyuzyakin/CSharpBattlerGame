@@ -1,5 +1,4 @@
 ﻿using game1.Controller;
-using game1.Model;
 using game1.View;
 using game1.View.States;
 using Microsoft.Xna.Framework;
@@ -12,8 +11,11 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 namespace game1.Model
 {
     public enum ItemType
-    {
-        sword, shield, heal
+    {   
+        //Защитные
+        shield, healpotion, boots, ice,
+        //Для атаки
+        sword, hammer, bow, arrow, bomb
     }
     public class Item : GameObject
     {
@@ -32,8 +34,8 @@ namespace game1.Model
 
         public int Cost { get; set; } 
 
-        public int currentTime { get; set; } = 0;// сколько времени прошло
-        public int period { get; set; } = 50; // частота обновления в миллисекундах
+        public int TotalElapsed { get; set; } = 0; // сколько времени прошло
+        public int Period { get; set; } = 50; // период обновления в миллисекундах
         public Item()
         {
             IsEnabled = true;
@@ -56,7 +58,11 @@ namespace game1.Model
             DrawFrame(spriteBatch, Charge / 5);
 
             DrawBarFrame(spriteBatch, Charge / 5);
-            
+
+            spriteBatch.DrawString(Font, $"{ItemType}",
+                new Vector2(Box.X + 100, Box.Y + 250), Color.White, 0f, 
+                new Vector2(0,0), 0.4f, SpriteEffects.None, 0);
+
             if (IsEnabled && !IsItOwned)
             {
                 spriteBatch.DrawString(Font, Cost.ToString(),
@@ -67,7 +73,6 @@ namespace game1.Model
         {
             int FrameWidth = Texture.Width / 20;
 
-
             Rectangle sourcerect = new Rectangle(FrameWidth * frame, 0,
                 FrameWidth, Texture.Height);
 
@@ -76,34 +81,29 @@ namespace game1.Model
         public void DrawBarFrame(SpriteBatch spriteBatch, int frame)
         {
             int FrameWidth = ChargeBarTexture.Width / 20;
-            
-            
+
             Rectangle sourcerect = new Rectangle(FrameWidth * frame, 0,
                 FrameWidth, ChargeBarTexture.Height);
 
-            spriteBatch.Draw(ChargeBarTexture, new Vector2(Box.X, Box.Y + 200), 
-                sourcerect, Color.White, 0f, new Vector2(0, 0), new Vector2(1.5f, 1),
-                SpriteEffects.None, 0f);
+            spriteBatch.Draw(ChargeBarTexture, new Rectangle(Box.X, Box.Y + 220, 300, 200), 
+                sourcerect, Color.White);
         }
         public override void Update(GameTime gameTime, Game1 game)
         {
-            if (!game.gameState.IsPaused)
-            {
-                if (IsEnabled)
-                {
-                    currentTime += gameTime.ElapsedGameTime.Milliseconds;
-                    if (currentTime > period)
-                    {
-                        currentTime -= period;
-                        Charge += ChargePerPeriod;
-                        
-                        if (Charge >= 100)
-                        {
-                            Charge = 0;
-                            Act(gameTime, game);
-                        }
-                    }
+            if (game.gameState.IsPaused) return;
 
+            if (!IsEnabled) return;
+            
+            TotalElapsed += gameTime.ElapsedGameTime.Milliseconds;
+            if (TotalElapsed >= Period)
+            {
+                TotalElapsed -= Period;
+                Charge += ChargePerPeriod;
+                        
+                if (Charge >= 100)
+                {
+                    Charge = 0;
+                    Act(gameTime, game);
                 }
             }
         }
@@ -116,6 +116,15 @@ namespace game1.Model
                     break;
                 case ItemType.shield:
                     game.gameState.Player.ShieldPoints += 1;
+                    break;
+                case ItemType.bomb:
+                    
+                    break;
+                case ItemType.ice:
+                    
+                    break;
+                case ItemType.healpotion:
+                    game.gameState.Player.Heal(1);
                     break;
             }
             

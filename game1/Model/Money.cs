@@ -20,7 +20,7 @@ namespace game1.Model
             Text = $"Money:{MoneyValue}";
         }
         
-        public void Update(GameTime gameTime, Game1 game)
+        public override void Update(GameTime gameTime, Game1 game)
         {
             Text = $"Money:{MoneyValue}";
         }

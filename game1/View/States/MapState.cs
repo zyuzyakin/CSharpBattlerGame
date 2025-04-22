@@ -18,6 +18,8 @@ namespace game1.View.States
 
         public MapState(Game1 game, ContentManager content, GraphicsDevice graphicsDevice) : base(game, content, graphicsDevice)
         {
+            Background = content.Load<Texture2D>("backgrounds/bgshop");
+
             Map = new Map();
 
             Map.LoadContent(content);
@@ -28,14 +30,17 @@ namespace game1.View.States
             Game.GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
 
+            spriteBatch.Draw(Background, new Rectangle(0, 0, 2000, 1500), Color.White);
             Map.Draw(spriteBatch);
 
             Game.shopState.Money.Draw(spriteBatch);
+
             spriteBatch.End();
         }
         
         public override void Update(GameTime gameTime, Game1 game)
         {
+            
             Map.Update(gameTime, game);
         }
     }

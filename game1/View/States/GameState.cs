@@ -3,10 +3,13 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrayNotify;
+
 namespace game1.View.States
 {
     public class GameState : State
-    {
+    {   
+        
         public Player Player { get; private set; }
         public Enemy CurrentEnemy { get; set; }
         public bool IsPaused {get;set;}
@@ -17,6 +20,7 @@ namespace game1.View.States
 
         public GameState(Game1 game, ContentManager content, GraphicsDevice graphicsDevice) : base(game, content, graphicsDevice)
         {
+            Background = content.Load<Texture2D>("backgrounds/bgbattle");
             Player = new Player();
             
             CurrentEnemy = new Enemy();
@@ -24,7 +28,7 @@ namespace game1.View.States
             BackToMapButton = new Button()
             {
                 Box = new Rectangle(1600, 1200, 150, 150),
-                Text = "to\nmap",
+                Text = "назад",
                 OnClick = Button.BackToMap
 
             };
@@ -52,6 +56,7 @@ namespace game1.View.States
             Game.GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
 
+            spriteBatch.Draw(Background, new Rectangle(0, 0, 2000, 1500), Color.White);
             CurrentEnemy.Draw(spriteBatch);
             Player.Draw(spriteBatch);
             Player.PlayerArsenal.Draw(spriteBatch);
@@ -66,6 +71,7 @@ namespace game1.View.States
 
         public override void Update(GameTime gameTime, Game1 game)
         {
+            Game.shopState.Money.Update(gameTime, game);
             Player.Update(gameTime, game);
             CurrentEnemy.Update(gameTime, game);
             BackToMapButton.Update(gameTime, game);
