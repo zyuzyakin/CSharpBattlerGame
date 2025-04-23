@@ -17,21 +17,21 @@ namespace game1.Model
         public int MaxSize { get; set; }
         public PlayerArsenal()
         {
-            Box = new Rectangle(500, 800, 10000, 400);
+            Box = new Rectangle(50 * k, 100 * k, 100 * k, 40 * k);
             Items = new List<Item>();
-            MaxSize = 8;
+            MaxSize = 16;
         }
         
         public override void Draw(SpriteBatch spriteBatch)
         {
-            var distance = 10;
-            var itemWidth = 300;
-            var itemHeight = 300;
+            var distance = k;
+            var itemWidth = 15 * k;
+            var itemHeight = 15 * k;
 
             for (var i = 0; i < Items.Count; i++)
             {
-                Items[i].Box = new Rectangle(Box.X + i % 4 * (itemWidth + distance),
-                    Box.Y + (i / 4) * (itemHeight + distance),
+                Items[i].Box = new Rectangle(Box.X + i % 8 * (itemWidth + distance),
+                    Box.Y + (i / 8) * (itemHeight + distance),
                     itemWidth, itemHeight);
                 Items[i].Draw(spriteBatch);
             }

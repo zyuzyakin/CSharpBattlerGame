@@ -28,7 +28,7 @@ namespace game1.View.States
 
             BackToMapButton = new Button()
             {
-                Box = new Rectangle(1800, 1300, 150, 150),
+                Box = new Rectangle(180 * k, 130 * k, 15 * k, 15* k),
                 Text = "назад",
                 OnClick = Button.BackToMap
             };
@@ -46,7 +46,7 @@ namespace game1.View.States
 
             spriteBatch.Begin();
 
-            spriteBatch.Draw(Background, new Rectangle(0, 0, 2000, 1500), Color.White);
+            spriteBatch.Draw(Background, new Rectangle(0, 0, 200 * k, 150 * k), Color.White);
             Shop.Draw(spriteBatch);
             Game.gameState.Player.PlayerArsenal.Draw(spriteBatch);
             BackToMapButton.Draw(spriteBatch);

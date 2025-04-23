@@ -23,11 +23,11 @@ namespace game1.View.States
             Background = content.Load<Texture2D>("backgrounds/bgbattle");
             Player = new Player();
             
-            CurrentEnemy = new Enemy();
+            
 
             BackToMapButton = new Button()
             {
-                Box = new Rectangle(1600, 1200, 150, 150),
+                Box = new Rectangle(180 * k, 120 * k, 15 * k, 15 * k),
                 Text = "назад",
                 OnClick = Button.BackToMap
 
@@ -35,13 +35,13 @@ namespace game1.View.States
 
             PauseButton = new Button()
             {
-                Box = new Rectangle(1600, 300, 150, 150),
+                Box = new Rectangle(160 * k, 30 * k, 15 * k, 15 * k),
                 Text = "pause",
                 OnClick = Button.PauseUnpauseGame
             };
 
 
-            CurrentEnemy.LoadContent(content);
+            
 
             Player.LoadContent(content);
             BackToMapButton.LoadContent(content);
@@ -56,7 +56,8 @@ namespace game1.View.States
             Game.GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
 
-            spriteBatch.Draw(Background, new Rectangle(0, 0, 2000, 1500), Color.White);
+            spriteBatch.Draw(Background, new Rectangle(0, 0, 200 * k, 150 * k), Color.White);
+
             CurrentEnemy.Draw(spriteBatch);
             Player.Draw(spriteBatch);
             Player.PlayerArsenal.Draw(spriteBatch);
@@ -77,6 +78,5 @@ namespace game1.View.States
             BackToMapButton.Update(gameTime, game);
             PauseButton.Update(gameTime, game);
         }
-
     }
 }

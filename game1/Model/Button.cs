@@ -29,7 +29,8 @@ namespace game1.Model
             if (IsEnabled)
             {
                 spriteBatch.Draw(Texture, Box, Color);
-                spriteBatch.DrawString(Font, Text, new Vector2(Box.X, Box.Y), Color);
+                spriteBatch.DrawString(Font, Text, new Vector2(Box.X, Box.Y), Color,
+                    0f, new Vector2(0, 0), tk, SpriteEffects.None, 0f);
             }
         }
 

@@ -40,8 +40,8 @@ public class Game1 : Game
         IsMouseVisible = true;
         
 
-        _graphics.PreferredBackBufferWidth = 2000;
-        _graphics.PreferredBackBufferHeight = 1500;
+        _graphics.PreferredBackBufferWidth = 200 * GameObject.k;
+        _graphics.PreferredBackBufferHeight = 150 * GameObject.k;
 
         
         _graphics.SupportedOrientations = DisplayOrientation.LandscapeLeft | DisplayOrientation.LandscapeRight;
@@ -51,11 +51,6 @@ public class Game1 : Game
     public void ChangeState(State state)
     {
         nextState = state;
-    }
-    protected override void Initialize()
-    {
-        
-        base.Initialize();
     }
 
     protected override void LoadContent()

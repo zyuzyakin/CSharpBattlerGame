@@ -16,7 +16,7 @@ namespace game1.Model
         public List<Item> Items { get; set; }
         public ShopGrid()
         {
-            Box = new Rectangle(100, 100, 10000, 300);
+            Box = new Rectangle(10 * k, 10 * k, 1000 * k, 30 * k);
             RefreshShopGrid();
         }
         public void RefreshShopGrid()
@@ -36,14 +36,14 @@ namespace game1.Model
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
-            var distance = 10;
-            var itemWidth = 300;
-            var itemHeight = 300;
+            var distance = k;
+            var itemWidth = 30 * k;
+            var itemHeight = 30 * k;
 
             for (var i = 0; i < Items.Count; i++)
             {
                 Items[i].Box = new Rectangle(Box.X + i % 4 * (itemWidth + distance),
-                    Box.Y + (i / 4) * (itemHeight + distance),
+                    Box.Y + (i / 4) * (itemHeight + distance * 10),
                     itemWidth, itemHeight);
 
                 Items[i].Draw(spriteBatch);

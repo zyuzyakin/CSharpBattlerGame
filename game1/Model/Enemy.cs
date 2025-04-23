@@ -4,12 +4,17 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SharpDX.Direct3D9;
+using System;
 using System.Collections.Generic;
 
 namespace game1.Model
-{
-    public class Enemy : GameObject
+{   public enum EnemyType
     {
+        normal, hard, boss
+    }
+    public class Enemy : GameObject
+    {   
+        public EnemyType EnemyType { get; set; }
         public int HealthPoints { get; set; }
         public bool IsDefeated { get; set; }
 
@@ -22,19 +27,35 @@ namespace game1.Model
         public int ChargePerPeriod { get; set; }
 
         public Texture2D ChargeBarTexture { get; set; }
-        public int TotalElapsed { get; set; } = 0; // сколько времени прошло
-        public int Period { get; set; } = 150; // частота обновления в миллисекундах
+        public int TotalElapsed { get; set; } // сколько времени прошло
+        public int Period { get; set; } // частота обновления в миллисекундах
 
-        public Enemy()
+        public Enemy(EnemyType type)
         {
-            HealthPoints = 100;
-            Damage = 1;
+            Box = new Rectangle(80 * k, 8 * k, 40 * k, 40 * k);
             Text = "";
-            ChargePerPeriod = 5;
-
-            MoneyReward = 10;
-            Position = new Vector2(800, 80);
-            Box = new Rectangle(800, 80, 400, 400);
+            ChargePerPeriod = 1;
+            Period = 50;
+            var rnd = new Random();
+            EnemyType = type;
+            switch (EnemyType)
+            {
+                case EnemyType.normal:
+                    MoneyReward = 10;
+                    HealthPoints = 150;
+                    Damage = 3;
+                    break;
+                case EnemyType.hard:
+                    MoneyReward = 20;
+                    HealthPoints = 250;
+                    Damage = 4;
+                    break;
+                case EnemyType.boss:
+                    MoneyReward = 9999;
+                    HealthPoints = 350;
+                    Damage = 5;
+                    break;
+            }
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -45,29 +66,30 @@ namespace game1.Model
 
                 string hpDisplay = $"HP:{HealthPoints}";
 
-                spriteBatch.DrawString(Font, hpDisplay, new Vector2(Box.X, Box.Y + Box.Height)
-                    + new Vector2(0.0f, 0.0f), Color.White);
+                spriteBatch.DrawString(Font, hpDisplay, 
+                    new Vector2(Box.X, Box.Y + Box.Height), Color.White,
+                    0f, new Vector2(0, 0), tk, SpriteEffects.None, 0f);
 
-                spriteBatch.DrawString(Font, Damage.ToString(), new Vector2(Box.X + Box.Width, Box.Y + Box.Height)
-                    + new Vector2(0.0f, 0.0f), Color.Red);
+                spriteBatch.DrawString(Font, Damage.ToString(), 
+                    new Vector2(Box.X + Box.Width, Box.Y + Box.Height), Color.Red,
+                    0f, new Vector2(0, 0), tk, SpriteEffects.None, 0f);
 
                 DrawBarFrame(spriteBatch, Charge / 5);
-
-                
             }
         }
 
         public void DrawBarFrame(SpriteBatch spriteBatch, int frame)
         {
             int FrameWidth = ChargeBarTexture.Width / 20;
-            Vector2 position = new Vector2(Box.X + Box.Width + 20, Box.Y + 340);
-            Vector2 scale = new Vector2(1.5f, 1);
+            Vector2 position = new Vector2(Box.X + Box.Width + 2 * k, Box.Y + 34 * k);
+            
 
             Rectangle sourcerect = new Rectangle(FrameWidth * frame, 0,
                 FrameWidth, ChargeBarTexture.Height);
 
-            spriteBatch.Draw(ChargeBarTexture, position, sourcerect, Color.White,
-                0f, new Vector2(0, 0), scale, SpriteEffects.None, 0f);
+            spriteBatch.Draw(ChargeBarTexture, 
+                new Rectangle(Box.X + Box.Width + 2 * k, Box.Y + 34 * k, Box.Width, 20 * k), 
+                sourcerect, Color.White);
         }
 
         public override void Update(GameTime gameTime, Game1 game)
@@ -101,7 +123,6 @@ namespace game1.Model
         }
         public void AtackPlayer(GameTime gameTime, Game1 game)
         {
-            
             game.gameState.Player.ShieldPoints -= Damage;
 
             if (game.gameState.Player.ShieldPoints < 0)

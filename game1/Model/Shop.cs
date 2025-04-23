@@ -16,7 +16,6 @@ namespace game1.Model
         public ShopGrid ShopGrid { get; set; }
         public Shop()
         {
-            Box = new Rectangle(100, 100, 10000, 300);
             ShopGrid = new ShopGrid();
         }
 

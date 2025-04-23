@@ -29,9 +29,9 @@ namespace game1.Model
             rnd = new Random();
             CurrentMapElem = null;
 
-            int startY = 1500;
-            int startX = 800;
-            int size = 150;
+            int startY = 150 * k;
+            int startX = 80 * k;
+            int size = 15 * k;
             int totalLevels = 7;
 
             for (var levelNum = 1; levelNum <= totalLevels; levelNum++)
@@ -41,7 +41,7 @@ namespace game1.Model
                     MapElems.Add(new MapElement()
                     {
                         Box = new Rectangle(startX,
-                                startY - levelNum * 200, size, size),
+                                startY - levelNum * 20 * k, size, size),
                         LevelNumber = levelNum,
                         PointType = PointType.shop
 
@@ -51,7 +51,7 @@ namespace game1.Model
                 {
                     MapElems.Add(new MapElement()
                     {
-                        Box = new Rectangle(startX - 50, startY - 200 * totalLevels - 100, 300, 300),
+                        Box = new Rectangle(startX - 5 * k, startY - 20 * k * totalLevels - 10 * k, 30 * k, 30 * k),
                         LevelNumber = levelNum,
                         PointType = PointType.boss
                     });
@@ -63,8 +63,8 @@ namespace game1.Model
                     {
                         MapElems.Add(new MapElement()
                         {
-                            Box = new Rectangle(startX - 150 * (dotNumber - 1) + i * 300,
-                                startY - levelNum * 200, size, size),
+                            Box = new Rectangle(startX - 15 * k * (dotNumber - 1) + i * 30 * k,
+                                startY - levelNum * 20 * k, size, size),
                             LevelNumber = levelNum,
                             PointType = (PointType)Enum.GetValues(typeof(PointType)).GetValue(rnd.Next(0, 3))
                         });
@@ -113,7 +113,7 @@ namespace game1.Model
 
         public void DrawRoad(MapElement e1, MapElement e2, SpriteBatch spriteBatch)
         {
-            var step = 20;
+            var step = 2 * k;
             var e1x = e1.Box.X + e1.Box.Width / 2;
             var e1y = e1.Box.Y + e1.Box.Height / 2;
 
@@ -133,7 +133,7 @@ namespace game1.Model
                 {
                     spriteBatch.Draw(roadPointTexture,
                         new Rectangle(e1x, y,
-                        20, 20), Color.White);
+                        2 * k, 2 * k), Color.White);
                 }
             }
             else if (maxx - minx > maxy - miny)
@@ -142,7 +142,7 @@ namespace game1.Model
                 {
                     spriteBatch.Draw(roadPointTexture,
                         new Rectangle(x, (int)((x - e1x) * (deltay / deltax) + e1y),
-                        20, 20), Color.White);
+                        2 * k, 2 * k), Color.White);
                 }
             }
             else
@@ -151,7 +151,7 @@ namespace game1.Model
                 {
                     spriteBatch.Draw(roadPointTexture,
                         new Rectangle((int)(deltax / deltay * (y - e1y) + e1x), y,
-                        20, 20), Color.White);
+                        2 * k, 2 * k), Color.White);
                 }
             }
         }

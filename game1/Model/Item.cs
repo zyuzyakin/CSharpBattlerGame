@@ -59,13 +59,14 @@ namespace game1.Model
             DrawBarFrame(spriteBatch, Charge / 5);
 
             spriteBatch.DrawString(Font, $"{ItemType}",
-                new Vector2(Box.X + 100, Box.Y + 250), Color.White, 0f, 
-                new Vector2(0,0), 0.4f, SpriteEffects.None, 0);
+                new Vector2(Box.X, Box.Y + Box.Height + (int)(Box.Height * 0.25)), Color.White, 
+                0f, new Vector2(0,0), 0.4f * tk, SpriteEffects.None, 0);
 
             if (IsEnabled && !IsItOwned)
             {
                 spriteBatch.DrawString(Font, Cost.ToString(),
-                new Vector2(Box.X, Box.Y), Color.Yellow);
+                new Vector2(Box.X, Box.Y + k), Color.Yellow,
+                0f, new Vector2(0, 0), tk, SpriteEffects.None, 0f);
             }
         }
         public void DrawFrame(SpriteBatch spriteBatch, int frame)
@@ -84,7 +85,7 @@ namespace game1.Model
             Rectangle sourcerect = new Rectangle(FrameWidth * frame, 0,
                 FrameWidth, ChargeBarTexture.Height);
 
-            spriteBatch.Draw(ChargeBarTexture, new Rectangle(Box.X, Box.Y + 220, 300, 200), 
+            spriteBatch.Draw(ChargeBarTexture, new Rectangle(Box.X, Box.Y + (int)(Box.Height * 0.75), Box.Width, (int)(Box.Height * 0.75)), 
                 sourcerect, Color.White);
         }
         public override void Update(GameTime gameTime, Game1 game)

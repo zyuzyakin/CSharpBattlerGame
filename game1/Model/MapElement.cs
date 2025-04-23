@@ -34,6 +34,7 @@ namespace game1.Model
         public override void Update(GameTime gameTime, Game1 game)
         {
             var curelem = game.mapState.Map.CurrentMapElem;
+
             IsAvailable = curelem == null && LevelNumber == 1
                 || curelem != null && curelem.Next.Contains(this);
 
@@ -65,28 +66,33 @@ namespace game1.Model
                 case PointType.battle:
                     game.ChangeState(game.gameState);
                     game.gameState.IsPaused = false;
-                    game.gameState.CurrentEnemy = new Enemy();
+                    game.gameState.CurrentEnemy = new Enemy(EnemyType.normal);
                     game.gameState.CurrentEnemy.LoadContent(game.Content);
                     break;
                 case PointType.hardbattle:
+
                     game.ChangeState(game.gameState);
                     game.gameState.IsPaused = false;
-                    game.gameState.CurrentEnemy = new Enemy();
+                    game.gameState.CurrentEnemy = new Enemy(EnemyType.hard);
                     game.gameState.CurrentEnemy.LoadContent(game.Content);
-                    ;
+                    
+                    break;
+                case PointType.boss:
+
+                    game.ChangeState(game.gameState);
+                    game.gameState.IsPaused = false;
+                    game.gameState.CurrentEnemy = new Enemy(EnemyType.boss);
+                    game.gameState.CurrentEnemy.LoadContent(game.Content);
+
                     break;
                 case PointType.shop:
+
                     game.ChangeState(game.shopState);
                     game.shopState.Shop = new Shop();
                     game.shopState.Shop.LoadContent(game.Content);
+
                     break;
-                case PointType.boss:
-                    game.ChangeState(game.gameState);
-                    game.gameState.IsPaused = false;
-                    game.gameState.CurrentEnemy = new Enemy();
-                    game.gameState.CurrentEnemy.LoadContent(game.Content);
-                    ;
-                    break;
+                
             }
         }
         public override void LoadContent(ContentManager content)

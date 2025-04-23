@@ -12,17 +12,17 @@ namespace game1.Model
 {
     public class Money : Button
     {
-        public int MoneyValue { get; set; } = 50;
+        public int MoneyValue { get; set; } = 10;
 
         public Money()
         {
-            Box = new Rectangle(1600, 100, 150, 150);
-            Text = $"Money:{MoneyValue}";
+            Box = new Rectangle(160 * k, 10 * k, 35 * k, 15 * k);
+            Text = $"ДЕНЬГИ:{MoneyValue}";
         }
         
         public override void Update(GameTime gameTime, Game1 game)
         {
-            Text = $"Money:{MoneyValue}";
+            Text = $"ДЕНЬГИ:{MoneyValue}";
         }
     }
 }

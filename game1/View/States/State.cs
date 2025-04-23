@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace game1.View.States
 {
-    public abstract class State
+    public abstract class State : GameObject
     {
         public Texture2D Background { get; set; }
         public Game1 Game { get; set; }
