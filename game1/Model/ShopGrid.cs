@@ -1,5 +1,4 @@
-﻿
-using game1.Controller;
+﻿using game1.Controller;
 using game1.View;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -26,9 +25,13 @@ namespace game1.Model
             {
                 new Item(){ItemType = ItemType.sword,  Cost = 1},
                 new Item(){ItemType = ItemType.shield, Cost = 2},
-                new Item(){ItemType = ItemType.bomb, Cost = 2},
+                new Item(){ItemType = ItemType.bomb, Cost = 2, Period = 200},
                 new Item(){ItemType = ItemType.ice, Cost = 2},
-                new Item(){ItemType = ItemType.healpotion, Cost = 2},
+                new Item(){ItemType = ItemType.healpotion, Cost = 2, Period = 300},
+                new Item(){ItemType = ItemType.bow, Cost = 2},
+                new Item(){ItemType = ItemType.arrow, Cost = 2},
+
+                new Item(){ItemType = ItemType.hammer, Cost = 2},
             };
         }
         public override void Draw(SpriteBatch spriteBatch)
@@ -59,12 +62,14 @@ namespace game1.Model
                         item.Color = Color.Blue;
                         if (InputManager.LeftClicked)
                         {
-                            if (game.shopState.Money.MoneyValue >= item.Cost)
+                            if (game.shopState.Money.MoneyValue >= item.Cost
+                                && game.gameState.Player.PlayerArsenal.Items.Count 
+                                < game.gameState.Player.PlayerArsenal.MaxSize)
                             {
+                                if (item.ItemType == ItemType.arrow)
+                                    game.gameState.Player.PlayerArsenal.ArrowsCount += 1;
                                 game.shopState.Money.MoneyValue -= item.Cost;
-                                
                                 game.gameState.Player.PlayerArsenal.Items.Add(new Item(item));
-                                item.Color = Color.Red;
                             }
                         }
                     }

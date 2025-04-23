@@ -20,8 +20,6 @@ namespace game1.Model
 
         public MapElement CurrentMapElem { get; set; }
 
-
-
         public Texture2D roadPointTexture { get; set; }
         public Random rnd { get; set; }
 

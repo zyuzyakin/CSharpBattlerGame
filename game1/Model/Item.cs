@@ -13,13 +13,12 @@ namespace game1.Model
     public enum ItemType
     {   
         //Защитные
-        shield, healpotion, boots, ice,
+        shield, healpotion, ice,
         //Для атаки
         sword, hammer, bow, arrow, bomb
     }
     public class Item : GameObject
     {
-
         public SpriteFont Font { get; set; }
 
         public int Charge { get; set; } // процент заряда
@@ -47,7 +46,7 @@ namespace game1.Model
             Texture = item.Texture;
             ChargeBarTexture = item.ChargeBarTexture;
             ItemType = item.ItemType;
-            
+            Period = item.Period;
             IsEnabled = true;
             IsItOwned = true;
             Font = item.Font;
@@ -111,25 +110,65 @@ namespace game1.Model
         {
             switch (ItemType)
             {
-                case ItemType.sword: 
-                    game.gameState.CurrentEnemy.HealthPoints -= 1;
+                case ItemType.sword:
+                    SwordAct(game);
                     break;
                 case ItemType.shield:
-                    game.gameState.Player.ShieldPoints += 1;
+                    ShieldAct(game);
                     break;
                 case ItemType.bomb:
-                    
+                    BombAct(game);
                     break;
                 case ItemType.ice:
-                    
+                    IceAct(game);
                     break;
                 case ItemType.healpotion:
-                    game.gameState.Player.Heal(1);
+                    HealPotionAct(game);
+                    break;
+                case ItemType.arrow:
+                    ArrowAct(game);
+                    break;
+                case ItemType.bow:
+                    BowAct(game);
+                    break;
+                case ItemType.hammer:
+                    HammerAct(game);
                     break;
             }
             
         }
-
+        public void SwordAct(Game1 game) => 
+            game.gameState.CurrentEnemy.HealthPoints -= 5;
+        public void ShieldAct(Game1 game) =>
+            game.gameState.Player.ShieldPoints += 1;
+        public void BombAct(Game1 game)
+        {
+            game.gameState.CurrentEnemy.HealthPoints -= 50;
+            IsEnabled = false;
+        }
+        public void IceAct(Game1 game)
+        {
+            game.gameState.CurrentEnemy.Charge
+                 = Math.Max(game.gameState.CurrentEnemy.Charge - 5, 0);
+        }
+        public void HealPotionAct(Game1 game)
+        {
+            game.gameState.Player.Heal(1);
+        }
+        public void ArrowAct(Game1 game)
+        {
+            game.gameState.CurrentEnemy.HealthPoints -= 1;
+        }
+        public void BowAct(Game1 game)
+        {   
+            game.gameState.CurrentEnemy.HealthPoints -= 1 
+                + game.gameState.Player.PlayerArsenal.ArrowsCount;
+        }
+        public void HammerAct(Game1 game)
+        {
+            var rnd = new Random();
+            game.gameState.CurrentEnemy.HealthPoints -= 1 + rnd.Next(0, 7);
+        }
         public override void LoadContent(ContentManager content)
         {
             Texture = content.Load<Texture2D>($"items/{ItemType}sheet");

@@ -10,7 +10,6 @@ namespace game1.Model
 {
     public class Enemy : GameObject
     {
-        public int MaxHealthPoints { get; set; }
         public int HealthPoints { get; set; }
         public bool IsDefeated { get; set; }
 
@@ -24,12 +23,11 @@ namespace game1.Model
 
         public Texture2D ChargeBarTexture { get; set; }
         public int TotalElapsed { get; set; } = 0; // сколько времени прошло
-        public int Period { get; set; } = 50; // частота обновления в миллисекундах
+        public int Period { get; set; } = 150; // частота обновления в миллисекундах
 
         public Enemy()
         {
-            MaxHealthPoints = 30;
-            HealthPoints = 30;
+            HealthPoints = 100;
             Damage = 1;
             Text = "";
             ChargePerPeriod = 5;
@@ -45,7 +43,7 @@ namespace game1.Model
             {
                 spriteBatch.Draw(Texture, Box, Color);
 
-                string hpDisplay = $"HP:{HealthPoints}/{MaxHealthPoints}";
+                string hpDisplay = $"HP:{HealthPoints}";
 
                 spriteBatch.DrawString(Font, hpDisplay, new Vector2(Box.X, Box.Y + Box.Height)
                     + new Vector2(0.0f, 0.0f), Color.White);
@@ -84,22 +82,20 @@ namespace game1.Model
                 game.gameState.IsPaused = true;
                 game.gameState.PauseButton.IsEnabled = false;
             }
-            if (!IsDefeated)
+
+            if (IsDefeated) return;
+            if (game.gameState.IsPaused) return;
+            
+            TotalElapsed += gameTime.ElapsedGameTime.Milliseconds;
+            if (TotalElapsed > Period)
             {
-                if (!game.gameState.IsPaused)
+                TotalElapsed -= Period;
+                Charge += ChargePerPeriod;
+                Text = Charge.ToString();
+                if (Charge >= 100)
                 {
-                    TotalElapsed += gameTime.ElapsedGameTime.Milliseconds;
-                    if (TotalElapsed > Period)
-                    {
-                        TotalElapsed -= Period;
-                        Charge += ChargePerPeriod;
-                        Text = Charge.ToString();
-                        if (Charge >= 100)
-                        {
-                            Charge = 0;
-                            AtackPlayer(gameTime, game);
-                        }
-                    }
+                    Charge = 0;
+                    AtackPlayer(gameTime, game);
                 }
             }
         }

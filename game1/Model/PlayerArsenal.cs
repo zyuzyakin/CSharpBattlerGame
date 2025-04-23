@@ -12,6 +12,8 @@ namespace game1.Model
     public class PlayerArsenal : GameObject
     {   
         public List<Item> Items { get; set; }
+
+        public int ArrowsCount { get; set; }
         public int MaxSize { get; set; }
         public PlayerArsenal()
         {
@@ -19,7 +21,7 @@ namespace game1.Model
             Items = new List<Item>();
             MaxSize = 8;
         }
-
+        
         public override void Draw(SpriteBatch spriteBatch)
         {
             var distance = 10;
@@ -28,12 +30,9 @@ namespace game1.Model
 
             for (var i = 0; i < Items.Count; i++)
             {
-
                 Items[i].Box = new Rectangle(Box.X + i % 4 * (itemWidth + distance),
                     Box.Y + (i / 4) * (itemHeight + distance),
                     itemWidth, itemHeight);
-
-               
                 Items[i].Draw(spriteBatch);
             }
         }
@@ -53,6 +52,5 @@ namespace game1.Model
                 item.LoadContent(content);
             }
         }
-
     }
 }
