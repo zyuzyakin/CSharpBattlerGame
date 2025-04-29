@@ -38,6 +38,11 @@ namespace game1.Model
         }
         public override void Update(GameTime gameTime, Game1 game)
         {
+            if (HealthPoints <= 0)
+            {
+                game.gameState.RestartGameButton.IsEnabled = true;
+                game.gameState.IsPaused = true;
+            }
             PlayerArsenal.Update(gameTime, game);
         }
         public override void Draw(SpriteBatch spriteBatch)

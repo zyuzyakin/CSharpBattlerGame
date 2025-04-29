@@ -13,30 +13,26 @@ namespace game1.View.States
 {
     public class StartMenuState : State
     {
-        public Button playButton { get; set; }
-        public Button exitButton;
-
+        public Button PlayButton { get; set; }
+        public Button ExitButton { get; set; }
 
         public StartMenuState(Game1 game, ContentManager content, GraphicsDevice graphicsDevice) : base(game, content, graphicsDevice)
         {
-            playButton = new Button()
+            PlayButton = new Button()
             {
                 Box = new Rectangle(10 * k, 60 * k, 50 * k, 15 * k),
                 Text = "Начать игру",
                 OnClick = Button.StartGame
             };
-            exitButton = new Button()
+            ExitButton = new Button()
             {
                 Box = new Rectangle(10 * k, 80 * k, 50 * k, 15 * k),
                 Text = "Выход",
                 OnClick = Button.ExitGame
             };
 
-            playButton.Texture = content.Load<Texture2D>("controls/button");
-            playButton.Font = content.Load<SpriteFont>("fonts/Hud");
-
-            exitButton.Texture = content.Load<Texture2D>("controls/button");
-            exitButton.Font = content.Load<SpriteFont>("fonts/Hud");
+            PlayButton.LoadContent(content);
+            ExitButton.LoadContent(content);
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -45,19 +41,16 @@ namespace game1.View.States
 
             spriteBatch.Begin();
 
-            playButton.Draw(spriteBatch);
-            exitButton.Draw(spriteBatch);
+            PlayButton.Draw(spriteBatch);
+            ExitButton.Draw(spriteBatch);
            
             spriteBatch.End();
         }
 
         public override void Update(GameTime gameTime, Game1 game)
         {
-            playButton.Update(gameTime, game);
-            exitButton.Update(gameTime, game);
+            PlayButton.Update(gameTime, game);
+            ExitButton.Update(gameTime, game);
         }
-
-        
-
     }
 }

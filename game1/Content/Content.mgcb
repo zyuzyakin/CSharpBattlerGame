@@ -49,6 +49,30 @@
 /processorParam:TextureFormat=Color
 /build:controls/button.png
 
+#begin enemies/adwaresheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:enemies/adwaresheet.png
+
+#begin enemies/minersheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:enemies/minersheet.png
+
 #begin enemies/mobbarsheet.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -61,7 +85,7 @@
 /processorParam:TextureFormat=Color
 /build:enemies/mobbarsheet.png
 
-#begin enemies/Снимок экрана 2025-04-01 192615.png
+#begin enemies/spywaresheet.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -71,7 +95,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:enemies/Снимок экрана 2025-04-01 192615.png;enemies/ptichka.png
+/build:enemies/spywaresheet.png
 
 #begin fonts/Hud.spritefont
 /importer:FontDescriptionImporter

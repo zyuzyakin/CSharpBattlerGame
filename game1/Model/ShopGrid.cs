@@ -3,9 +3,7 @@ using game1.View;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using SharpDX.Direct3D9;
-using System;
+
 using System.Collections.Generic;
 using System.Reflection.Metadata;
 
@@ -25,12 +23,10 @@ namespace game1.Model
             {
                 new Item(){ItemType = ItemType.sword,  Cost = 1},
                 new Item(){ItemType = ItemType.shield, Cost = 2},
-                new Item(){ItemType = ItemType.bomb, Cost = 2, Period = 200},
-                new Item(){ItemType = ItemType.ice, Cost = 2},
-                new Item(){ItemType = ItemType.healpotion, Cost = 2, Period = 300},
+                new Item(){ItemType = ItemType.bomb, Cost = 3, Period = 200},
+                new Item(){ItemType = ItemType.ice, Cost = 1},
+                new Item(){ItemType = ItemType.healpotion, Cost = 3},
                 new Item(){ItemType = ItemType.bow, Cost = 2},
-                new Item(){ItemType = ItemType.arrow, Cost = 2},
-
                 new Item(){ItemType = ItemType.hammer, Cost = 2},
             };
         }
@@ -52,11 +48,8 @@ namespace game1.Model
 
         public override void Update(GameTime gameTime, Game1 game)
         {   
-
             foreach (var item in Items)
             {
-                if (item.IsEnabled)
-                {
                     if (InputManager.Hover(item.Box))
                     {
                         item.Color = Color.Blue;
@@ -66,8 +59,6 @@ namespace game1.Model
                                 && game.gameState.Player.PlayerArsenal.Items.Count 
                                 < game.gameState.Player.PlayerArsenal.MaxSize)
                             {
-                                if (item.ItemType == ItemType.arrow)
-                                    game.gameState.Player.PlayerArsenal.ArrowsCount += 1;
                                 game.shopState.Money.MoneyValue -= item.Cost;
                                 game.gameState.Player.PlayerArsenal.Items.Add(new Item(item));
                             }
@@ -76,8 +67,7 @@ namespace game1.Model
                     else
                     {
                         item.Color = Color.White;
-                    }
-                }
+                    } 
             }
         }
 

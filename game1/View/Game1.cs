@@ -33,7 +33,6 @@ public class Game1 : Game
 
     public Game1()
     {
-
         _graphics = new GraphicsDeviceManager(this);
 
         Content.RootDirectory = "Content";
@@ -46,13 +45,17 @@ public class Game1 : Game
         
         _graphics.SupportedOrientations = DisplayOrientation.LandscapeLeft | DisplayOrientation.LandscapeRight;
 
-        
     }
     public void ChangeState(State state)
     {
         nextState = state;
     }
-
+    public void NewGame()
+    {
+        mapState = new MapState(this, Content, _graphics.GraphicsDevice);
+        gameState = new GameState(this, Content, _graphics.GraphicsDevice);
+        shopState = new ShopState(this, Content, _graphics.GraphicsDevice);
+    }
     protected override void LoadContent()
     {
         startMenuState = new StartMenuState(this, Content, _graphics.GraphicsDevice);

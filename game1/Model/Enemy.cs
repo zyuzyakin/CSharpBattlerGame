@@ -10,7 +10,7 @@ using System.Collections.Generic;
 namespace game1.Model
 {   public enum EnemyType
     {
-        normal, hard, boss
+        adware, spyware, miner
     }
     public class Enemy : GameObject
     {   
@@ -29,29 +29,30 @@ namespace game1.Model
         public Texture2D ChargeBarTexture { get; set; }
         public int TotalElapsed { get; set; } // сколько времени прошло
         public int Period { get; set; } // частота обновления в миллисекундах
+        public int AtackIteration { get; set; } = 0;
 
         public Enemy(EnemyType type)
         {
-            Box = new Rectangle(80 * k, 8 * k, 40 * k, 40 * k);
+            Box = new Rectangle(70 * k, 30 * k, 50 * k, 50 * k);
             Text = "";
             ChargePerPeriod = 1;
-            Period = 50;
+            Period = 25;
             var rnd = new Random();
             EnemyType = type;
             switch (EnemyType)
             {
-                case EnemyType.normal:
+                case EnemyType.adware:
                     MoneyReward = 10;
                     HealthPoints = 150;
                     Damage = 3;
                     break;
-                case EnemyType.hard:
+                case EnemyType.spyware:
                     MoneyReward = 20;
                     HealthPoints = 250;
                     Damage = 4;
                     break;
-                case EnemyType.boss:
-                    MoneyReward = 9999;
+                case EnemyType.miner:
+                    MoneyReward = 20;
                     HealthPoints = 350;
                     Damage = 5;
                     break;
@@ -62,8 +63,9 @@ namespace game1.Model
         {
             if (!IsDefeated)
             {
-                spriteBatch.Draw(Texture, Box, Color);
+                DrawFrame(spriteBatch, Charge / 5);
 
+                DrawBarFrame(spriteBatch, Charge / 5);
                 string hpDisplay = $"HP:{HealthPoints}";
 
                 spriteBatch.DrawString(Font, hpDisplay, 
@@ -73,29 +75,39 @@ namespace game1.Model
                 spriteBatch.DrawString(Font, Damage.ToString(), 
                     new Vector2(Box.X + Box.Width, Box.Y + Box.Height), Color.Red,
                     0f, new Vector2(0, 0), tk, SpriteEffects.None, 0f);
-
-                DrawBarFrame(spriteBatch, Charge / 5);
             }
         }
+        public void DrawFrame(SpriteBatch spriteBatch, int frame)
+        {
+            int FrameWidth = Texture.Width / 20;
 
+            Rectangle sourcerect = new Rectangle(FrameWidth * frame, 0,
+                FrameWidth, Texture.Height);
+
+            spriteBatch.Draw(Texture, Box, sourcerect, Color);
+        }
         public void DrawBarFrame(SpriteBatch spriteBatch, int frame)
         {
-            int FrameWidth = ChargeBarTexture.Width / 20;
-            Vector2 position = new Vector2(Box.X + Box.Width + 2 * k, Box.Y + 34 * k);
-            
+            int FrameWidth = ChargeBarTexture.Width / 20;            
 
             Rectangle sourcerect = new Rectangle(FrameWidth * frame, 0,
                 FrameWidth, ChargeBarTexture.Height);
 
             spriteBatch.Draw(ChargeBarTexture, 
-                new Rectangle(Box.X + Box.Width + 2 * k, Box.Y + 34 * k, Box.Width, 20 * k), 
+                new Rectangle(Box.X + Box.Width + 2 * k, Box.Y + 34 * k, 20 * k, 30 * k), 
                 sourcerect, Color.White);
         }
 
         public override void Update(GameTime gameTime, Game1 game)
         {   
             if(HealthPoints <= 0)
-            {
+            {   
+                if(EnemyType == EnemyType.miner)
+                {
+                    game.gameState.RestartGameButton.Text = "ВЫ ВЫИГРАЛИ\n\n\nНОВАЯ ИГРА";
+                    game.gameState.RestartGameButton.IsEnabled = true;
+                    game.gameState.BackToMapButton.IsEnabled = false;
+                }
                 if (!IsDefeated)
                     game.shopState.Money.MoneyValue += MoneyReward;
 
@@ -103,6 +115,8 @@ namespace game1.Model
                 
                 game.gameState.IsPaused = true;
                 game.gameState.PauseButton.IsEnabled = false;
+
+                game.gameState.BackToMapButton.IsEnabled = true;
             }
 
             if (IsDefeated) return;
@@ -118,13 +132,14 @@ namespace game1.Model
                 {
                     Charge = 0;
                     AtackPlayer(gameTime, game);
+                    AtackIteration++;
                 }
             }
         }
         public void AtackPlayer(GameTime gameTime, Game1 game)
         {
             game.gameState.Player.ShieldPoints -= Damage;
-
+            Damage += AtackIteration / 10;
             if (game.gameState.Player.ShieldPoints < 0)
                 game.gameState.Player.HealthPoints += game.gameState.Player.ShieldPoints;
 
@@ -134,7 +149,7 @@ namespace game1.Model
 
         public override void LoadContent(ContentManager content)
         {
-            Texture = content.Load<Texture2D>("enemies/ptichka");
+            Texture = content.Load<Texture2D>($"enemies/{EnemyType}sheet");
             Font = content.Load<SpriteFont>("fonts/Hud");
             ChargeBarTexture = content.Load<Texture2D>("enemies/mobbarsheet");
         }

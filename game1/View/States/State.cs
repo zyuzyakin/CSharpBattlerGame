@@ -9,8 +9,9 @@ using System.Threading.Tasks;
 
 namespace game1.View.States
 {
-    public abstract class State : GameObject
+    public class State : GameObject
     {
+        public List<GameObject> StateElements { get; set; }
         public Texture2D Background { get; set; }
         public Game1 Game { get; set; }
         public ContentManager Content { get; set; }
@@ -24,9 +25,9 @@ namespace game1.View.States
             GraphicDevice = graphicsDevice;
         }
 
-        public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
+        public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        { 
 
-        public abstract void Update(GameTime gameTime, Game1 game);
-
+        }
     }
 }

@@ -50,7 +50,7 @@ namespace game1.Model
             else
             {
                 if (IsAvailable)
-                    Color = Color.YellowGreen;
+                    Color = Color.Yellow;
                 else
                     Color = Color.White;
             }
@@ -61,19 +61,24 @@ namespace game1.Model
             switch (PointType)
             {
                 case PointType.chest:
-                    ;
+                    game.ChangeState(game.gameState);
+                    game.gameState.IsPaused = false;
+                    game.gameState.CurrentEnemy = new Enemy(EnemyType.adware);
+                    game.gameState.CurrentEnemy.LoadContent(game.Content);
                     break;
                 case PointType.battle:
                     game.ChangeState(game.gameState);
                     game.gameState.IsPaused = false;
-                    game.gameState.CurrentEnemy = new Enemy(EnemyType.normal);
+                    game.gameState.BackToMapButton.IsEnabled = false;
+                    game.gameState.CurrentEnemy = new Enemy(EnemyType.adware);
                     game.gameState.CurrentEnemy.LoadContent(game.Content);
                     break;
                 case PointType.hardbattle:
 
                     game.ChangeState(game.gameState);
                     game.gameState.IsPaused = false;
-                    game.gameState.CurrentEnemy = new Enemy(EnemyType.hard);
+                    game.gameState.BackToMapButton.IsEnabled = false;
+                    game.gameState.CurrentEnemy = new Enemy(EnemyType.spyware);
                     game.gameState.CurrentEnemy.LoadContent(game.Content);
                     
                     break;
@@ -81,16 +86,15 @@ namespace game1.Model
 
                     game.ChangeState(game.gameState);
                     game.gameState.IsPaused = false;
-                    game.gameState.CurrentEnemy = new Enemy(EnemyType.boss);
+                    game.gameState.BackToMapButton.IsEnabled = false;
+                    game.gameState.CurrentEnemy = new Enemy(EnemyType.miner);
                     game.gameState.CurrentEnemy.LoadContent(game.Content);
 
                     break;
                 case PointType.shop:
-
                     game.ChangeState(game.shopState);
-                    game.shopState.Shop = new Shop();
-                    game.shopState.Shop.LoadContent(game.Content);
-
+                    game.shopState.ShopGrid = new ShopGrid();
+                    game.shopState.ShopGrid.LoadContent(game.Content);
                     break;
                 
             }

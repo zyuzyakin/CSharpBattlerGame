@@ -54,7 +54,11 @@ namespace game1.Model
         }
 
         //Функционал кнопок
-        public static void StartGame(Game1 game) => game.ChangeState(game.mapState);
+        public static void StartGame(Game1 game) 
+        {
+            game.NewGame();
+            game.ChangeState(game.mapState); 
+        }
         public static void ExitGame(Game1 game) => game.Exit();
         public static void BackToMap(Game1 game)
         {

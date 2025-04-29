@@ -12,26 +12,27 @@ namespace game1.Model
     public class PlayerArsenal : GameObject
     {   
         public List<Item> Items { get; set; }
-
-        public int ArrowsCount { get; set; }
         public int MaxSize { get; set; }
         public PlayerArsenal()
         {
-            Box = new Rectangle(50 * k, 100 * k, 100 * k, 40 * k);
+            Box = new Rectangle(50 * k, 90 * k, 100 * k, 40 * k);
             Items = new List<Item>();
-            MaxSize = 16;
+            MaxSize = 8;
         }
-        
+        public void CombineItems()
+        {
+            
+        }
         public override void Draw(SpriteBatch spriteBatch)
         {
             var distance = k;
-            var itemWidth = 15 * k;
-            var itemHeight = 15 * k;
+            var itemWidth = 20 * k;
+            var itemHeight = 20 * k;
 
             for (var i = 0; i < Items.Count; i++)
             {
-                Items[i].Box = new Rectangle(Box.X + i % 8 * (itemWidth + distance),
-                    Box.Y + (i / 8) * (itemHeight + distance),
+                Items[i].Box = new Rectangle(Box.X + i % (MaxSize/2) * (itemWidth + distance),
+                    Box.Y + (i / (MaxSize / 2)) * (itemHeight + 6 * distance),
                     itemWidth, itemHeight);
                 Items[i].Draw(spriteBatch);
             }

@@ -16,16 +16,15 @@ namespace game1.Model
 {
     public class Map : GameObject
     {
-        public List<MapElement> MapElems { get; set; }
+        private readonly Random rnd;
+        private Texture2D roadPointTexture;
+        private List<MapElement> mapElems;
 
         public MapElement CurrentMapElem { get; set; }
 
-        public Texture2D roadPointTexture { get; set; }
-        public Random rnd { get; set; }
-
         public Map()
         {
-            MapElems = new List<MapElement>();
+            mapElems = new List<MapElement>();
             rnd = new Random();
             CurrentMapElem = null;
 
@@ -38,7 +37,7 @@ namespace game1.Model
             {
                 if (levelNum == 1 || levelNum == (totalLevels + 1) / 2  || levelNum == totalLevels-1)
                 {
-                    MapElems.Add(new MapElement()
+                    mapElems.Add(new MapElement()
                     {
                         Box = new Rectangle(startX,
                                 startY - levelNum * 20 * k, size, size),
@@ -49,7 +48,7 @@ namespace game1.Model
                 }
                 else if(levelNum == totalLevels)
                 {
-                    MapElems.Add(new MapElement()
+                    mapElems.Add(new MapElement()
                     {
                         Box = new Rectangle(startX - 5 * k, startY - 20 * k * totalLevels - 10 * k, 30 * k, 30 * k),
                         LevelNumber = levelNum,
@@ -61,7 +60,7 @@ namespace game1.Model
                     var dotNumber = rnd.Next(2, 4);
                     for (int i = 0; i < dotNumber; i++)
                     {
-                        MapElems.Add(new MapElement()
+                        mapElems.Add(new MapElement()
                         {
                             Box = new Rectangle(startX - 15 * k * (dotNumber - 1) + i * 30 * k,
                                 startY - levelNum * 20 * k, size, size),
@@ -72,13 +71,13 @@ namespace game1.Model
                 }
             }
 
-            foreach (var elem in MapElems)
+            foreach (var elem in mapElems)
             {
                 if (elem.LevelNumber != 1)
                 {
                     if (!elem.Previous.Any())
                     {
-                        var prevLevelItems = MapElems.Where(x => x.LevelNumber == elem.LevelNumber - 1);
+                        var prevLevelItems = mapElems.Where(x => x.LevelNumber == elem.LevelNumber - 1);
                         var r = rnd.Next(0, prevLevelItems.Count());
                         var prevelem = prevLevelItems.Skip(r).First();
                         elem.Previous.Add(prevelem);
@@ -89,7 +88,7 @@ namespace game1.Model
                 {
                     if (!elem.Next.Any())
                     {
-                        var nextLevelItems = MapElems.Where(x => x.LevelNumber == elem.LevelNumber + 1);
+                        var nextLevelItems = mapElems.Where(x => x.LevelNumber == elem.LevelNumber + 1);
                         var r = rnd.Next(0, nextLevelItems.Count());
                         var nextelem = nextLevelItems.Skip(r).First();
                         elem.Next.Add(nextelem);
@@ -101,7 +100,7 @@ namespace game1.Model
         
         public override void Draw(SpriteBatch spriteBatch)
         {
-            foreach (var elem in MapElems)
+            foreach (var elem in mapElems)
             {
                 foreach (var nelem in elem.Next)
                 {
@@ -158,7 +157,7 @@ namespace game1.Model
 
         public override void Update(GameTime gameTime, Game1 game)
         {
-            foreach (var elem in MapElems)
+            foreach (var elem in mapElems)
             {
                 elem.Update(gameTime, game);
             }
@@ -168,7 +167,7 @@ namespace game1.Model
         {
             roadPointTexture = content.Load<Texture2D>("mapIcons/roadPoint");
 
-            foreach (var elem in MapElems)
+            foreach (var elem in mapElems)
             {
                 elem.LoadContent(content);
             }

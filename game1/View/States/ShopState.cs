@@ -12,19 +12,26 @@ namespace game1.View.States
 {
     public class ShopState : State
     {
-        public Shop Shop { get; set; }
-
+        public ShopGrid ShopGrid { get; set; }
         public Money Money { get; set; }
-
         public Button BackToMapButton { get; set; }
+        public Button CombineItemsButton { get; set; }
+
 
         public ShopState(Game1 game, ContentManager content, GraphicsDevice graphicsDevice) : base(game, content, graphicsDevice)
         {
             Background = content.Load<Texture2D>("backgrounds/bgshop");
 
-            Shop = new Shop();
+            ShopGrid = new ShopGrid();
 
-            Shop.LoadContent(content);
+            ShopGrid.LoadContent(content);
+
+            //CombineItemsButton = new Button()
+            //{
+            //    Box = new Rectangle(180 * k, 130 * k, 15 * k, 15 * k),
+            //    Text = "Соединить предметы",
+            //    OnClick = Button.BackToMap
+            //};
 
             BackToMapButton = new Button()
             {
@@ -47,7 +54,7 @@ namespace game1.View.States
             spriteBatch.Begin();
 
             spriteBatch.Draw(Background, new Rectangle(0, 0, 200 * k, 150 * k), Color.White);
-            Shop.Draw(spriteBatch);
+            ShopGrid.Draw(spriteBatch);
             Game.gameState.Player.PlayerArsenal.Draw(spriteBatch);
             BackToMapButton.Draw(spriteBatch);
             Money.Draw(spriteBatch);
@@ -60,7 +67,7 @@ namespace game1.View.States
         {
             
             BackToMapButton.Update(gameTime, game);
-            Shop.Update(gameTime, game);
+            ShopGrid.Update(gameTime, game);
             Money.Update(gameTime, game);
         }
 

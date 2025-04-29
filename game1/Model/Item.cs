@@ -15,31 +15,29 @@ namespace game1.Model
         //Защитные
         shield, healpotion, ice,
         //Для атаки
-        sword, hammer, bow, arrow, bomb
+        sword, hammer, bow, bomb
     }
     public class Item : GameObject
     {
         public SpriteFont Font { get; set; }
+        public Texture2D ChargeBarTexture { get; set; }
 
         public int Charge { get; set; } // процент заряда
-
-        public Texture2D ChargeBarTexture { get; set; }
         public int ChargePerPeriod { get; set; } // заряд за 1 интервал
 
         public ItemType ItemType { get; set; }
+        public int Level { get; set; } = 1;
         public bool IsEnabled { get; set; }
-
         public bool IsItOwned { get; set; }
 
         public int Cost { get; set; } 
-
         public int TotalElapsed { get; set; } = 0; // сколько времени прошло
         public int Period { get; set; } = 50; // период обновления в миллисекундах
+        public int ItemIteration { get; set; } = 0;
         public Item()
         {
             IsEnabled = true;
-            ChargePerPeriod = 5;
-
+            ChargePerPeriod = 2;
         }
         public Item(Item item)
         {
@@ -104,6 +102,7 @@ namespace game1.Model
                 {
                     Charge = 0;
                     Act(gameTime, game);
+                    ItemIteration++;
                 }
             }
         }
@@ -125,9 +124,6 @@ namespace game1.Model
                     break;
                 case ItemType.healpotion:
                     HealPotionAct(game);
-                    break;
-                case ItemType.arrow:
-                    ArrowAct(game);
                     break;
                 case ItemType.bow:
                     BowAct(game);
@@ -156,14 +152,10 @@ namespace game1.Model
         {
             game.gameState.Player.Heal(1);
         }
-        public void ArrowAct(Game1 game)
-        {
-            game.gameState.CurrentEnemy.HealthPoints -= 1;
-        }
         public void BowAct(Game1 game)
         {   
-            game.gameState.CurrentEnemy.HealthPoints -= 1 
-                + game.gameState.Player.PlayerArsenal.ArrowsCount;
+            game.gameState.CurrentEnemy.HealthPoints -= 1;
+            Period = Math.Max(10, Period - ItemIteration);
         }
         public void HammerAct(Game1 game)
         {

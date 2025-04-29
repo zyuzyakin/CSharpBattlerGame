@@ -12,7 +12,7 @@ namespace game1.Model
 {
     public class Money : Button
     {
-        public int MoneyValue { get; set; } = 10;
+        public int MoneyValue { get; set; } = 20;
 
         public Money()
         {
