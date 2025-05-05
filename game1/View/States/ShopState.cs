@@ -12,6 +12,8 @@ namespace game1.View.States
 {
     public class ShopState : State
     {
+        public AnimatedTexture PlayerTexture { get; set; }
+
         public ShopGrid ShopGrid { get; set; }
         public Money Money { get; set; }
         public Button BackToMapButton { get; set; }
@@ -22,16 +24,19 @@ namespace game1.View.States
         {
             Background = content.Load<Texture2D>("backgrounds/bgshop");
 
+            PlayerTexture = new AnimatedTexture(20, 24, "playershopsheet", 
+                new Rectangle(160 * k, 40 * k, 40 * k, 40 * k));
+
             ShopGrid = new ShopGrid();
 
             ShopGrid.LoadContent(content);
 
-            //CombineItemsButton = new Button()
-            //{
-            //    Box = new Rectangle(180 * k, 130 * k, 15 * k, 15 * k),
-            //    Text = "Соединить предметы",
-            //    OnClick = Button.BackToMap
-            //};
+            CombineItemsButton = new Button()
+            {
+                Box = new Rectangle(180 * k, 90 * k, 15 * k, 15 * k),
+                Text = "Соединить предметы",
+                OnClick = Button.CombineItems
+            };
 
             BackToMapButton = new Button()
             {
@@ -44,6 +49,8 @@ namespace game1.View.States
 
             Money.LoadContent(content);
             BackToMapButton.LoadContent(content);
+            CombineItemsButton.LoadContent(content);
+            PlayerTexture.LoadContent(content);
 
         }
         
@@ -58,17 +65,19 @@ namespace game1.View.States
             Game.gameState.Player.PlayerArsenal.Draw(spriteBatch);
             BackToMapButton.Draw(spriteBatch);
             Money.Draw(spriteBatch);
-
+            CombineItemsButton.Draw(spriteBatch);
+            PlayerTexture.Draw(spriteBatch);
             spriteBatch.End();
 
         }
 
         public override void Update(GameTime gameTime, Game1 game)
         {
-            
+            CombineItemsButton.Update(gameTime, game);
             BackToMapButton.Update(gameTime, game);
             ShopGrid.Update(gameTime, game);
             Money.Update(gameTime, game);
+            PlayerTexture.Update(gameTime, game);
         }
 
     }

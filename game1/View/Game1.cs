@@ -66,7 +66,6 @@ public class Game1 : Game
         currentState = startMenuState;
 
         _spriteBatch = new SpriteBatch(GraphicsDevice);
-       
     }
     
     protected override void Update(GameTime gameTime)

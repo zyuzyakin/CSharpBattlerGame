@@ -23,7 +23,7 @@ namespace game1.Model
             {
                 new Item(){ItemType = ItemType.sword,  Cost = 1},
                 new Item(){ItemType = ItemType.shield, Cost = 2},
-                new Item(){ItemType = ItemType.bomb, Cost = 3, Period = 200},
+                new Item(){ItemType = ItemType.bomb, Cost = 3},
                 new Item(){ItemType = ItemType.ice, Cost = 1},
                 new Item(){ItemType = ItemType.healpotion, Cost = 3},
                 new Item(){ItemType = ItemType.bow, Cost = 2},

@@ -50,8 +50,6 @@ namespace game1.Model
             string hpDisplay = $"ЗДОРОВЬЕ:\n{HealthPoints}/{MaxHealthPoints}";
             string shieldDisplay = "ЩИТ:" + (ShieldPoints == 0 ? "" : ShieldPoints.ToString());
 
-            spriteBatch.Draw(Texture, Box, Color);
-
             spriteBatch.DrawString(Font, hpDisplay, 
                 new Vector2(Box.X, Box.Y + Box.Height + k), Color.White, 
                 0f, new Vector2(0,0), tk, SpriteEffects.None, 0f);
@@ -62,7 +60,6 @@ namespace game1.Model
 
         public override void LoadContent(ContentManager content)
         {
-            Texture = content.Load<Texture2D>("player");
             
             Font = content.Load<SpriteFont>("fonts/Hud");
         }

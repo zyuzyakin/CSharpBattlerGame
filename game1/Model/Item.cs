@@ -34,11 +34,13 @@ namespace game1.Model
         public int TotalElapsed { get; set; } = 0; // сколько времени прошло
         public int Period { get; set; } = 50; // период обновления в миллисекундах
         public int ItemIteration { get; set; } = 0;
+
         public Item()
         {
             IsEnabled = true;
             ChargePerPeriod = 2;
         }
+
         public Item(Item item)
         {
             Texture = item.Texture;
@@ -56,7 +58,7 @@ namespace game1.Model
 
             DrawBarFrame(spriteBatch, Charge / 5);
 
-            spriteBatch.DrawString(Font, $"{ItemType}",
+            spriteBatch.DrawString(Font, $"{ItemType}/{Level}",
                 new Vector2(Box.X, Box.Y + Box.Height + (int)(Box.Height * 0.25)), Color.White, 
                 0f, new Vector2(0,0), 0.4f * tk, SpriteEffects.None, 0);
 
@@ -135,32 +137,32 @@ namespace game1.Model
             
         }
         public void SwordAct(Game1 game) => 
-            game.gameState.CurrentEnemy.HealthPoints -= 5;
+            game.gameState.CurrentEnemy.HealthPoints -= 5 * Level;
         public void ShieldAct(Game1 game) =>
-            game.gameState.Player.ShieldPoints += 1;
+            game.gameState.Player.ShieldPoints += 1 * Level;
         public void BombAct(Game1 game)
         {
-            game.gameState.CurrentEnemy.HealthPoints -= 50;
+            game.gameState.CurrentEnemy.HealthPoints -= 50 * Level;
             IsEnabled = false;
         }
         public void IceAct(Game1 game)
         {
             game.gameState.CurrentEnemy.Charge
-                 = Math.Max(game.gameState.CurrentEnemy.Charge - 5, 0);
+                 = Math.Max(game.gameState.CurrentEnemy.Charge - 5 * Level, 0);
         }
         public void HealPotionAct(Game1 game)
         {
-            game.gameState.Player.Heal(1);
+            game.gameState.Player.Heal(1 * Level);
         }
         public void BowAct(Game1 game)
         {   
-            game.gameState.CurrentEnemy.HealthPoints -= 1;
-            Period = Math.Max(10, Period - ItemIteration);
+            game.gameState.CurrentEnemy.HealthPoints -= 1 * Level;
+            Period = Math.Max(10, Period - ItemIteration * Level);
         }
         public void HammerAct(Game1 game)
         {
             var rnd = new Random();
-            game.gameState.CurrentEnemy.HealthPoints -= 1 + rnd.Next(0, 7);
+            game.gameState.CurrentEnemy.HealthPoints -= (1 + rnd.Next(0, 7)) * Level;
         }
         public override void LoadContent(ContentManager content)
         {

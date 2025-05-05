@@ -9,6 +9,7 @@ namespace game1.View.States
 {
     public class GameState : State
     {   
+        public AnimatedTexture PlayerTexture { get; set; }
         public Player Player { get; private set; }
         public Enemy CurrentEnemy { get; set; }
         public bool IsPaused {get;set;}
@@ -20,7 +21,9 @@ namespace game1.View.States
         {
             StateElements = new List<GameObject>();
             Background = content.Load<Texture2D>("backgrounds/bgbattle");
-
+            PlayerTexture = new AnimatedTexture(20, 24, "playerbattlesheet", 
+                new Rectangle(10 * k, 80 * k, 40 * k, 40 * k));
+            
             Player = new Player();
 
 
@@ -53,6 +56,8 @@ namespace game1.View.States
             StateElements.Add(BackToMapButton);
             StateElements.Add(PauseButton);
             StateElements.Add(RestartGameButton);
+            StateElements.Add(PlayerTexture);
+
             //StateElements.Add(game.shopState.Money);
 
             foreach (var e in StateElements)

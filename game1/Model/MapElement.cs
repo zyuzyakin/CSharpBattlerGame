@@ -69,6 +69,7 @@ namespace game1.Model
                 case PointType.battle:
                     game.ChangeState(game.gameState);
                     game.gameState.IsPaused = false;
+                    game.gameState.PauseButton.IsEnabled = true;
                     game.gameState.BackToMapButton.IsEnabled = false;
                     game.gameState.CurrentEnemy = new Enemy(EnemyType.adware);
                     game.gameState.CurrentEnemy.LoadContent(game.Content);
@@ -77,6 +78,7 @@ namespace game1.Model
 
                     game.ChangeState(game.gameState);
                     game.gameState.IsPaused = false;
+                    game.gameState.PauseButton.IsEnabled = true;
                     game.gameState.BackToMapButton.IsEnabled = false;
                     game.gameState.CurrentEnemy = new Enemy(EnemyType.spyware);
                     game.gameState.CurrentEnemy.LoadContent(game.Content);
@@ -86,6 +88,7 @@ namespace game1.Model
 
                     game.ChangeState(game.gameState);
                     game.gameState.IsPaused = false;
+                    game.gameState.PauseButton.IsEnabled = true;
                     game.gameState.BackToMapButton.IsEnabled = false;
                     game.gameState.CurrentEnemy = new Enemy(EnemyType.miner);
                     game.gameState.CurrentEnemy.LoadContent(game.Content);
@@ -99,6 +102,7 @@ namespace game1.Model
                 
             }
         }
+
         public override void LoadContent(ContentManager content)
         {
             Texture = content.Load<Texture2D>($"mapIcons/{PointType}");

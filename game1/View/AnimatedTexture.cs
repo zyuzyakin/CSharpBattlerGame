@@ -6,14 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using SharpDX.Direct3D9;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 
 namespace game1.View
 {
     public class AnimatedTexture : GameObject
-    {   
-        public List<Texture2D> Textures { get; set; }
-
+    {
         // Number of frames in the animation.
         public int FrameCount { get; set; }
 
@@ -23,32 +23,31 @@ namespace game1.View
         // The current Frame being drawn.
         public int Frame { get; set; }
 
+        int FrameWidth;
+        int FrameHeight;
+        Rectangle SourceRect;
         // Total amount of time the animation has been running.
         public float TotalElapsed { get; set; }
 
         public bool IsPaused { get; set; }
         public string AssetName;
 
-        public AnimatedTexture(int frameCount, int framesPerSec, string assetName)
+        public AnimatedTexture(int frameCount, int framesPerSec, string assetName, Rectangle box)
         {
-            Box = new Rectangle(0, 0, 2000, 1500);
+            Box = box;
             Frame = 0;
             TotalElapsed = 0;
             IsPaused = false;
-            Textures = new List<Texture2D>();
             TimePerFrame = (float)1 / framesPerSec * 1000;
             FrameCount = frameCount;
             AssetName = assetName;
-
         }
 
         public override void LoadContent(ContentManager content)
         {
-            for (var i = 1;i <= FrameCount;i++)
-            {
-                Textures.Add(content.Load<Texture2D>($"backgrounds/{AssetName}/" + i.ToString("D4")));
-            }
-            Texture = Textures[0];
+            Texture = content.Load<Texture2D>($"{AssetName}");
+            FrameWidth = Texture.Width / 10;
+            FrameHeight = Texture.Height / 2;
         }
 
         public override void Update(GameTime gameTime, Game1 game)
@@ -56,19 +55,23 @@ namespace game1.View
             if (IsPaused) return;
 
             TotalElapsed += gameTime.ElapsedGameTime.Milliseconds;
-
             if (TotalElapsed >= TimePerFrame)
             {
-                Texture = Textures[Frame];
+
+                SourceRect = new Rectangle(FrameWidth * (Frame % 10), 
+                    FrameHeight * (Frame / 10),
+                FrameWidth, FrameHeight);
+
                 Frame++;
-                
+
                 Frame %= FrameCount;
                 TotalElapsed -= TimePerFrame;
             }
         }
+
         public override void Draw(SpriteBatch spritebatch)
         {
-            spritebatch.Draw(Texture, Box, Color.White);
+            spritebatch.Draw(Texture, Box, SourceRect, Color);
         }
 
         public void Reset()

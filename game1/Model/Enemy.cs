@@ -36,7 +36,7 @@ namespace game1.Model
             Box = new Rectangle(70 * k, 30 * k, 50 * k, 50 * k);
             Text = "";
             ChargePerPeriod = 1;
-            Period = 25;
+            Period = 10;
             var rnd = new Random();
             EnemyType = type;
             switch (EnemyType)
@@ -44,17 +44,17 @@ namespace game1.Model
                 case EnemyType.adware:
                     MoneyReward = 10;
                     HealthPoints = 150;
-                    Damage = 3;
+                    Damage = 1;
                     break;
                 case EnemyType.spyware:
                     MoneyReward = 20;
                     HealthPoints = 250;
-                    Damage = 4;
+                    Damage = 2;
                     break;
                 case EnemyType.miner:
                     MoneyReward = 20;
                     HealthPoints = 350;
-                    Damage = 5;
+                    Damage = 3;
                     break;
             }
         }
@@ -79,10 +79,12 @@ namespace game1.Model
         }
         public void DrawFrame(SpriteBatch spriteBatch, int frame)
         {
-            int FrameWidth = Texture.Width / 20;
+            int FrameWidth = Texture.Width / 10;
+            int FrameHeight = Texture.Height / 2;
 
-            Rectangle sourcerect = new Rectangle(FrameWidth * frame, 0,
-                FrameWidth, Texture.Height);
+
+            Rectangle sourcerect = new Rectangle(FrameWidth * (frame % 10), FrameHeight * (frame / 10),
+                FrameWidth, FrameHeight);
 
             spriteBatch.Draw(Texture, Box, sourcerect, Color);
         }
@@ -94,7 +96,7 @@ namespace game1.Model
                 FrameWidth, ChargeBarTexture.Height);
 
             spriteBatch.Draw(ChargeBarTexture, 
-                new Rectangle(Box.X + Box.Width + 2 * k, Box.Y + 34 * k, 20 * k, 30 * k), 
+                new Rectangle(Box.X + Box.Width + 2 * k, Box.Y + 34 * k, Box.Width, 30 * k), 
                 sourcerect, Color.White);
         }
 
@@ -102,12 +104,6 @@ namespace game1.Model
         {   
             if(HealthPoints <= 0)
             {   
-                if(EnemyType == EnemyType.miner)
-                {
-                    game.gameState.RestartGameButton.Text = "ВЫ ВЫИГРАЛИ\n\n\nНОВАЯ ИГРА";
-                    game.gameState.RestartGameButton.IsEnabled = true;
-                    game.gameState.BackToMapButton.IsEnabled = false;
-                }
                 if (!IsDefeated)
                     game.shopState.Money.MoneyValue += MoneyReward;
 
@@ -117,6 +113,13 @@ namespace game1.Model
                 game.gameState.PauseButton.IsEnabled = false;
 
                 game.gameState.BackToMapButton.IsEnabled = true;
+
+                if (EnemyType == EnemyType.miner)
+                {
+                    game.gameState.RestartGameButton.Text = "ВЫ ВЫИГРАЛИ\n\n\nНОВАЯ ИГРА";
+                    game.gameState.RestartGameButton.IsEnabled = true;
+                    game.gameState.BackToMapButton.IsEnabled = false;
+                }
             }
 
             if (IsDefeated) return;

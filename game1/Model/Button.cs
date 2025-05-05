@@ -29,7 +29,7 @@ namespace game1.Model
             if (IsEnabled)
             {
                 spriteBatch.Draw(Texture, Box, Color);
-                spriteBatch.DrawString(Font, Text, new Vector2(Box.X, Box.Y), Color,
+                spriteBatch.DrawString(Font, Text, new Vector2(Box.X + k, Box.Y + k), Color,
                     0f, new Vector2(0, 0), tk, SpriteEffects.None, 0f);
             }
         }
@@ -59,6 +59,8 @@ namespace game1.Model
             game.NewGame();
             game.ChangeState(game.mapState); 
         }
+        public static void CombineItems(Game1 game) 
+            => game.gameState.Player.PlayerArsenal.CombineItems(game);
         public static void ExitGame(Game1 game) => game.Exit();
         public static void BackToMap(Game1 game)
         {
@@ -71,7 +73,7 @@ namespace game1.Model
 
         public override void LoadContent(ContentManager content)
         {
-            Texture = content.Load<Texture2D>("controls/button");
+            Texture = content.Load<Texture2D>("controls/longbutton");
             Font = content.Load<SpriteFont>("fonts/Hud");
         }
     }
