@@ -33,15 +33,15 @@ namespace game1.View.States
 
             CombineItemsButton = new Button()
             {
-                Box = new Rectangle(180 * k, 90 * k, 15 * k, 15 * k),
-                Text = "Соединить предметы",
+                Box = new Rectangle(140 * k, 90 * k, 50 * k, 15 * k),
+                Text = "СОЕДИНИТЬ!",
                 OnClick = Button.CombineItems
             };
 
             BackToMapButton = new Button()
             {
-                Box = new Rectangle(180 * k, 130 * k, 15 * k, 15* k),
-                Text = "назад",
+                Box = new Rectangle(140 * k, 130 * k, 50 * k, 15 * k),
+                Text = "НАЗАД!",
                 OnClick = Button.BackToMap
             };
 

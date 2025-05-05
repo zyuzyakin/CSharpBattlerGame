@@ -52,7 +52,7 @@ namespace game1.Model
             {
                     if (InputManager.Hover(item.Box))
                     {
-                        item.Color = Color.Blue;
+                        item.Color = Color.ForestGreen;
                         if (InputManager.LeftClicked)
                         {
                             if (game.shopState.Money.MoneyValue >= item.Cost

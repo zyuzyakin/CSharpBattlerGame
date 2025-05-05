@@ -16,13 +16,13 @@ namespace game1.Model
 
         public Money()
         {
-            Box = new Rectangle(160 * k, 10 * k, 35 * k, 15 * k);
-            Text = $"ДЕНЬГИ:{MoneyValue}";
+            Box = new Rectangle(140 * k, 10 * k, 50 * k, 15 * k);
+            Text = $"ДЕНЬГИ:{MoneyValue}!";
         }
         
         public override void Update(GameTime gameTime, Game1 game)
         {
-            Text = $"ДЕНЬГИ:{MoneyValue}";
+            Text = $"ДЕНЬГИ:{MoneyValue}!";
         }
     }
 }

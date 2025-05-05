@@ -24,13 +24,13 @@ namespace game1.View.States
             PlayButton = new Button()
             {
                 Box = new Rectangle(10 * k, 60 * k, 50 * k, 15 * k),
-                Text = "Начать игру",
+                Text = "НАЧАТЬ ИГРУ!",
                 OnClick = Button.StartGame
             };
             ExitButton = new Button()
             {
                 Box = new Rectangle(10 * k, 80 * k, 50 * k, 15 * k),
-                Text = "Выход",
+                Text = "ВЫХОД!",
                 OnClick = Button.ExitGame
             };
 

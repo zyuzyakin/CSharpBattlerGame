@@ -29,16 +29,16 @@ namespace game1.View.States
 
             RestartGameButton = new Button()
             {
-                Box = new Rectangle(20 * k, 20 * k, 70 * k, 40 * k),
-                Text = "ВЫ ПРОИГРАЛИ\n\n\nНОВАЯ ИГРА",
+                Box = new Rectangle(70 * k, 90 * k, 70 * k, 40 * k),
+                Text = "ВЫ ПРОИГРАЛИ!\n\n\nНОВАЯ ИГРА!",
                 IsEnabled = false,
                 OnClick = Button.StartGame
             };
 
             BackToMapButton = new Button()
             {
-                Box = new Rectangle(170 * k, 30 * k, 20 * k, 15 * k),
-                Text = "НАЗАД К\nКАРТЕ",
+                Box = new Rectangle(140 * k, 30 * k, 50 * k, 15 * k),
+                Text = "НАЗАД!",
                 IsEnabled = false,
                 OnClick = Button.BackToMap
 
@@ -46,8 +46,8 @@ namespace game1.View.States
 
             PauseButton = new Button()
             {
-                Box = new Rectangle(170 * k, 10 * k, 15 * k, 15 * k),
-                Text = "ПАУЗА",
+                Box = new Rectangle(140 * k, 10 * k, 50 * k, 15 * k),
+                Text = "ПАУЗА!",
                 OnClick = Button.PauseUnpauseGame
             };
 

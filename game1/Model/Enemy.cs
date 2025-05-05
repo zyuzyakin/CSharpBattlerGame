@@ -66,7 +66,7 @@ namespace game1.Model
                 DrawFrame(spriteBatch, Charge / 5);
 
                 DrawBarFrame(spriteBatch, Charge / 5);
-                string hpDisplay = $"HP:{HealthPoints}";
+                string hpDisplay = $"HP:{HealthPoints}!";
 
                 spriteBatch.DrawString(Font, hpDisplay, 
                     new Vector2(Box.X, Box.Y + Box.Height), Color.White,
@@ -116,7 +116,7 @@ namespace game1.Model
 
                 if (EnemyType == EnemyType.miner)
                 {
-                    game.gameState.RestartGameButton.Text = "ВЫ ВЫИГРАЛИ\n\n\nНОВАЯ ИГРА";
+                    game.gameState.RestartGameButton.Text = "ВЫ ВЫИГРАЛИ!\n\n\nНОВАЯ ИГРА!";
                     game.gameState.RestartGameButton.IsEnabled = true;
                     game.gameState.BackToMapButton.IsEnabled = false;
                 }

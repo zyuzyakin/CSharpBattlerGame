@@ -37,6 +37,7 @@ namespace game1.View.States
         public override void Update(GameTime gameTime, Game1 game)
         {
             Map.Update(gameTime, game);
+            Game.shopState.Money.Update(gameTime, game);
         }
     }
 }
