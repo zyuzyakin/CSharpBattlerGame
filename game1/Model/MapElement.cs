@@ -61,10 +61,9 @@ namespace game1.Model
             switch (PointType)
             {
                 case PointType.chest:
-                    game.ChangeState(game.gameState);
-                    game.gameState.IsPaused = false;
-                    game.gameState.CurrentEnemy = new Enemy(EnemyType.adware);
-                    game.gameState.CurrentEnemy.LoadContent(game.Content);
+                    game.ChangeState(game.chestState);
+                    game.chestState.ChestGrid = new ChestGrid();
+                    game.chestState.ChestGrid.LoadContent(game.Content);
                     break;
                 case PointType.battle:
                     game.ChangeState(game.gameState);

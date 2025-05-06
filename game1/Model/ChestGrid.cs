@@ -9,27 +9,24 @@ using System.Reflection.Metadata;
 
 namespace game1.Model
 {
-    public class ShopGrid : GameObject
+    public class ChestGrid : GameObject
     {
         public List<Item> Items { get; set; }
-        public ShopGrid()
+        public ChestGrid()
         {
-            Box = new Rectangle(10 * k, 10 * k, 1000 * k, 30 * k);
+            Box = new Rectangle(40 * k, 40 * k, 1000 * k, 30 * k);
             RefreshShopGrid();
         }
         public void RefreshShopGrid()
         {
             Items = new List<Item>()
             {
-                new Item(){ItemType = ItemType.sword,  Cost = 1, IsAtShop=true},
-                new Item(){ItemType = ItemType.shield, Cost = 2, IsAtShop=true},
-                new Item(){ItemType = ItemType.bomb, Cost = 3, IsAtShop=true},
-                new Item(){ItemType = ItemType.ice, Cost = 1, IsAtShop = true},
-                new Item(){ItemType = ItemType.healpotion, Cost = 3, IsAtShop = true},
-                new Item(){ItemType = ItemType.bow, Cost = 2, IsAtShop = true},
-                new Item(){ItemType = ItemType.hammer, Cost = 2, IsAtShop = true},
+                new Item(){ItemType = ItemType.sword},
+                new Item(){ItemType = ItemType.shield},
+                new Item(){ItemType = ItemType.bomb},
             };
         }
+
         public override void Draw(SpriteBatch spriteBatch)
         {
             var distance = k;
@@ -47,22 +44,26 @@ namespace game1.Model
         }
 
         public override void Update(GameTime gameTime, Game1 game)
-        {   
+        {
+            
             foreach (var item in Items)
             {
-                    if (InputManager.Hover(item.Box))
+                if (!item.IsEnabled) continue;
+                if (InputManager.Hover(item.Box))
+                {
+                    item.Color = Color.ForestGreen;
+                    if (InputManager.LeftClicked)
                     {
-                        item.Color = Color.ForestGreen;
-                        if (InputManager.LeftClicked)
-                        {
-                            game.gameState.Player.PlayerArsenal.AddItem(item,
+                        game.gameState.Player.PlayerArsenal.AddItem(item,
                                 game.shopState.Money);
-                        }
+                        item.IsEnabled = false;
+                        item.Color = Color.Transparent;
                     }
-                    else
-                    {
-                        item.Color = Color.White;
-                    } 
+                }
+                else
+                {
+                    item.Color = Color.White;
+                }
             }
         }
 

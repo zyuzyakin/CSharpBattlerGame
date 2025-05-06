@@ -28,7 +28,7 @@ namespace game1.Model
         public ItemType ItemType { get; set; }
         public int Level { get; set; } = 1;
         public bool IsEnabled { get; set; }
-        public bool IsItOwned { get; set; }
+        public bool IsAtShop { get; set; }
 
         public int Cost { get; set; } 
         public int TotalElapsed { get; set; } = 0; // сколько времени прошло
@@ -38,6 +38,7 @@ namespace game1.Model
         public Item()
         {
             IsEnabled = true;
+            
             ChargePerPeriod = 2;
         }
 
@@ -48,7 +49,7 @@ namespace game1.Model
             ItemType = item.ItemType;
             Period = item.Period;
             IsEnabled = true;
-            IsItOwned = true;
+            IsAtShop = false;
             Font = item.Font;
             ChargePerPeriod = item.ChargePerPeriod;
         }
@@ -62,7 +63,7 @@ namespace game1.Model
                 new Vector2(Box.X, Box.Y + Box.Height + (int)(Box.Height * 0.25)), Color.White, 
                 0f, new Vector2(0,0), 0.4f * tk, SpriteEffects.None, 0);
 
-            if (IsEnabled && !IsItOwned)
+            if (IsEnabled && IsAtShop)
             {
                 spriteBatch.DrawString(Font, Cost.ToString(),
                 new Vector2(Box.X, Box.Y + k), Color.Yellow,

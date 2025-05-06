@@ -27,5 +27,7 @@ namespace game1.Controller
         {
             return r.Contains(new Vector2(ms.X, ms.Y));
         }
+
+       
     }
 }

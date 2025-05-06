@@ -29,7 +29,21 @@ namespace game1.Model
                 ItemsCount.Add((ItemType)elem, 0);
             }
         }
-
+        public void AddItem(Item item, Money money)
+        {
+            if (money.MoneyValue >= item.Cost && Items.Count < MaxSize)
+            {
+                money.MoneyValue -= item.Cost;
+                Items.Add(new Item(item));
+            }
+        }
+        public void AddItem(Item item)
+        {
+            if (Items.Count < MaxSize)
+            {
+                Items.Add(new Item(item));
+            }
+        }
         public void CombineItems(Game1 game)
         {
             var result = new List<Item>();
@@ -48,7 +62,7 @@ namespace game1.Model
                     for (var a = 0; a < ostatok / (int)Math.Pow(2, level - 1); a++)
                     {
                         result.Add(new Item() { ItemType = elem.Key, 
-                            Level = level, IsItOwned = true });
+                            Level = level, IsAtShop = false });
                     }
                     ostatok %= (int)Math.Pow(2, level - 1);
                 }
