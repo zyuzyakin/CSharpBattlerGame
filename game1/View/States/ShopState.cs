@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SharpDX.Direct2D1;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,9 @@ namespace game1.View.States
 
         public ShopGrid ShopGrid { get; set; }
         public Money Money { get; set; }
+
+        private Texture2D Description;
+
         public Button BackToMapButton { get; set; }
         public Button CombineItemsButton { get; set; }
 
@@ -23,7 +27,8 @@ namespace game1.View.States
         public ShopState(Game1 game, ContentManager content, GraphicsDevice graphicsDevice) : base(game, content, graphicsDevice)
         {
             Background = content.Load<Texture2D>("backgrounds/bgshop");
-
+            Description = content.Load<Texture2D>("mapIcons/legend");
+            spriteBatch.Draw(Description, new Rectangle(130 * k, 80 * k, 60 * k, 60 * k), Color.White);
             PlayerTexture = new AnimatedTexture(20, 24, "playershopsheet", 
                 new Rectangle(160 * k, 40 * k, 40 * k, 40 * k));
 

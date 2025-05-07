@@ -26,8 +26,13 @@ namespace game1.Model
         public int ChargePerPeriod { get; set; } // заряд за 1 интервал
 
         public ItemType ItemType { get; set; }
+
+        
         public int Level { get; set; } = 1;
         public bool IsEnabled { get; set; }
+        public bool IsVisible { get; set; }
+
+
         public bool IsAtShop { get; set; }
 
         public int Cost { get; set; } 
@@ -38,7 +43,8 @@ namespace game1.Model
         public Item()
         {
             IsEnabled = true;
-            
+            IsVisible = true;
+
             ChargePerPeriod = 2;
         }
 
@@ -49,12 +55,15 @@ namespace game1.Model
             ItemType = item.ItemType;
             Period = item.Period;
             IsEnabled = true;
+            IsVisible = true;
             IsAtShop = false;
             Font = item.Font;
             ChargePerPeriod = item.ChargePerPeriod;
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
+            if (!IsEnabled) return;
+
             DrawFrame(spriteBatch, Charge / 5);
 
             DrawBarFrame(spriteBatch, Charge / 5);
@@ -69,9 +78,13 @@ namespace game1.Model
                 new Vector2(Box.X, Box.Y + k), Color.Yellow,
                 0f, new Vector2(0, 0), tk, SpriteEffects.None, 0f);
             }
+
+
         }
         public void DrawFrame(SpriteBatch spriteBatch, int frame)
         {
+           
+
             int FrameWidth = Texture.Width / 20;
 
             Rectangle sourcerect = new Rectangle(FrameWidth * frame, 0,

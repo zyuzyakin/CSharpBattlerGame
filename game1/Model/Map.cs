@@ -34,7 +34,8 @@ namespace game1.Model
             int totalLevels = 7;
 
             for (var levelNum = 1; levelNum <= totalLevels; levelNum++)
-            {
+            {   
+                //На этих уровнях генерируется только магазин
                 if (levelNum == 1 || levelNum == (totalLevels + 1) / 2  || levelNum == totalLevels-1)
                 {
                     mapElems.Add(new MapElement()
@@ -46,6 +47,7 @@ namespace game1.Model
 
                     });
                 }
+                //На последнем битва с боссом
                 else if(levelNum == totalLevels)
                 {
                     mapElems.Add(new MapElement()
@@ -55,6 +57,7 @@ namespace game1.Model
                         PointType = PointType.boss
                     });
                 }
+                //Остальные заполняем случайно
                 else
                 {
                     var dotNumber = rnd.Next(2, 4);
@@ -65,12 +68,13 @@ namespace game1.Model
                             Box = new Rectangle(startX - 15 * k * (dotNumber - 1) + i * 30 * k,
                                 startY - levelNum * 20 * k, size, size),
                             LevelNumber = levelNum,
-                            PointType = (PointType)Enum.GetValues(typeof(PointType)).GetValue(rnd.Next(0, 3))
+                            PointType = (PointType)Enum.GetValues(typeof(PointType))
+                                .GetValue(rnd.Next(0, 3))
                         });
                     }
                 }
             }
-
+            //генерируем случайные связи между точками
             foreach (var elem in mapElems)
             {
                 if (elem.LevelNumber != 1)
@@ -109,7 +113,9 @@ namespace game1.Model
                 elem.Draw(spriteBatch);
             }
         }
-
+        /// <summary>
+        /// Метод отрисовывает линию из точек между 2 элементами карты
+        /// </summary>
         public void DrawRoad(MapElement e1, MapElement e2, SpriteBatch spriteBatch)
         {
             var step = 2 * k;

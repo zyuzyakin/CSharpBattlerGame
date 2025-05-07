@@ -3,7 +3,7 @@ using game1.View;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-
+using System;
 using System.Collections.Generic;
 using System.Reflection.Metadata;
 
@@ -15,16 +15,22 @@ namespace game1.Model
         public ChestGrid()
         {
             Box = new Rectangle(40 * k, 40 * k, 1000 * k, 30 * k);
-            RefreshShopGrid();
+            RefreshChestGrid();
         }
-        public void RefreshShopGrid()
+        public void RefreshChestGrid()
         {
-            Items = new List<Item>()
+            Items = new List<Item>();
+            var rnd = new Random();
+            for (var i = 0; i < 3; i++)
             {
-                new Item(){ItemType = ItemType.sword},
-                new Item(){ItemType = ItemType.shield},
-                new Item(){ItemType = ItemType.bomb},
-            };
+                Items.Add(
+                    new Item()
+                    {
+                        ItemType = (ItemType)Enum.GetValues(typeof(ItemType))
+                                    .GetValue(rnd.Next(0, 7)),
+                        IsAtShop = false
+                    });
+            }
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -57,7 +63,7 @@ namespace game1.Model
                         game.gameState.Player.PlayerArsenal.AddItem(item,
                                 game.shopState.Money);
                         item.IsEnabled = false;
-                        item.Color = Color.Transparent;
+                        item.IsVisible = false;
                     }
                 }
                 else

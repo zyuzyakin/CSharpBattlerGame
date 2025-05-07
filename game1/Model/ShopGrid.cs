@@ -3,7 +3,7 @@ using game1.View;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-
+using System;
 using System.Collections.Generic;
 using System.Reflection.Metadata;
 
@@ -17,19 +17,24 @@ namespace game1.Model
             Box = new Rectangle(10 * k, 10 * k, 1000 * k, 30 * k);
             RefreshShopGrid();
         }
+
         public void RefreshShopGrid()
         {
-            Items = new List<Item>()
+            Items = new List<Item>();
+            var rnd = new Random();
+            for (var i = 0; i < 7; i++)
             {
-                new Item(){ItemType = ItemType.sword,  Cost = 1, IsAtShop=true},
-                new Item(){ItemType = ItemType.shield, Cost = 2, IsAtShop=true},
-                new Item(){ItemType = ItemType.bomb, Cost = 3, IsAtShop=true},
-                new Item(){ItemType = ItemType.ice, Cost = 1, IsAtShop = true},
-                new Item(){ItemType = ItemType.healpotion, Cost = 3, IsAtShop = true},
-                new Item(){ItemType = ItemType.bow, Cost = 2, IsAtShop = true},
-                new Item(){ItemType = ItemType.hammer, Cost = 2, IsAtShop = true},
-            };
+                Items.Add(
+                    new Item()
+                    {
+                        ItemType = (ItemType)Enum.GetValues(typeof(ItemType))
+                                    .GetValue(i),
+                        IsAtShop = true,
+                        Cost = rnd.Next(1, 3)
+                    });
+            }
         }
+
         public override void Draw(SpriteBatch spriteBatch)
         {
             var distance = k;
@@ -44,30 +49,36 @@ namespace game1.Model
 
                 Items[i].Draw(spriteBatch);
             }
+
         }
 
         public override void Update(GameTime gameTime, Game1 game)
         {   
             foreach (var item in Items)
             {
-                    if (InputManager.Hover(item.Box))
+                if (InputManager.Hover(item.Box))
+                {
+                    item.Color = Color.ForestGreen;
+
+                
+
+                    if (InputManager.LeftClicked)
                     {
-                        item.Color = Color.ForestGreen;
-                        if (InputManager.LeftClicked)
-                        {
-                            game.gameState.Player.PlayerArsenal.AddItem(item,
-                                game.shopState.Money);
-                        }
+                        game.gameState.Player.PlayerArsenal.AddItem(item,
+                            game.shopState.Money);
                     }
-                    else
-                    {
-                        item.Color = Color.White;
-                    } 
+                }
+                else
+                {
+                    item.Color = Color.White;
+                   
+                }
             }
         }
 
         public override void LoadContent(ContentManager content)
         {
+            
             foreach (var item in Items)
             {
                 item.LoadContent(content);

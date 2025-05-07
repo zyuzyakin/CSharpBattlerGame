@@ -44,6 +44,7 @@ namespace game1.Model
                 if (InputManager.LeftClicked && IsAvailable)
                 {
                     game.mapState.Map.CurrentMapElem = this;
+                    game.mapState.UpdateMapButton.IsEnabled = false;
                     CreateLevel(game);
                 }
             }

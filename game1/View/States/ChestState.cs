@@ -16,7 +16,8 @@ namespace game1.View.States
 
         public Money Money { get; set; }
         public Button BackToMapButton { get; set; }
-        
+        public Button CombineItemsButton { get; set; }
+
         public ChestGrid ChestGrid { get; set; }
 
         public ChestState(Game1 game, ContentManager content, GraphicsDevice graphicsDevice) : base(game, content, graphicsDevice)
@@ -28,6 +29,12 @@ namespace game1.View.States
 
             ChestGrid = new ChestGrid();
 
+            CombineItemsButton = new Button()
+            {
+                Box = new Rectangle(140 * k, 90 * k, 50 * k, 15 * k),
+                Text = "СОЕДИНИТЬ!",
+                OnClick = Button.CombineItems
+            };
             BackToMapButton = new Button()
             {
                 Box = new Rectangle(140 * k, 130 * k, 50 * k, 15 * k),
@@ -41,6 +48,8 @@ namespace game1.View.States
             BackToMapButton.LoadContent(content);
             PlayerTexture.LoadContent(content);
             ChestGrid.LoadContent(content);
+            CombineItemsButton.LoadContent(content);
+
 
         }
 
@@ -58,7 +67,7 @@ namespace game1.View.States
             Money.Draw(spriteBatch);
             ChestGrid.Draw(spriteBatch);
             PlayerTexture.Draw(spriteBatch);
-
+            CombineItemsButton.Draw(spriteBatch);
             spriteBatch.End();
         }
 
@@ -68,6 +77,7 @@ namespace game1.View.States
             Money.Update(gameTime, game);
             PlayerTexture.Update(gameTime, game);
             ChestGrid.Update(gameTime, game);
+            CombineItemsButton.Update(gameTime, game);
         }
 
     }

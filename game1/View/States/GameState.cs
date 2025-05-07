@@ -66,7 +66,7 @@ namespace game1.View.States
             }
             //Player.LoadContent(content);
             //BackToMapButton.LoadContent(content);
-            //PauseButton.LoadContent(content);
+            //UpdateMapButton.LoadContent(content);
             //Player.PlayerArsenal.LoadContent(content);
         }
 

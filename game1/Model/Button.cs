@@ -70,7 +70,11 @@ namespace game1.Model
         public static void PauseUnpauseGame(Game1 game) 
             => game.gameState.IsPaused = !game.gameState.IsPaused;
 
-
+        public static void UpdateMap(Game1 game)
+        {
+            game.mapState.Map = new Map();
+            game.mapState.Map.LoadContent(game.Content);
+        }
         public override void LoadContent(ContentManager content)
         {
             Texture = content.Load<Texture2D>("controls/longbutton");
