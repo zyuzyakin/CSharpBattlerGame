@@ -20,6 +20,7 @@ namespace game1.View.States
 
         public State(Game1 game, ContentManager content, GraphicsDevice graphicsDevice)
         {
+            StateElements = new List<GameObject>();
             Game = game;
             Content = content;
             GraphicDevice = graphicsDevice;

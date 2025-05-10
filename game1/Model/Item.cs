@@ -85,8 +85,6 @@ namespace game1.Model
         }
         public void DrawFrame(SpriteBatch spriteBatch, int frame)
         {
-           
-
             int FrameWidth = Texture.Width / 20;
 
             Rectangle sourcerect = new Rectangle(FrameWidth * frame, 0,
@@ -158,7 +156,7 @@ namespace game1.Model
             game.gameState.Player.ShieldPoints += 1 * Level;
         public void BombAct(Game1 game)
         {
-            game.gameState.CurrentEnemy.HealthPoints -= 50 * Level;
+            game.gameState.CurrentEnemy.HealthPoints -= 30 * Level;
             IsEnabled = false;
         }
         public void IceAct(Game1 game)

@@ -19,7 +19,6 @@ namespace game1.View.States
 
         public GameState(Game1 game, ContentManager content, GraphicsDevice graphicsDevice) : base(game, content, graphicsDevice)
         {
-            StateElements = new List<GameObject>();
             Background = content.Load<Texture2D>("backgrounds/bgbattle");
             PlayerTexture = new AnimatedTexture(20, 24, "playerbattlesheet", 
                 new Rectangle(10 * k, 80 * k, 40 * k, 40 * k));
@@ -83,6 +82,7 @@ namespace game1.View.States
         public override void Update(GameTime gameTime, Game1 game)
         {
             CurrentEnemy.Update(gameTime, game);
+
             foreach (var e in StateElements)
             {
                 e.Update(gameTime, game);

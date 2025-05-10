@@ -22,7 +22,6 @@ namespace game1.View.States
             Description = content.Load<Texture2D>("mapIcons/legend");
 
             Map = new Map();
-            Map.LoadContent(content);
 
             UpdateMapButton = new Button()
             {
@@ -30,6 +29,8 @@ namespace game1.View.States
                 Text = "ОБНОВИТЬ!",
                 OnClick = Button.UpdateMap
             };
+
+            Map.LoadContent(content);
             UpdateMapButton.LoadContent(content);
         }
 
@@ -39,6 +40,7 @@ namespace game1.View.States
 
             spriteBatch.Draw(Background, new Rectangle(0, 0, 200 * k, 150 * k), Color.White);
             spriteBatch.Draw(Description, new Rectangle(130 * k, 80 * k, 60 * k, 60 * k), Color.White);
+            
             Map.Draw(spriteBatch);
             UpdateMapButton.Draw(spriteBatch);
             Game.shopState.Money.Draw(spriteBatch);

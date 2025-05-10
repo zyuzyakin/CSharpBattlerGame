@@ -49,7 +49,6 @@ namespace game1.View.States
             StateElements.Add(ChestGrid);
             StateElements.Add(CombineItemsButton);
 
-            StateElements.Add(Game.gameState.Player.PlayerArsenal);
             foreach (var e in StateElements)
             {
                 e.LoadContent(content);
@@ -65,7 +64,7 @@ namespace game1.View.States
             spriteBatch.Draw(Background, new Rectangle(0, 0, 200 * k, 150 * k), 
                 Color.White);
             
-            //Game.gameState.Player.PlayerArsenal.Draw(spriteBatch);
+            Game.gameState.Player.PlayerArsenal.Draw(spriteBatch);
 
             foreach (var e in StateElements)
             {
@@ -77,11 +76,10 @@ namespace game1.View.States
 
         public override void Update(GameTime gameTime, Game1 game)
         {
-            BackToMapButton.Update(gameTime, game);
-            Money.Update(gameTime, game);
-            PlayerTexture.Update(gameTime, game);
-            ChestGrid.Update(gameTime, game);
-            CombineItemsButton.Update(gameTime, game);
+            foreach (var e in StateElements)
+            {
+                e.Update(gameTime, game);
+            }
         }
 
     }
