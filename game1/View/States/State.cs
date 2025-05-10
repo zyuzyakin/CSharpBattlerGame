@@ -25,10 +25,5 @@ namespace game1.View.States
             Content = content;
             GraphicDevice = graphicsDevice;
         }
-
-        public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
-        { 
-
-        }
     }
 }

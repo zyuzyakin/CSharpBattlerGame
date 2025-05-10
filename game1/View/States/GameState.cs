@@ -25,30 +25,24 @@ namespace game1.View.States
             
             Player = new Player();
 
+            RestartGameButton = new Button(
+                new Rectangle(70 * k, 90 * k, 70 * k, 40 * k),
+                "ВЫ ПРОИГРАЛИ!\n\n\nНОВАЯ ИГРА!",
+                Button.StartGame,
+                false);
 
-            RestartGameButton = new Button()
-            {
-                Box = new Rectangle(70 * k, 90 * k, 70 * k, 40 * k),
-                Text = "ВЫ ПРОИГРАЛИ!\n\n\nНОВАЯ ИГРА!",
-                IsEnabled = false,
-                OnClick = Button.StartGame
-            };
+            BackToMapButton = new Button(
+                new Rectangle(140 * k, 30 * k, 50 * k, 15 * k),
+                "НАЗАД!",
+                Button.BackToMap,
+                false);
 
-            BackToMapButton = new Button()
-            {
-                Box = new Rectangle(140 * k, 30 * k, 50 * k, 15 * k),
-                Text = "НАЗАД!",
-                IsEnabled = false,
-                OnClick = Button.BackToMap
-
-            };
-
-            PauseButton = new Button()
-            {
-                Box = new Rectangle(140 * k, 10 * k, 50 * k, 15 * k),
-                Text = "ПАУЗА!",
-                OnClick = Button.PauseUnpauseGame
-            };
+            PauseButton = new Button(
+                new Rectangle(140 * k, 10 * k, 50 * k, 15 * k),
+                "ПАУЗА!",
+                Button.PauseUnpauseGame,
+                true
+            );
 
             StateElements.Add(Player);
             StateElements.Add(Player.PlayerArsenal);
@@ -63,18 +57,15 @@ namespace game1.View.States
             }
         }
 
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
 
             spriteBatch.Draw(Background, new Rectangle(0, 0, 200 * k, 150 * k), Color.White);
+            CurrentEnemy.Draw(spriteBatch);
 
             foreach (var e in StateElements)
-            {
                 e.Draw(spriteBatch);
-            }
-
-            CurrentEnemy.Draw(spriteBatch);
 
             spriteBatch.End();
         }
@@ -84,9 +75,7 @@ namespace game1.View.States
             CurrentEnemy.Update(gameTime, game);
 
             foreach (var e in StateElements)
-            {
                 e.Update(gameTime, game);
-            }
         }
     }
 }

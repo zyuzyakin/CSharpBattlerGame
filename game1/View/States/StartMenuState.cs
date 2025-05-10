@@ -23,29 +23,30 @@ namespace game1.View.States
             Background = content.Load<Texture2D>("backgrounds/bgshop");
             Logo = content.Load<Texture2D>("logo");
 
-            PlayButton = new Button()
-            {
-                Box = new Rectangle(10 * k, 60 * k, 50 * k, 15 * k),
-                Text = "НАЧАТЬ ИГРУ!",
-                OnClick = Button.StartGame
-            };
-            ExitButton = new Button()
-            {
-                Box = new Rectangle(10 * k, 80 * k, 50 * k, 15 * k),
-                Text = "ВЫХОД!",
-                OnClick = Button.ExitGame
-            };
+            PlayButton = new Button(
+                new Rectangle(10 * k, 100 * k, 50 * k, 15 * k),
+                "НАЧАТЬ ИГРУ!",
+                Button.StartGame,
+                true);
+
+            ExitButton = new Button(
+                new Rectangle(10 * k, 120 * k, 50 * k, 15 * k),
+                "ВЫХОД!",
+                Button.ExitGame,
+                true);
+
 
             PlayButton.LoadContent(content);
             ExitButton.LoadContent(content);
         }
 
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
 
             spriteBatch.Draw(Background, new Rectangle(0, 0, 200 * k, 150 * k), Color.White);
-
+            spriteBatch.Draw(Logo, new Rectangle(10 * k, 30*k, 150 * k, 50 * k), Color.White);
+            
             PlayButton.Draw(spriteBatch);
             ExitButton.Draw(spriteBatch);
            

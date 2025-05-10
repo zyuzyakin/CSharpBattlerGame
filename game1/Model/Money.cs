@@ -6,20 +6,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static game1.Model.Button;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace game1.Model
 {
-    public class Money : Button
+    public class Money : GameObject
     {
-        public int MoneyValue { get; set; } = 20;
+        public ClickEvent OnClick { get; set; }
+        public bool IsEnabled { get; set; }
+        private SpriteFont Font;
+        public string Text { get; set; }
 
         public Money()
-        {
-            Box = new Rectangle(140 * k, 10 * k, 50 * k, 15 * k);
-            Text = $"ДЕНЬГИ:{MoneyValue}!";
+        { 
+
         }
-        
+
+        public int MoneyValue { get; set; } = 20;
+
         public override void Update(GameTime gameTime, Game1 game)
         {
             Text = $"ДЕНЬГИ:{MoneyValue}!";
