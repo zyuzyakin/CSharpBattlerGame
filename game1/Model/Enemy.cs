@@ -29,7 +29,7 @@ namespace game1.Model
         public Texture2D ChargeBarTexture { get; set; }
         public int TotalElapsed { get; set; } // сколько времени прошло
         public int Period { get; set; } // частота обновления в миллисекундах
-        public int AtackIteration { get; set; } = 0;
+        public int AtackIteration { get; set; }
 
         public Enemy(EnemyType type)
         {
@@ -37,8 +37,8 @@ namespace game1.Model
             Text = "";
             ChargePerPeriod = 1;
             Period = 10;
-            var rnd = new Random();
             EnemyType = type;
+
             switch (EnemyType)
             {
                 case EnemyType.adware:
@@ -114,6 +114,8 @@ namespace game1.Model
 
                 game.gameState.BackToMapButton.IsEnabled = true;
 
+                game.gameState.Player.PlayerArsenal.RefreshItems();
+
                 if (EnemyType == EnemyType.miner)
                 {
                     game.gameState.RestartGameButton.Text = "ВЫ ВЫИГРАЛИ!\n\n\nНОВАЯ ИГРА!";
@@ -126,6 +128,7 @@ namespace game1.Model
             if (game.gameState.IsPaused) return;
             
             TotalElapsed += gameTime.ElapsedGameTime.Milliseconds;
+
             if (TotalElapsed > Period)
             {
                 TotalElapsed -= Period;
@@ -134,12 +137,12 @@ namespace game1.Model
                 if (Charge >= 100)
                 {
                     Charge = 0;
-                    AtackPlayer(gameTime, game);
+                    AtackPlayer(game);
                     AtackIteration++;
                 }
             }
         }
-        public void AtackPlayer(GameTime gameTime, Game1 game)
+        public void AtackPlayer(Game1 game)
         {
             game.gameState.Player.ShieldPoints -= Damage;
             Damage += AtackIteration / 10;

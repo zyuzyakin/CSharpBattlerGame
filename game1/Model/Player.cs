@@ -48,7 +48,7 @@ namespace game1.Model
         public override void Draw(SpriteBatch spriteBatch)
         {
             string hpDisplay = $"ЗДОРОВЬЕ:\n{HealthPoints}/{MaxHealthPoints}!";
-            string shieldDisplay = $"ЩИТ:{ShieldPoints}!";
+            string shieldDisplay = $"ЗАЩИТА:{ShieldPoints}!";
 
             spriteBatch.DrawString(Font, hpDisplay, 
                 new Vector2(Box.X, Box.Y + Box.Height + k), Color.White, 

@@ -28,7 +28,7 @@ namespace game1.Model
         public ItemType ItemType { get; set; }
 
         
-        public int Level { get; set; } = 1;
+        public int Level { get; set; }
         public bool IsEnabled { get; set; }
         public bool IsVisible { get; set; }
 
@@ -36,15 +36,16 @@ namespace game1.Model
         public bool IsAtShop { get; set; }
 
         public int Cost { get; set; } 
-        public int TotalElapsed { get; set; } = 0; // сколько времени прошло
-        public int Period { get; set; } = 50; // период обновления в миллисекундах
-        public int ItemIteration { get; set; } = 0;
+        public int TotalElapsed { get; set; } // сколько времени прошло
+        public int Period { get; set; } // период обновления в миллисекундах
+        public int ItemIteration { get; set; }
 
         public Item()
         {
             IsEnabled = true;
             IsVisible = true;
-
+            Level = 1;
+            Period = 50;
             ChargePerPeriod = 2;
         }
 
@@ -53,7 +54,8 @@ namespace game1.Model
             Texture = item.Texture;
             ChargeBarTexture = item.ChargeBarTexture;
             ItemType = item.ItemType;
-            Period = item.Period;
+            Period = 50;
+            Level = item.Level;
             IsEnabled = true;
             IsVisible = true;
             IsAtShop = false;

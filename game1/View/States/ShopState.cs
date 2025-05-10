@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using SharpDX.Direct2D1;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,10 +26,9 @@ namespace game1.View.States
         public ShopState(Game1 game, ContentManager content, GraphicsDevice graphicsDevice) : base(game, content, graphicsDevice)
         {
             Background = content.Load<Texture2D>("backgrounds/bgshop");
-            Description = content.Load<Texture2D>("mapIcons/legend");
-            spriteBatch.Draw(Description, new Rectangle(130 * k, 80 * k, 60 * k, 60 * k), Color.White);
+            Description = content.Load<Texture2D>("itemdescription");
             PlayerTexture = new AnimatedTexture(20, 24, "playershopsheet", 
-                new Rectangle(160 * k, 40 * k, 40 * k, 40 * k));
+                new Rectangle(140 * k, 90 * k, 40 * k, 40 * k));
 
             ShopGrid = new ShopGrid();
 
@@ -38,7 +36,7 @@ namespace game1.View.States
 
             CombineItemsButton = new Button()
             {
-                Box = new Rectangle(140 * k, 90 * k, 50 * k, 15 * k),
+                Box = new Rectangle(5 * k, 130 * k, 50 * k, 15 * k),
                 Text = "СОЕДИНИТЬ!",
                 OnClick = Button.CombineItems
             };
@@ -66,6 +64,8 @@ namespace game1.View.States
             spriteBatch.Begin();
 
             spriteBatch.Draw(Background, new Rectangle(0, 0, 200 * k, 150 * k), Color.White);
+            spriteBatch.Draw(Description, 
+                new Rectangle(140 * k, 30 * k, 60 * k, 60 * k), Color.White);
             ShopGrid.Draw(spriteBatch);
             Game.gameState.Player.PlayerArsenal.Draw(spriteBatch);
             BackToMapButton.Draw(spriteBatch);

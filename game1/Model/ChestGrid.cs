@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Reflection.Metadata;
 
 namespace game1.Model
 {
@@ -51,19 +50,21 @@ namespace game1.Model
 
         public override void Update(GameTime gameTime, Game1 game)
         {
-            
             foreach (var item in Items)
             {
                 if (!item.IsEnabled) continue;
+
                 if (InputManager.Hover(item.Box))
                 {
                     item.Color = Color.ForestGreen;
                     if (InputManager.LeftClicked)
                     {
-                        game.gameState.Player.PlayerArsenal.AddItem(item,
-                                game.shopState.Money);
-                        item.IsEnabled = false;
-                        item.IsVisible = false;
+                        if (game.gameState.Player.PlayerArsenal.IsItAbleToAddItem())
+                        {
+                            game.gameState.Player.PlayerArsenal.AddItem(item);
+                            item.IsEnabled = false;
+                            item.IsVisible = false;
+                        }
                     }
                 }
                 else

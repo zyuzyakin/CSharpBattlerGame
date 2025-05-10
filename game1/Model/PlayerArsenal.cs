@@ -19,7 +19,7 @@ namespace game1.Model
         public Dictionary<ItemType,int> ItemsCount { get; set; }
         public PlayerArsenal()
         {
-            Box = new Rectangle(50 * k, 90 * k, 100 * k, 40 * k);
+            Box = new Rectangle(55 * k, 90 * k, 100 * k, 40 * k);
             Items = new List<Item>();
             ItemsCount = new Dictionary<ItemType, int>();
             MaxSize = 8;
@@ -37,12 +37,23 @@ namespace game1.Model
                 Items.Add(new Item(item));
             }
         }
+        public bool IsItAbleToAddItem() => Items.Count < MaxSize;
         public void AddItem(Item item)
         {
             if (Items.Count < MaxSize)
             {
                 Items.Add(new Item(item));
             }
+        }
+        public void RefreshItems()
+        {
+            var result = new List<Item>();
+
+            foreach (var item in Items)
+            {
+                result.Add(new Item(item));
+            }
+            Items = result;
         }
         public void CombineItems(Game1 game)
         {
@@ -81,7 +92,6 @@ namespace game1.Model
             }
         }
 
-        //TODO разделить на 2 метода
         public override void Draw(SpriteBatch spriteBatch)
         {
             var distance = k;

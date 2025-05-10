@@ -58,16 +58,10 @@ namespace game1.View.States
             StateElements.Add(RestartGameButton);
             StateElements.Add(PlayerTexture);
 
-            //StateElements.Add(game.shopState.Money);
-
             foreach (var e in StateElements)
             {
                 e.LoadContent(content);
             }
-            //Player.LoadContent(content);
-            //BackToMapButton.LoadContent(content);
-            //UpdateMapButton.LoadContent(content);
-            //Player.PlayerArsenal.LoadContent(content);
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

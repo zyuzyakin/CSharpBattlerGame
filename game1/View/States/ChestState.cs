@@ -23,11 +23,12 @@ namespace game1.View.States
         public ChestState(Game1 game, ContentManager content, GraphicsDevice graphicsDevice) : base(game, content, graphicsDevice)
         {
             Background = content.Load<Texture2D>("backgrounds/bgshop");
-
             PlayerTexture = new AnimatedTexture(20, 24, "playershopsheet",
                 new Rectangle(160 * k, 40 * k, 40 * k, 40 * k));
 
+
             ChestGrid = new ChestGrid();
+            Money = new Money();
 
             CombineItemsButton = new Button()
             {
@@ -42,15 +43,17 @@ namespace game1.View.States
                 OnClick = Button.BackToMap
             };
 
-            Money = new Money();
+            StateElements.Add(Money);
+            StateElements.Add(BackToMapButton);
+            StateElements.Add(PlayerTexture);
+            StateElements.Add(ChestGrid);
+            StateElements.Add(CombineItemsButton);
 
-            Money.LoadContent(content);
-            BackToMapButton.LoadContent(content);
-            PlayerTexture.LoadContent(content);
-            ChestGrid.LoadContent(content);
-            CombineItemsButton.LoadContent(content);
-
-
+            StateElements.Add(Game.gameState.Player.PlayerArsenal);
+            foreach (var e in StateElements)
+            {
+                e.LoadContent(content);
+            }
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -62,12 +65,13 @@ namespace game1.View.States
             spriteBatch.Draw(Background, new Rectangle(0, 0, 200 * k, 150 * k), 
                 Color.White);
             
-            Game.gameState.Player.PlayerArsenal.Draw(spriteBatch);
-            BackToMapButton.Draw(spriteBatch);
-            Money.Draw(spriteBatch);
-            ChestGrid.Draw(spriteBatch);
-            PlayerTexture.Draw(spriteBatch);
-            CombineItemsButton.Draw(spriteBatch);
+            //Game.gameState.Player.PlayerArsenal.Draw(spriteBatch);
+
+            foreach (var e in StateElements)
+            {
+                e.Draw(spriteBatch);
+            }
+
             spriteBatch.End();
         }
 
