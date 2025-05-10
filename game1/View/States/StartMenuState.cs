@@ -25,13 +25,13 @@ namespace game1.View.States
 
             PlayButton = new Button()
             {
-                Box = new Rectangle(10 * k, 60 * k, 50 * k, 15 * k),
+                Box = new Rectangle(10 * k, 100 * k, 50 * k, 15 * k),
                 Text = "НАЧАТЬ ИГРУ!",
                 OnClick = Button.StartGame
             };
             ExitButton = new Button()
             {
-                Box = new Rectangle(10 * k, 80 * k, 50 * k, 15 * k),
+                Box = new Rectangle(10 * k, 120 * k, 50 * k, 15 * k),
                 Text = "ВЫХОД!",
                 OnClick = Button.ExitGame
             };
@@ -45,6 +45,8 @@ namespace game1.View.States
             spriteBatch.Begin();
 
             spriteBatch.Draw(Background, new Rectangle(0, 0, 200 * k, 150 * k), Color.White);
+
+            spriteBatch.Draw(Logo, new Rectangle(10*k, 30*k, 150 * k, 50 * k), Color.White);
 
             PlayButton.Draw(spriteBatch);
             ExitButton.Draw(spriteBatch);
