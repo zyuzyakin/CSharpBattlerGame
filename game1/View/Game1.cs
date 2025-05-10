@@ -81,10 +81,13 @@ public class Game1 : Game
         }
 
         currentState.Update(gameTime, this);
+
+        base.Update(gameTime);
     }
 
     protected override void Draw(GameTime gameTime)
     {
-        currentState.Draw(_spriteBatch);
+        currentState.Draw(gameTime, _spriteBatch);
+        base.Draw(gameTime);
     }
 }

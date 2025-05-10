@@ -16,16 +16,12 @@ namespace game1.Model
     {
         public delegate void ClickEvent(Game1 game); //делегат для событий от нажатия кнопки
         public ClickEvent OnClick { get; set; }
-        public bool IsEnabled { get; set; }
-        private SpriteFont Font;
+        public bool IsEnabled { get; set; } 
+        public SpriteFont Font { get; set; }
         public string Text { get; set; }
-
-        public Button(Rectangle box, string text, ClickEvent onClick, bool isEnabled)
+        public Button()
         {
-            IsEnabled = isEnabled;
-            Box = box;
-            Text = text;
-            OnClick = onClick;
+            IsEnabled = true;
         }
 
         public override void Draw(SpriteBatch spriteBatch)

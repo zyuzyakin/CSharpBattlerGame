@@ -34,18 +34,19 @@ namespace game1.View.States
 
             ShopGrid.LoadContent(content);
 
-            CombineItemsButton = new Button(
-                new Rectangle(5 * k, 130 * k, 50 * k, 15 * k),
-                "СОЕДИНИТЬ!",
-                Button.CombineItems,
-                true);
+            CombineItemsButton = new Button()
+            {
+                Box = new Rectangle(5 * k, 130 * k, 50 * k, 15 * k),
+                Text = "СОЕДИНИТЬ!",
+                OnClick = Button.CombineItems
+            };
 
-            BackToMapButton = new Button(
-                new Rectangle(140 * k, 130 * k, 50 * k, 15 * k),
-                "НАЗАД!",
-                Button.BackToMap,
-                true);
-            
+            BackToMapButton = new Button()
+            {
+                Box = new Rectangle(140 * k, 130 * k, 50 * k, 15 * k),
+                Text = "НАЗАД!",
+                OnClick = Button.BackToMap
+            };
 
             Money = new Money();
 
@@ -56,7 +57,7 @@ namespace game1.View.States
 
         }
         
-        public override void Draw(SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             Game.GraphicsDevice.Clear(Color.CornflowerBlue);
 

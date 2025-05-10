@@ -23,7 +23,6 @@ namespace game1.View.States
         public ChestState(Game1 game, ContentManager content, GraphicsDevice graphicsDevice) : base(game, content, graphicsDevice)
         {
             Background = content.Load<Texture2D>("backgrounds/bgshop");
-
             PlayerTexture = new AnimatedTexture(20, 24, "playershopsheet",
                 new Rectangle(160 * k, 40 * k, 40 * k, 40 * k));
 
@@ -31,17 +30,18 @@ namespace game1.View.States
             ChestGrid = new ChestGrid();
             Money = new Money();
 
-            CombineItemsButton = new Button(
-                new Rectangle(140 * k, 90 * k, 50 * k, 15 * k),
-                "СОЕДИНИТЬ!",
-                Button.CombineItems,
-                true);
-
-            BackToMapButton = new Button(
-                new Rectangle(140 * k, 130 * k, 50 * k, 15 * k),
-                "НАЗАД!",
-                Button.BackToMap,
-                true);
+            CombineItemsButton = new Button()
+            {
+                Box = new Rectangle(140 * k, 90 * k, 50 * k, 15 * k),
+                Text = "СОЕДИНИТЬ!",
+                OnClick = Button.CombineItems
+            };
+            BackToMapButton = new Button()
+            {
+                Box = new Rectangle(140 * k, 130 * k, 50 * k, 15 * k),
+                Text = "НАЗАД!",
+                OnClick = Button.BackToMap
+            };
 
             StateElements.Add(Money);
             StateElements.Add(BackToMapButton);
@@ -55,7 +55,7 @@ namespace game1.View.States
             }
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             Game.GraphicsDevice.Clear(Color.CornflowerBlue);
 

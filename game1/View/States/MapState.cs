@@ -23,18 +23,18 @@ namespace game1.View.States
 
             Map = new Map();
 
-            UpdateMapButton = new Button(
-                new Rectangle(140 * k, 60 * k, 50 * k, 15 * k),
-                "ОБНОВИТЬ!",
-                Button.UpdateMap,
-                true);
-            
+            UpdateMapButton = new Button()
+            {
+                Box = new Rectangle(140 * k, 60 * k, 50 * k, 15 * k),
+                Text = "ОБНОВИТЬ!",
+                OnClick = Button.UpdateMap
+            };
 
             Map.LoadContent(content);
             UpdateMapButton.LoadContent(content);
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
 

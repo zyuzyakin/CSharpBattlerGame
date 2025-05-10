@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+//using SharpDX.Direct2D1;
+using SharpDX.Direct3D9;
 using System.Collections.Generic;
 
 namespace game1.Controller
@@ -17,12 +19,15 @@ namespace game1.Controller
         {
             oms = ms;
             ms = Mouse.GetState();
-            LeftClicked = ms.LeftButton != ButtonState.Pressed 
-                && oms.LeftButton == ButtonState.Pressed;
-            RightClicked = ms.RightButton != ButtonState.Pressed 
-                && oms.RightButton == ButtonState.Pressed;
+            LeftClicked = ms.LeftButton != ButtonState.Pressed && oms.LeftButton == ButtonState.Pressed;
+            RightClicked = ms.RightButton != ButtonState.Pressed && oms.RightButton == ButtonState.Pressed;
+            // true On left release like Windows buttons
+        }
+        public static bool Hover(Rectangle r)
+        {
+            return r.Contains(new Vector2(ms.X, ms.Y));
         }
 
-        public static bool Hover(Rectangle r) => r.Contains(new Vector2(ms.X, ms.Y));
+       
     }
 }
