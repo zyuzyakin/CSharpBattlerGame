@@ -31,7 +31,7 @@ namespace game1.Model
             if (HealthPoints > MaxHealthPoints) 
                 HealthPoints = MaxHealthPoints;
         }
-        public override void Update(GameTime gameTime, Game1 game)
+        public override void Update(GameTime gameTime, BirdGame game)
         {
             if (HealthPoints <= 0)
             {

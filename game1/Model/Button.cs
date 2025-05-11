@@ -14,7 +14,7 @@ namespace game1.Model
 {
     public class Button : GameObject
     {
-        public delegate void ClickEvent(Game1 game); //делегат для событий от нажатия кнопки
+        public delegate void ClickEvent(BirdGame game); //делегат для событий от нажатия кнопки
         public ClickEvent OnClick { get; set; }
         public bool IsEnabled { get; set; } 
         public string Text { get; set; }
@@ -23,7 +23,7 @@ namespace game1.Model
             IsEnabled = true;
         }
 
-        public override void Update(GameTime gameTime, Game1 game)
+        public override void Update(GameTime gameTime, BirdGame game)
         {
             if (IsEnabled)
             {
@@ -43,23 +43,23 @@ namespace game1.Model
         }
 
         //Функционал кнопок
-        public static void StartGame(Game1 game) 
+        public static void StartGame(BirdGame game) 
         {
             game.NewGame();
             game.ChangeState(game.mapState); 
         }
-        public static void CombineItems(Game1 game) 
+        public static void CombineItems(BirdGame game) 
             => game.gameState.PlayerArsenal.CombineItems(game);
-        public static void ExitGame(Game1 game) => game.Exit();
-        public static void BackToMap(Game1 game)
+        public static void ExitGame(BirdGame game) => game.Exit();
+        public static void BackToMap(BirdGame game)
         {
             game.ChangeState(game.mapState);
         }
-        public static void EnterShop(Game1 game) => game.ChangeState(game.shopState);
-        public static void PauseUnpauseGame(Game1 game) 
+        public static void EnterShop(BirdGame game) => game.ChangeState(game.shopState);
+        public static void PauseUnpauseGame(BirdGame game) 
             => game.gameState.IsPaused = !game.gameState.IsPaused;
 
-        public static void UpdateMap(Game1 game)
+        public static void UpdateMap(BirdGame game)
         {
             game.mapState.Map = new MapView();
             game.mapState.Map.LoadContent(game.Content);

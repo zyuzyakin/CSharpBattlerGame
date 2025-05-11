@@ -96,7 +96,7 @@ namespace game1.Model
             }
         }
 
-        public override void Update(GameTime gameTime, Game1 game)
+        public override void Update(GameTime gameTime, BirdGame game)
         {
             foreach (var elem in mapElems)
             {

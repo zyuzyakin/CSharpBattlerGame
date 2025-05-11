@@ -55,7 +55,7 @@ namespace game1.Model
             }
             Items = result;
         }
-        public void CombineItems(Game1 game)
+        public void CombineItems(BirdGame game)
         {
             var result = new List<ItemView>();
             
@@ -92,7 +92,7 @@ namespace game1.Model
             }
         }
 
-        public override void Update(GameTime gameTime, Game1 game)
+        public override void Update(GameTime gameTime, BirdGame game)
         {
             foreach (var item in Items)
             {

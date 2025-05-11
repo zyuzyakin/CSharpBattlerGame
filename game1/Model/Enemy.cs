@@ -57,7 +57,7 @@ namespace game1.Model
 
         
 
-        public override void Update(GameTime gameTime, Game1 game)
+        public override void Update(GameTime gameTime, BirdGame game)
         {   
             if(HealthPoints <= 0)
             {   
@@ -99,7 +99,7 @@ namespace game1.Model
                 }
             }
         }
-        public void AtackPlayer(Game1 game)
+        public void AtackPlayer(BirdGame game)
         {
             game.gameState.Player.ShieldPoints -= Damage;
             Damage += AtackIteration / 10;

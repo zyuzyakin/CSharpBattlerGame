@@ -1,4 +1,5 @@
 ﻿using game1.Model;
+using game1.View;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -8,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace game1.View.States
+namespace game1.States
 {
     public class ChestState : State
     {
@@ -20,7 +21,7 @@ namespace game1.View.States
 
         public ChestGridView ChestGrid { get; set; }
 
-        public ChestState(Game1 game, ContentManager content, GraphicsDevice graphicsDevice) : base(game, content, graphicsDevice)
+        public ChestState(BirdGame game, ContentManager content, GraphicsDevice graphicsDevice) : base(game, content, graphicsDevice)
         {
             Background = content.Load<Texture2D>("backgrounds/bgshop");
             PlayerTexture = new AnimatedTexture(20, 24, "playershopsheet",
@@ -74,7 +75,7 @@ namespace game1.View.States
             spriteBatch.End();
         }
 
-        public override void Update(GameTime gameTime, Game1 game)
+        public override void Update(GameTime gameTime, BirdGame game)
         {
             foreach (var e in StateElements)
             {

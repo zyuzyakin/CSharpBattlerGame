@@ -1,6 +1,6 @@
 ﻿using game1.Controller;
 using game1.View;
-using game1.View.States;
+using game1.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -56,7 +56,7 @@ namespace game1.Model
             ChargePerPeriod = item.ChargePerPeriod;
         }
         
-        public override void Update(GameTime gameTime, Game1 game)
+        public override void Update(GameTime gameTime, BirdGame game)
         {
             if (game.gameState.IsPaused) return;
 
@@ -76,7 +76,7 @@ namespace game1.Model
                 }
             }
         }
-        public void Act(GameTime gameTime, Game1 game)
+        public void Act(GameTime gameTime, BirdGame game)
         {
             switch (ItemType)
             {
@@ -104,30 +104,30 @@ namespace game1.Model
             }
             
         }
-        public void SwordAct(Game1 game) => 
+        public void SwordAct(BirdGame game) => 
             game.gameState.CurrentEnemy.HealthPoints -= 5 * Level;
-        public void ShieldAct(Game1 game) =>
+        public void ShieldAct(BirdGame game) =>
             game.gameState.Player.ShieldPoints += 1 * Level;
-        public void BombAct(Game1 game)
+        public void BombAct(BirdGame game)
         {
             game.gameState.CurrentEnemy.HealthPoints -= 30 * Level;
             IsEnabled = false;
         }
-        public void IceAct(Game1 game)
+        public void IceAct(BirdGame game)
         {
             game.gameState.CurrentEnemy.Charge
                  = Math.Max(game.gameState.CurrentEnemy.Charge - 5 * Level, 0);
         }
-        public void HealPotionAct(Game1 game)
+        public void HealPotionAct(BirdGame game)
         {
             game.gameState.Player.Heal(1 * Level);
         }
-        public void BowAct(Game1 game)
+        public void BowAct(BirdGame game)
         {   
             game.gameState.CurrentEnemy.HealthPoints -= 1 * Level;
             Period = Math.Max(10, Period - ItemIteration * Level);
         }
-        public void HammerAct(Game1 game)
+        public void HammerAct(BirdGame game)
         {
             var rnd = new Random();
             game.gameState.CurrentEnemy.HealthPoints -= (1 + rnd.Next(0, 7)) * Level;

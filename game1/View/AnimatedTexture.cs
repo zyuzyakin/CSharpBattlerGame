@@ -50,7 +50,7 @@ namespace game1.View
             FrameHeight = Texture.Height / 2;
         }
 
-        public override void Update(GameTime gameTime, Game1 game)
+        public override void Update(GameTime gameTime, BirdGame game)
         {
             if (IsPaused) return;
 

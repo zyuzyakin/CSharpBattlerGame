@@ -1,6 +1,6 @@
 ﻿using game1.Controller;
 using game1.View;
-using game1.View.States;
+using game1.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -27,7 +27,7 @@ namespace game1.Model
             Previous = new List<MapElement>();
         }
 
-        public override void Update(GameTime gameTime, Game1 game)
+        public override void Update(GameTime gameTime, BirdGame game)
         {
             var curelem = game.mapState.Map.CurrentMapElem;
 
@@ -53,7 +53,7 @@ namespace game1.Model
             }
             
         }
-        public void CreateLevel(Game1 game)
+        public void CreateLevel(BirdGame game)
         {
             switch (PointType)
             {

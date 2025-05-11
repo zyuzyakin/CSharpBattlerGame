@@ -1,4 +1,5 @@
 ﻿using game1.Model;
+using game1.View;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -10,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrayNotify;
 
-namespace game1.View.States
+namespace game1.States
 {
     public class StartMenuState : State
     {
@@ -18,7 +19,7 @@ namespace game1.View.States
         public ButtonView PlayButton { get; set; }
         public ButtonView ExitButton { get; set; }
 
-        public StartMenuState(Game1 game, ContentManager content, GraphicsDevice graphicsDevice) : base(game, content, graphicsDevice)
+        public StartMenuState(BirdGame game, ContentManager content, GraphicsDevice graphicsDevice) : base(game, content, graphicsDevice)
         {
             Background = content.Load<Texture2D>("backgrounds/bgshop");
             Logo = content.Load<Texture2D>("logo");
@@ -54,7 +55,7 @@ namespace game1.View.States
             spriteBatch.End();
         }
 
-        public override void Update(GameTime gameTime, Game1 game)
+        public override void Update(GameTime gameTime, BirdGame game)
         {
             PlayButton.Update(gameTime, game);
             ExitButton.Update(gameTime, game);

@@ -21,7 +21,7 @@ namespace game1.View
         { 
         }
         
-        public virtual void Update(GameTime gameTime, Game1 game)
+        public virtual void Update(GameTime gameTime, BirdGame game)
         {
         }
        

@@ -1,11 +1,12 @@
 ﻿using game1.Model;
+using game1.View;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrayNotify;
 
-namespace game1.View.States
+namespace game1.States
 {
     public class GameState : State
     {   
@@ -18,7 +19,7 @@ namespace game1.View.States
         public ButtonView PauseButton { get; set; }
         public ButtonView RestartGameButton { get; set; }
 
-        public GameState(Game1 game, ContentManager content, GraphicsDevice graphicsDevice) : base(game, content, graphicsDevice)
+        public GameState(BirdGame game, ContentManager content, GraphicsDevice graphicsDevice) : base(game, content, graphicsDevice)
         {
             Background = content.Load<Texture2D>("backgrounds/bgbattle");
             PlayerTexture = new AnimatedTexture(20, 24, "playerbattlesheet", 
@@ -80,7 +81,7 @@ namespace game1.View.States
             spriteBatch.End();
         }
 
-        public override void Update(GameTime gameTime, Game1 game)
+        public override void Update(GameTime gameTime, BirdGame game)
         {
             CurrentEnemy.Update(gameTime, game);
 

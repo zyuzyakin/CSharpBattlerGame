@@ -1,4 +1,5 @@
 ﻿using game1.Model;
+using game1.View;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -8,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace game1.View.States
+namespace game1.States
 {
     public class MapState : State
     {
@@ -16,7 +17,7 @@ namespace game1.View.States
         public ButtonView UpdateMapButton { get; set; }
         private Texture2D Description;
 
-        public MapState(Game1 game, ContentManager content, GraphicsDevice graphicsDevice) : base(game, content, graphicsDevice)
+        public MapState(BirdGame game, ContentManager content, GraphicsDevice graphicsDevice) : base(game, content, graphicsDevice)
         {
             Background = content.Load<Texture2D>("backgrounds/bgshop");
             Description = content.Load<Texture2D>("mapIcons/legend");
@@ -48,7 +49,7 @@ namespace game1.View.States
             spriteBatch.End();
         }
         
-        public override void Update(GameTime gameTime, Game1 game)
+        public override void Update(GameTime gameTime, BirdGame game)
         {
             Map.Update(gameTime, game);
             UpdateMapButton.Update(gameTime, game);

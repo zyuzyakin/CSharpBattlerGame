@@ -14,7 +14,6 @@ namespace game1.View
     {
         public EnemyView(EnemyType type) : base(type)
         {
-
         }
 
         public SpriteFont Font { get; set; }

@@ -1,18 +1,14 @@
 ﻿using game1.Controller;
-using game1.Model;
-using game1.View.States;
+using game1.States;
+using game1.View;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using System.Collections.Generic;
 
-//using System.Drawing;
 
-namespace game1.View;
+namespace game1;
 
-public class Game1 : Game
+public class BirdGame : Game
 {
-
     public State currentState;
     public State nextState;
 
@@ -25,15 +21,12 @@ public class Game1 : Game
     public ShopState shopState { get; set; }
     public ChestState chestState { get; set; }
 
-
-
-
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
     public SpriteFont BaseFont;
 
 
-    public Game1()
+    public BirdGame()
     {
         _graphics = new GraphicsDeviceManager(this);
 
