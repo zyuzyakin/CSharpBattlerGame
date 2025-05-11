@@ -14,8 +14,8 @@ namespace game1.View.States
     {
         public AnimatedTexture PlayerTexture { get; set; }
 
-        public ShopGrid ShopGrid { get; set; }
-        public Money Money { get; set; }
+        public ShopGridView ShopGrid { get; set; }
+        public MoneyView Money { get; set; }
 
         private Texture2D Description;
 
@@ -30,7 +30,7 @@ namespace game1.View.States
             PlayerTexture = new AnimatedTexture(20, 24, "playershopsheet", 
                 new Rectangle(140 * k, 90 * k, 40 * k, 40 * k));
 
-            ShopGrid = new ShopGrid();
+            ShopGrid = new ShopGridView();
 
             ShopGrid.LoadContent(content);
 
@@ -48,7 +48,7 @@ namespace game1.View.States
                 OnClick = Button.BackToMap
             };
 
-            Money = new Money();
+            Money = new MoneyView();
 
             Money.LoadContent(content);
             BackToMapButton.LoadContent(content);
@@ -67,13 +67,12 @@ namespace game1.View.States
             spriteBatch.Draw(Description, 
                 new Rectangle(140 * k, 30 * k, 60 * k, 60 * k), Color.White);
             ShopGrid.Draw(spriteBatch);
-            Game.gameState.Player.PlayerArsenal.Draw(spriteBatch);
+            Game.gameState.PlayerArsenal.Draw(spriteBatch);
             BackToMapButton.Draw(spriteBatch);
             Money.Draw(spriteBatch);
             CombineItemsButton.Draw(spriteBatch);
             PlayerTexture.Draw(spriteBatch);
             spriteBatch.End();
-
         }
 
         public override void Update(GameTime gameTime, Game1 game)

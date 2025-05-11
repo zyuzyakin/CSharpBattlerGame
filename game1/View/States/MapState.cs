@@ -12,7 +12,7 @@ namespace game1.View.States
 {
     public class MapState : State
     {
-        public Map Map { get; set; }
+        public MapView Map { get; set; }
         public ButtonView UpdateMapButton { get; set; }
         private Texture2D Description;
 
@@ -21,7 +21,7 @@ namespace game1.View.States
             Background = content.Load<Texture2D>("backgrounds/bgshop");
             Description = content.Load<Texture2D>("mapIcons/legend");
 
-            Map = new Map();
+            Map = new MapView();
 
             UpdateMapButton = new ButtonView()
             {

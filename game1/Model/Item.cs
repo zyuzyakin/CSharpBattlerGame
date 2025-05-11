@@ -19,9 +19,6 @@ namespace game1.Model
     }
     public class Item : GameObject
     {
-        public SpriteFont Font { get; set; }
-        public Texture2D ChargeBarTexture { get; set; }
-
         public int Charge { get; set; } // процент заряда
         public int ChargePerPeriod { get; set; } // заряд за 1 интервал
 
@@ -31,8 +28,6 @@ namespace game1.Model
         public int Level { get; set; }
         public bool IsEnabled { get; set; }
         public bool IsVisible { get; set; }
-
-
         public bool IsAtShop { get; set; }
 
         public int Cost { get; set; } 
@@ -46,62 +41,21 @@ namespace game1.Model
             IsVisible = true;
             Level = 1;
             Period = 50;
-            ChargePerPeriod = 2;
+            ChargePerPeriod = 5;
         }
 
         public Item(Item item)
         {
             Texture = item.Texture;
-            ChargeBarTexture = item.ChargeBarTexture;
             ItemType = item.ItemType;
             Period = 50;
             Level = item.Level;
             IsEnabled = true;
             IsVisible = true;
             IsAtShop = false;
-            Font = item.Font;
             ChargePerPeriod = item.ChargePerPeriod;
         }
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            if (!IsEnabled) return;
-
-            DrawFrame(spriteBatch, Charge / 5);
-
-            DrawBarFrame(spriteBatch, Charge / 5);
-
-            spriteBatch.DrawString(Font, $"{ItemType}/{Level}",
-                new Vector2(Box.X, Box.Y + Box.Height + (int)(Box.Height * 0.25)), Color.White, 
-                0f, new Vector2(0,0), 0.4f * tk, SpriteEffects.None, 0);
-
-            if (IsEnabled && IsAtShop)
-            {
-                spriteBatch.DrawString(Font, Cost.ToString(),
-                new Vector2(Box.X, Box.Y + k), Color.Yellow,
-                0f, new Vector2(0, 0), tk, SpriteEffects.None, 0f);
-            }
-
-
-        }
-        public void DrawFrame(SpriteBatch spriteBatch, int frame)
-        {
-            int FrameWidth = Texture.Width / 20;
-
-            Rectangle sourcerect = new Rectangle(FrameWidth * frame, 0,
-                FrameWidth, Texture.Height);
-
-            spriteBatch.Draw(Texture, Box, sourcerect, Color);
-        }
-        public void DrawBarFrame(SpriteBatch spriteBatch, int frame)
-        {
-            int FrameWidth = ChargeBarTexture.Width / 20;
-
-            Rectangle sourcerect = new Rectangle(FrameWidth * frame, 0,
-                FrameWidth, ChargeBarTexture.Height);
-
-            spriteBatch.Draw(ChargeBarTexture, new Rectangle(Box.X, Box.Y + (int)(Box.Height * 0.75), Box.Width, (int)(Box.Height * 0.75)), 
-                sourcerect, Color.White);
-        }
+        
         public override void Update(GameTime gameTime, Game1 game)
         {
             if (game.gameState.IsPaused) return;
@@ -177,12 +131,6 @@ namespace game1.Model
         {
             var rnd = new Random();
             game.gameState.CurrentEnemy.HealthPoints -= (1 + rnd.Next(0, 7)) * Level;
-        }
-        public override void LoadContent(ContentManager content)
-        {
-            Texture = content.Load<Texture2D>($"items/{ItemType}sheet");
-            ChargeBarTexture = content.Load<Texture2D>($"items/barsheet");
-            Font = content.Load<SpriteFont>("fonts/Hud");
         }
     }
 }

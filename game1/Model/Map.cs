@@ -6,25 +6,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
+
 
 namespace game1.Model
 {
     public class Map : GameObject
     {
         private readonly Random rnd;
-        private Texture2D roadPointTexture;
-        private List<MapElement> mapElems;
-
+        public List<MapElementView> mapElems { get; set; }
         public MapElement CurrentMapElem { get; set; }
 
         public Map()
         {
-            mapElems = new List<MapElement>();
+            mapElems = new List<MapElementView>();
             rnd = new Random();
             CurrentMapElem = null;
 
@@ -38,7 +32,7 @@ namespace game1.Model
                 //На этих уровнях генерируется только магазин
                 if (levelNum == 1 || levelNum == (totalLevels + 1) / 2  || levelNum == totalLevels-1)
                 {
-                    mapElems.Add(new MapElement()
+                    mapElems.Add(new MapElementView()
                     {
                         Box = new Rectangle(startX,
                                 startY - levelNum * 20 * k, size, size),
@@ -50,7 +44,7 @@ namespace game1.Model
                 //На последнем битва с боссом
                 else if(levelNum == totalLevels)
                 {
-                    mapElems.Add(new MapElement()
+                    mapElems.Add(new MapElementView()
                     {
                         Box = new Rectangle(startX - 5 * k, startY - 20 * k * totalLevels - 10 * k, 30 * k, 30 * k),
                         LevelNumber = levelNum,
@@ -63,7 +57,7 @@ namespace game1.Model
                     var dotNumber = rnd.Next(2, 4);
                     for (int i = 0; i < dotNumber; i++)
                     {
-                        mapElems.Add(new MapElement()
+                        mapElems.Add(new MapElementView()
                         {
                             Box = new Rectangle(startX - 15 * k * (dotNumber - 1) + i * 30 * k,
                                 startY - levelNum * 20 * k, size, size),
@@ -101,65 +95,6 @@ namespace game1.Model
                 }
             }
         }
-        
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            foreach (var elem in mapElems)
-            {
-                foreach (var nelem in elem.Next)
-                {
-                    DrawRoad(elem, nelem, spriteBatch);
-                }
-                elem.Draw(spriteBatch);
-            }
-        }
-        /// <summary>
-        /// Метод отрисовывает линию из точек между 2 элементами карты
-        /// </summary>
-        public void DrawRoad(MapElement e1, MapElement e2, SpriteBatch spriteBatch)
-        {
-            var step = 2 * k;
-            var e1x = e1.Box.X + e1.Box.Width / 2;
-            var e1y = e1.Box.Y + e1.Box.Height / 2;
-
-            var e2x = e2.Box.X + e2.Box.Width / 2;
-            var e2y = e2.Box.Y + e2.Box.Height / 2;
-
-            var minx = Math.Min(e2x, e1x);
-            var maxx = Math.Max(e2x, e1x);
-            var miny = Math.Min(e2y, e1y);
-            var maxy = Math.Max(e2y, e1y);
-
-            double deltax = e2x - e1x;
-            double deltay = e2y - e1y;
-            if (deltax == 0)
-            {
-                for (var y = miny; y <= maxy; y += step)
-                {
-                    spriteBatch.Draw(roadPointTexture,
-                        new Rectangle(e1x, y,
-                        2 * k, 2 * k), Color.White);
-                }
-            }
-            else if (maxx - minx > maxy - miny)
-            {
-                for (var x = minx; x <= maxx; x += step)
-                {
-                    spriteBatch.Draw(roadPointTexture,
-                        new Rectangle(x, (int)((x - e1x) * (deltay / deltax) + e1y),
-                        2 * k, 2 * k), Color.White);
-                }
-            }
-            else
-            {
-                for (var y = miny; y <= maxy; y += step)
-                {
-                    spriteBatch.Draw(roadPointTexture,
-                        new Rectangle((int)(deltax / deltay * (y - e1y) + e1x), y,
-                        2 * k, 2 * k), Color.White);
-                }
-            }
-        }
 
         public override void Update(GameTime gameTime, Game1 game)
         {
@@ -169,15 +104,7 @@ namespace game1.Model
             }
         }
 
-        public override void LoadContent(ContentManager content)
-        {
-            roadPointTexture = content.Load<Texture2D>("mapIcons/roadPoint");
-
-            foreach (var elem in mapElems)
-            {
-                elem.LoadContent(content);
-            }
-        }
+        
     }
 
 }

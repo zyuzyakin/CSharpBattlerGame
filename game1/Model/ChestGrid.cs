@@ -10,19 +10,19 @@ namespace game1.Model
 {
     public class ChestGrid : GameObject
     {
-        public List<Item> Items { get; set; }
+        public List<ItemView> Items { get; set; }
         public ChestGrid()
         {
             RefreshChestGrid();
         }
         public void RefreshChestGrid()
         {
-            Items = new List<Item>();
+            Items = new List<ItemView>();
             var rnd = new Random();
             for (var i = 0; i < 3; i++)
             {
                 Items.Add(
-                    new Item()
+                    new ItemView()
                     {
                         ItemType = (ItemType)Enum.GetValues(typeof(ItemType))
                                     .GetValue(rnd.Next(0, 7)),
@@ -42,9 +42,9 @@ namespace game1.Model
                     item.Color = Color.ForestGreen;
                     if (InputManager.LeftClicked)
                     {
-                        if (game.gameState.Player.PlayerArsenal.IsItAbleToAddItem())
+                        if (game.gameState.PlayerArsenal.IsItAbleToAddItem())
                         {
-                            game.gameState.Player.PlayerArsenal.AddItem(item);
+                            game.gameState.PlayerArsenal.AddItem(item);
                             item.IsEnabled = false;
                             item.IsVisible = false;
                         }

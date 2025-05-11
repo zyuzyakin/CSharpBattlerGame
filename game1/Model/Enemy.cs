@@ -20,13 +20,9 @@ namespace game1.Model
 
         public int MoneyReward { get; set; }
         public int Damage { get; set; }
-        public SpriteFont Font { get; set; }
-
         public string Text { get; set; }
         public int Charge { get; set; }
         public int ChargePerPeriod { get; set; }
-
-        public Texture2D ChargeBarTexture { get; set; }
         public int TotalElapsed { get; set; } // сколько времени прошло
         public int Period { get; set; } // частота обновления в миллисекундах
         public int AtackIteration { get; set; }
@@ -59,46 +55,7 @@ namespace game1.Model
             }
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            if (!IsDefeated)
-            {
-                DrawFrame(spriteBatch, Charge / 5);
-
-                DrawBarFrame(spriteBatch, Charge / 5);
-                string hpDisplay = $"HP:{HealthPoints}!";
-
-                spriteBatch.DrawString(Font, hpDisplay, 
-                    new Vector2(Box.X, Box.Y + Box.Height), Color.White,
-                    0f, new Vector2(0, 0), tk, SpriteEffects.None, 0f);
-
-                spriteBatch.DrawString(Font, Damage.ToString(), 
-                    new Vector2(Box.X + Box.Width, Box.Y + Box.Height), Color.Red,
-                    0f, new Vector2(0, 0), tk, SpriteEffects.None, 0f);
-            }
-        }
-        public void DrawFrame(SpriteBatch spriteBatch, int frame)
-        {
-            int FrameWidth = Texture.Width / 10;
-            int FrameHeight = Texture.Height / 2;
-
-
-            Rectangle sourcerect = new Rectangle(FrameWidth * (frame % 10), FrameHeight * (frame / 10),
-                FrameWidth, FrameHeight);
-
-            spriteBatch.Draw(Texture, Box, sourcerect, Color);
-        }
-        public void DrawBarFrame(SpriteBatch spriteBatch, int frame)
-        {
-            int FrameWidth = ChargeBarTexture.Width / 20;            
-
-            Rectangle sourcerect = new Rectangle(FrameWidth * frame, 0,
-                FrameWidth, ChargeBarTexture.Height);
-
-            spriteBatch.Draw(ChargeBarTexture, 
-                new Rectangle(Box.X + Box.Width + 2 * k, Box.Y + 34 * k, Box.Width, 30 * k), 
-                sourcerect, Color.White);
-        }
+        
 
         public override void Update(GameTime gameTime, Game1 game)
         {   
@@ -114,7 +71,7 @@ namespace game1.Model
 
                 game.gameState.BackToMapButton.IsEnabled = true;
 
-                game.gameState.Player.PlayerArsenal.RefreshItems();
+                game.gameState.PlayerArsenal.RefreshItems();
 
                 if (EnemyType == EnemyType.miner)
                 {
@@ -153,11 +110,5 @@ namespace game1.Model
                 game.gameState.Player.ShieldPoints = 0;
         }
 
-        public override void LoadContent(ContentManager content)
-        {
-            Texture = content.Load<Texture2D>($"enemies/{EnemyType}sheet");
-            Font = content.Load<SpriteFont>("fonts/Hud");
-            ChargeBarTexture = content.Load<Texture2D>("enemies/mobbarsheet");
-        }
     }
 }

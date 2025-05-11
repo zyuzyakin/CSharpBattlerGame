@@ -10,8 +10,9 @@ namespace game1.View.States
     public class GameState : State
     {   
         public AnimatedTexture PlayerTexture { get; set; }
-        public Player Player { get; private set; }
-        public Enemy CurrentEnemy { get; set; }
+        public PlayerView Player { get; private set; }
+        public PlayerArsenalView PlayerArsenal { get; private set; }
+        public EnemyView CurrentEnemy { get; set; }
         public bool IsPaused {get;set;}
         public ButtonView BackToMapButton { get; private set; }
         public ButtonView PauseButton { get; set; }
@@ -23,8 +24,8 @@ namespace game1.View.States
             PlayerTexture = new AnimatedTexture(20, 24, "playerbattlesheet", 
                 new Rectangle(10 * k, 80 * k, 40 * k, 40 * k));
             
-            Player = new Player();
-
+            Player = new PlayerView();
+            PlayerArsenal = new PlayerArsenalView();
 
             RestartGameButton = new ButtonView()
             {
@@ -51,7 +52,7 @@ namespace game1.View.States
             };
 
             StateElements.Add(Player);
-            StateElements.Add(Player.PlayerArsenal);
+            StateElements.Add(PlayerArsenal);
             StateElements.Add(BackToMapButton);
             StateElements.Add(PauseButton);
             StateElements.Add(RestartGameButton);

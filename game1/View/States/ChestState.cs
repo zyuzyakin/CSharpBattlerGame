@@ -64,7 +64,7 @@ namespace game1.View.States
             spriteBatch.Draw(Background, new Rectangle(0, 0, 200 * k, 150 * k), 
                 Color.White);
             
-            Game.gameState.Player.PlayerArsenal.Draw(spriteBatch);
+            Game.gameState.PlayerArsenal.Draw(spriteBatch);
 
             foreach (var e in StateElements)
             {

@@ -26,10 +26,6 @@ namespace game1.Model
             Next = new List<MapElement>();
             Previous = new List<MapElement>();
         }
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(Texture, Box, Color);
-        }
 
         public override void Update(GameTime gameTime, Game1 game)
         {
@@ -61,6 +57,7 @@ namespace game1.Model
         {
             switch (PointType)
             {
+                //TODO перенести в game переход к новому state
                 case PointType.chest:
                     game.ChangeState(game.chestState);
                     game.chestState.ChestGrid = new ChestGridView();
@@ -71,7 +68,7 @@ namespace game1.Model
                     game.gameState.IsPaused = false;
                     game.gameState.PauseButton.IsEnabled = true;
                     game.gameState.BackToMapButton.IsEnabled = false;
-                    game.gameState.CurrentEnemy = new Enemy(EnemyType.adware);
+                    game.gameState.CurrentEnemy = new EnemyView(EnemyType.adware);
                     game.gameState.CurrentEnemy.LoadContent(game.Content);
                     break;
                 case PointType.hardbattle:
@@ -80,32 +77,26 @@ namespace game1.Model
                     game.gameState.IsPaused = false;
                     game.gameState.PauseButton.IsEnabled = true;
                     game.gameState.BackToMapButton.IsEnabled = false;
-                    game.gameState.CurrentEnemy = new Enemy(EnemyType.spyware);
+                    game.gameState.CurrentEnemy = new EnemyView(EnemyType.spyware);
                     game.gameState.CurrentEnemy.LoadContent(game.Content);
                     
                     break;
                 case PointType.boss:
-
                     game.ChangeState(game.gameState);
                     game.gameState.IsPaused = false;
                     game.gameState.PauseButton.IsEnabled = true;
                     game.gameState.BackToMapButton.IsEnabled = false;
-                    game.gameState.CurrentEnemy = new Enemy(EnemyType.miner);
+                    game.gameState.CurrentEnemy = new EnemyView(EnemyType.miner);
                     game.gameState.CurrentEnemy.LoadContent(game.Content);
-
                     break;
                 case PointType.shop:
                     game.ChangeState(game.shopState);
-                    game.shopState.ShopGrid = new ShopGrid();
+                    game.shopState.ShopGrid = new ShopGridView();
                     game.shopState.ShopGrid.LoadContent(game.Content);
                     break;
                 
             }
         }
 
-        public override void LoadContent(ContentManager content)
-        {
-            Texture = content.Load<Texture2D>($"mapIcons/{PointType}");
-        }
     }
 }

@@ -49,7 +49,7 @@ namespace game1.Model
             game.ChangeState(game.mapState); 
         }
         public static void CombineItems(Game1 game) 
-            => game.gameState.Player.PlayerArsenal.CombineItems(game);
+            => game.gameState.PlayerArsenal.CombineItems(game);
         public static void ExitGame(Game1 game) => game.Exit();
         public static void BackToMap(Game1 game)
         {
@@ -61,7 +61,7 @@ namespace game1.Model
 
         public static void UpdateMap(Game1 game)
         {
-            game.mapState.Map = new Map();
+            game.mapState.Map = new MapView();
             game.mapState.Map.LoadContent(game.Content);
         }
 

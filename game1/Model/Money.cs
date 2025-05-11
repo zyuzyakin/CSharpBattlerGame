@@ -10,13 +10,13 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace game1.Model
 {
-    public class Money : Button
+    public class Money : GameObject
     {
         public int MoneyValue { get; set; } = 20;
+        public string Text { get; set; }
 
         public Money()
         {
-            Box = new Rectangle(140 * k, 10 * k, 50 * k, 15 * k);
             Text = $"ДЕНЬГИ:{MoneyValue}!";
         }
         

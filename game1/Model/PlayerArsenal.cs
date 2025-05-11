@@ -13,14 +13,14 @@ namespace game1.Model
 {
     public class PlayerArsenal : GameObject
     {   
-        public List<Item> Items { get; set; }
+        public List<ItemView> Items { get; set; }
         public int MaxSize { get; set; }
 
         public Dictionary<ItemType,int> ItemsCount { get; set; }
         public PlayerArsenal()
         {
             Box = new Rectangle(55 * k, 90 * k, 100 * k, 40 * k);
-            Items = new List<Item>();
+            Items = new List<ItemView>();
             ItemsCount = new Dictionary<ItemType, int>();
             MaxSize = 8;
 
@@ -29,35 +29,35 @@ namespace game1.Model
                 ItemsCount.Add((ItemType)elem, 0);
             }
         }
-        public void AddItem(Item item, Money money)
+        public void AddItem(ItemView item, Money money)
         {
             if (money.MoneyValue >= item.Cost && Items.Count < MaxSize)
             {
                 money.MoneyValue -= item.Cost;
-                Items.Add(new Item(item));
+                Items.Add(new ItemView(item));
             }
         }
         public bool IsItAbleToAddItem() => Items.Count < MaxSize;
-        public void AddItem(Item item)
+        public void AddItem(ItemView item)
         {
             if (Items.Count < MaxSize)
             {
-                Items.Add(new Item(item));
+                Items.Add(new ItemView(item));
             }
         }
         public void RefreshItems()
         {
-            var result = new List<Item>();
+            var result = new List<ItemView>();
 
             foreach (var item in Items)
             {
-                result.Add(new Item(item));
+                result.Add(new ItemView(item));
             }
             Items = result;
         }
         public void CombineItems(Game1 game)
         {
-            var result = new List<Item>();
+            var result = new List<ItemView>();
             
             foreach (var item in Items)
             {
@@ -72,7 +72,7 @@ namespace game1.Model
                 {
                     for (var a = 0; a < ostatok / (int)Math.Pow(2, level - 1); a++)
                     {
-                        result.Add(new Item() { ItemType = elem.Key, 
+                        result.Add(new ItemView() { ItemType = elem.Key, 
                             Level = level, IsAtShop = false });
                     }
                     ostatok %= (int)Math.Pow(2, level - 1);
@@ -92,34 +92,11 @@ namespace game1.Model
             }
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            var distance = k;
-            var itemWidth = 20 * k;
-            var itemHeight = 20 * k;
-
-            for (var i = 0; i < Items.Count; i++)
-            {
-                Items[i].Box = new Rectangle(Box.X + i % (MaxSize/2) * (itemWidth + distance),
-                    Box.Y + (i / (MaxSize / 2)) * (itemHeight + 6 * distance),
-                    itemWidth, itemHeight);
-                Items[i].Draw(spriteBatch);
-            }
-        }
-
         public override void Update(GameTime gameTime, Game1 game)
         {
             foreach (var item in Items)
             {
                 item.Update(gameTime, game);
-            }
-        }
-
-        public override void LoadContent(ContentManager content)
-        {
-            foreach (var item in Items)
-            {
-                item.LoadContent(content);
             }
         }
     }
