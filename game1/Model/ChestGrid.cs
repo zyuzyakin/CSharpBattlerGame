@@ -13,7 +13,6 @@ namespace game1.Model
         public List<Item> Items { get; set; }
         public ChestGrid()
         {
-            Box = new Rectangle(40 * k, 40 * k, 1000 * k, 30 * k);
             RefreshChestGrid();
         }
         public void RefreshChestGrid()
@@ -29,22 +28,6 @@ namespace game1.Model
                                     .GetValue(rnd.Next(0, 7)),
                         IsAtShop = false
                     });
-            }
-        }
-
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            var distance = k;
-            var itemWidth = 30 * k;
-            var itemHeight = 30 * k;
-
-            for (var i = 0; i < Items.Count; i++)
-            {
-                Items[i].Box = new Rectangle(Box.X + i % 4 * (itemWidth + distance),
-                    Box.Y + (i / 4) * (itemHeight + distance * 10),
-                    itemWidth, itemHeight);
-
-                Items[i].Draw(spriteBatch);
             }
         }
 
@@ -71,14 +54,6 @@ namespace game1.Model
                 {
                     item.Color = Color.White;
                 }
-            }
-        }
-
-        public override void LoadContent(ContentManager content)
-        {
-            foreach (var item in Items)
-            {
-                item.LoadContent(content);
             }
         }
     }

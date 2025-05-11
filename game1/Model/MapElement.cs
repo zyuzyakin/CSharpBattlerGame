@@ -63,7 +63,7 @@ namespace game1.Model
             {
                 case PointType.chest:
                     game.ChangeState(game.chestState);
-                    game.chestState.ChestGrid = new ChestGrid();
+                    game.chestState.ChestGrid = new ChestGridView();
                     game.chestState.ChestGrid.LoadContent(game.Content);
                     break;
                 case PointType.battle:

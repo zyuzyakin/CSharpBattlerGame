@@ -18,7 +18,7 @@ namespace game1.View.States
         public ButtonView BackToMapButton { get; set; }
         public ButtonView CombineItemsButton { get; set; }
 
-        public ChestGrid ChestGrid { get; set; }
+        public ChestGridView ChestGrid { get; set; }
 
         public ChestState(Game1 game, ContentManager content, GraphicsDevice graphicsDevice) : base(game, content, graphicsDevice)
         {
@@ -27,7 +27,7 @@ namespace game1.View.States
                 new Rectangle(160 * k, 40 * k, 40 * k, 40 * k));
 
 
-            ChestGrid = new ChestGrid();
+            ChestGrid = new ChestGridView();
             Money = new Money();
 
             CombineItemsButton = new ButtonView()
