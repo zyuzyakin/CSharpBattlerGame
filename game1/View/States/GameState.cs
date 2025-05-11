@@ -13,9 +13,9 @@ namespace game1.View.States
         public Player Player { get; private set; }
         public Enemy CurrentEnemy { get; set; }
         public bool IsPaused {get;set;}
-        public Button BackToMapButton { get; private set; }
-        public Button PauseButton { get; set; }
-        public Button RestartGameButton { get; set; }
+        public ButtonView BackToMapButton { get; private set; }
+        public ButtonView PauseButton { get; set; }
+        public ButtonView RestartGameButton { get; set; }
 
         public GameState(Game1 game, ContentManager content, GraphicsDevice graphicsDevice) : base(game, content, graphicsDevice)
         {
@@ -26,7 +26,7 @@ namespace game1.View.States
             Player = new Player();
 
 
-            RestartGameButton = new Button()
+            RestartGameButton = new ButtonView()
             {
                 Box = new Rectangle(70 * k, 90 * k, 70 * k, 40 * k),
                 Text = "ВЫ ПРОИГРАЛИ!\n\n\nНОВАЯ ИГРА!",
@@ -34,7 +34,7 @@ namespace game1.View.States
                 OnClick = Button.StartGame
             };
 
-            BackToMapButton = new Button()
+            BackToMapButton = new ButtonView()
             {
                 Box = new Rectangle(140 * k, 30 * k, 50 * k, 15 * k),
                 Text = "НАЗАД!",
@@ -43,7 +43,7 @@ namespace game1.View.States
 
             };
 
-            PauseButton = new Button()
+            PauseButton = new ButtonView()
             {
                 Box = new Rectangle(140 * k, 10 * k, 50 * k, 15 * k),
                 Text = "ПАУЗА!",

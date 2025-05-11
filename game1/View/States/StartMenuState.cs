@@ -15,21 +15,21 @@ namespace game1.View.States
     public class StartMenuState : State
     {
         private Texture2D Logo;
-        public Button PlayButton { get; set; }
-        public Button ExitButton { get; set; }
+        public ButtonView PlayButton { get; set; }
+        public ButtonView ExitButton { get; set; }
 
         public StartMenuState(Game1 game, ContentManager content, GraphicsDevice graphicsDevice) : base(game, content, graphicsDevice)
         {
             Background = content.Load<Texture2D>("backgrounds/bgshop");
             Logo = content.Load<Texture2D>("logo");
 
-            PlayButton = new Button()
+            PlayButton = new ButtonView()
             {
                 Box = new Rectangle(10 * k, 100 * k, 50 * k, 15 * k),
                 Text = "НАЧАТЬ ИГРУ!",
                 OnClick = Button.StartGame
             };
-            ExitButton = new Button()
+            ExitButton = new ButtonView()
             {
                 Box = new Rectangle(10 * k, 120 * k, 50 * k, 15 * k),
                 Text = "ВЫХОД!",

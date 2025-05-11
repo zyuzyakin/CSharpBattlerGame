@@ -19,8 +19,8 @@ namespace game1.View.States
 
         private Texture2D Description;
 
-        public Button BackToMapButton { get; set; }
-        public Button CombineItemsButton { get; set; }
+        public ButtonView BackToMapButton { get; set; }
+        public ButtonView CombineItemsButton { get; set; }
 
 
         public ShopState(Game1 game, ContentManager content, GraphicsDevice graphicsDevice) : base(game, content, graphicsDevice)
@@ -34,14 +34,14 @@ namespace game1.View.States
 
             ShopGrid.LoadContent(content);
 
-            CombineItemsButton = new Button()
+            CombineItemsButton = new ButtonView()
             {
                 Box = new Rectangle(5 * k, 130 * k, 50 * k, 15 * k),
                 Text = "СОЕДИНИТЬ!",
                 OnClick = Button.CombineItems
             };
 
-            BackToMapButton = new Button()
+            BackToMapButton = new ButtonView()
             {
                 Box = new Rectangle(140 * k, 130 * k, 50 * k, 15 * k),
                 Text = "НАЗАД!",

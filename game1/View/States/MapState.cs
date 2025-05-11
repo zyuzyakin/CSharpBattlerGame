@@ -13,7 +13,7 @@ namespace game1.View.States
     public class MapState : State
     {
         public Map Map { get; set; }
-        public Button UpdateMapButton { get; set; }
+        public ButtonView UpdateMapButton { get; set; }
         private Texture2D Description;
 
         public MapState(Game1 game, ContentManager content, GraphicsDevice graphicsDevice) : base(game, content, graphicsDevice)
@@ -23,7 +23,7 @@ namespace game1.View.States
 
             Map = new Map();
 
-            UpdateMapButton = new Button()
+            UpdateMapButton = new ButtonView()
             {
                 Box = new Rectangle(140 * k, 60 * k, 50 * k, 15 * k),
                 Text = "ОБНОВИТЬ!",

@@ -17,21 +17,10 @@ namespace game1.Model
         public delegate void ClickEvent(Game1 game); //делегат для событий от нажатия кнопки
         public ClickEvent OnClick { get; set; }
         public bool IsEnabled { get; set; } 
-        public SpriteFont Font { get; set; }
         public string Text { get; set; }
         public Button()
         {
             IsEnabled = true;
-        }
-
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            if (IsEnabled)
-            {
-                spriteBatch.Draw(Texture, Box, Color);
-                spriteBatch.DrawString(Font, Text, new Vector2(Box.X + k, Box.Y + k), Color,
-                    0f, new Vector2(0, 0), tk, SpriteEffects.None, 0f);
-            }
         }
 
         public override void Update(GameTime gameTime, Game1 game)
@@ -75,10 +64,6 @@ namespace game1.Model
             game.mapState.Map = new Map();
             game.mapState.Map.LoadContent(game.Content);
         }
-        public override void LoadContent(ContentManager content)
-        {
-            Texture = content.Load<Texture2D>("controls/longbutton");
-            Font = content.Load<SpriteFont>("fonts/Hud");
-        }
+
     }
 }

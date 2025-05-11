@@ -15,8 +15,8 @@ namespace game1.View.States
         public AnimatedTexture PlayerTexture { get; set; }
 
         public Money Money { get; set; }
-        public Button BackToMapButton { get; set; }
-        public Button CombineItemsButton { get; set; }
+        public ButtonView BackToMapButton { get; set; }
+        public ButtonView CombineItemsButton { get; set; }
 
         public ChestGrid ChestGrid { get; set; }
 
@@ -30,13 +30,13 @@ namespace game1.View.States
             ChestGrid = new ChestGrid();
             Money = new Money();
 
-            CombineItemsButton = new Button()
+            CombineItemsButton = new ButtonView()
             {
                 Box = new Rectangle(140 * k, 90 * k, 50 * k, 15 * k),
                 Text = "СОЕДИНИТЬ!",
                 OnClick = Button.CombineItems
             };
-            BackToMapButton = new Button()
+            BackToMapButton = new ButtonView()
             {
                 Box = new Rectangle(140 * k, 130 * k, 50 * k, 15 * k),
                 Text = "НАЗАД!",
