@@ -9,9 +9,6 @@ namespace game1.Model
     public class ChestGrid : GameObject
     {
         public List<ItemView> Items { get; set; }
-
-        public Rectangle Bounds => Box;
-
         public ChestGrid()
         {
             RefreshChestGrid();
@@ -27,35 +24,35 @@ namespace game1.Model
                     {
                         ItemType = (ItemType)Enum.GetValues(typeof(ItemType))
                                     .GetValue(rnd.Next(0, 7)),
-                        IsItOwned = false
+                        IsAtShop = false
                     });
             }
         }
 
         public override void Update(GameTime gameTime, BirdGame game)
         {
-            //foreach (var item in Items)
-            //{
-            //    if (!item.IsEnabled) continue;
+            foreach (var item in Items)
+            {
+                if (!item.IsEnabled) continue;
 
-            //    if (MouseInputManager.Hover(item.Box))
-            //    {
-            //        item.Color = Color.ForestGreen;
-            //        if (MouseInputManager.LeftClicked)
-            //        {
-            //            if (game.gameState.PlayerArsenal.AddItem(item,
-            //                game.shopState.Money))
-            //            {
-            //                item.IsEnabled = false;
-            //                item.IsVisible = false;
-            //            }
-            //        }
-            //    }
-            //    else
-            //    {
-            //        item.Color = Color.White;
-            //    }
-            //}
+                if (MouseInputManager.Hover(item.Box))
+                {
+                    item.Color = Color.ForestGreen;
+                    if (MouseInputManager.LeftClicked)
+                    {
+                        if (game.gameState.PlayerArsenal.IsItAbleToAddItem())
+                        {
+                            game.gameState.PlayerArsenal.AddItem(item);
+                            item.IsEnabled = false;
+                            item.IsVisible = false;
+                        }
+                    }
+                }
+                else
+                {
+                    item.Color = Color.White;
+                }
+            }
         }
     }
 }

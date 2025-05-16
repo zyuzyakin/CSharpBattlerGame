@@ -16,7 +16,7 @@ namespace game1.Model
         //Для атаки
         sword, hammer, bow, bomb
     }
-    public class Item : GameObject, IClickable
+    public class Item : GameObject
     {
         public int Charge { get; set; } // процент заряда
         public int ChargePerPeriod { get; set; } // заряд за 1 интервал
@@ -27,17 +27,15 @@ namespace game1.Model
         public int Level { get; set; }
         public bool IsEnabled { get; set; }
         public bool IsVisible { get; set; }
-        public bool IsItOwned { get; set; }
+        public bool IsAtShop { get; set; }
+
         public int Cost { get; set; } 
         public int TotalElapsed { get; set; } // сколько времени прошло
         public int Period { get; set; } // период обновления в миллисекундах
         public int ItemIteration { get; set; }
 
-        public Rectangle Bounds => Box;
-
         public Item()
         {
-            MouseInputManager.Register(this);
             IsEnabled = true;
             IsVisible = true;
             Level = 1;
@@ -53,29 +51,10 @@ namespace game1.Model
             Level = item.Level;
             IsEnabled = true;
             IsVisible = true;
-            IsItOwned = true;
+            IsAtShop = false;
             ChargePerPeriod = item.ChargePerPeriod;
         }
-        public void OnLeftClick(BirdGame game)
-        {
-            if (game.gameState.PlayerArsenal.AddItem(this,
-                            game.shopState.Money))
-            {
-                IsEnabled = false;
-                IsVisible = false;
-            }
-        }
-
-        public void OnRightClick(BirdGame game)
-        {
-            
-        }
-
-        public void OnHover(bool isHovered)
-        {
-            Color = isHovered ? Color.Green : Color.White;
-        }
-
+        
         public override void Update(GameTime gameTime, BirdGame game)
         {
             if (game.gameState.IsPaused) return;
@@ -152,7 +131,5 @@ namespace game1.Model
             var rnd = new Random();
             game.gameState.CurrentEnemy.HealthPoints -= (1 + rnd.Next(0, 7)) * Level;
         }
-
-        
     }
 }
