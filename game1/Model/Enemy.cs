@@ -1,10 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using SharpDX.Direct3D9;
-using System;
-using System.Collections.Generic;
 
 namespace game1.Model
 {   public enum EnemyType
@@ -16,7 +10,6 @@ namespace game1.Model
         public EnemyType EnemyType { get; set; }
         public int HealthPoints { get; set; }
         public bool IsDefeated { get; set; }
-
         public int MoneyReward { get; set; }
         public int Damage { get; set; }
         public string Text { get; set; }
@@ -53,8 +46,6 @@ namespace game1.Model
                     break;
             }
         }
-
-        
 
         public override void Update(GameTime gameTime, BirdGame game)
         {   

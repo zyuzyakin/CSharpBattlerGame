@@ -35,14 +35,14 @@ public class ShopState : State
         {
             Box = new Rectangle(5 * k, 130 * k, 50 * k, 15 * k),
             Text = "СОЕДИНИТЬ!",
-            OnClick = Button.CombineItems
+            OnClick = Game.CombineItems
         };
 
         BackToMapButton = new ButtonView()
         {
             Box = new Rectangle(140 * k, 130 * k, 50 * k, 15 * k),
             Text = "НАЗАД!",
-            OnClick = Button.BackToMap
+            OnClick = Game.BackToMap
         };
 
         Money = new MoneyView();

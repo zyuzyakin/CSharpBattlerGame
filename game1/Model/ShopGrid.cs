@@ -1,58 +1,54 @@
 ﻿using game1.Controller;
 using game1.View;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Reflection.Metadata;
 
-namespace game1.Model
+namespace game1.Model;
+
+public class ShopGrid : GameObject
 {
-    public class ShopGrid : GameObject
+    public List<ItemView> Items { get; set; }
+    public ShopGrid()
     {
-        public List<ItemView> Items { get; set; }
-        public ShopGrid()
-        {
-            Box = new Rectangle(10 * k, 10 * k, 1000 * k, 30 * k);
-            RefreshShopGrid();
-        }
+        Box = new Rectangle(10 * k, 10 * k, 1000 * k, 30 * k);
+        RefreshShopGrid();
+    }
 
-        public void RefreshShopGrid()
+    public void RefreshShopGrid()
+    {
+        Items = new List<ItemView>();
+        var rnd = new Random();
+        for (var i = 0; i < 7; i++)
         {
-            Items = new List<ItemView>();
-            var rnd = new Random();
-            for (var i = 0; i < 7; i++)
+            Items.Add(
+                new ItemView()
+                {
+                    ItemType = (ItemType)Enum.GetValues(typeof(ItemType))
+                                .GetValue(i),
+                    IsAtShop = true,
+                    Cost = rnd.Next(1, 3)
+                });
+        }
+    }
+
+    public override void Update(GameTime gameTime, BirdGame game)
+    {   
+        foreach (var item in Items)
+        {
+            if (MouseInputManager.Hover(item.Box))
             {
-                Items.Add(
-                    new ItemView()
-                    {
-                        ItemType = (ItemType)Enum.GetValues(typeof(ItemType))
-                                    .GetValue(i),
-                        IsAtShop = true,
-                        Cost = rnd.Next(1, 3)
-                    });
+                item.Color = Color.ForestGreen;
+                if (MouseInputManager.LeftClicked)
+                {
+                    game.gameState.PlayerArsenal.AddItem(item,
+                        game.shopState.Money);
+                }
             }
-        }
-
-        public override void Update(GameTime gameTime, BirdGame game)
-        {   
-            foreach (var item in Items)
+            else
             {
-                if (MouseInputManager.Hover(item.Box))
-                {
-                    item.Color = Color.ForestGreen;
-                    if (MouseInputManager.LeftClicked)
-                    {
-                        game.gameState.PlayerArsenal.AddItem(item,
-                            game.shopState.Money);
-                    }
-                }
-                else
-                {
-                    item.Color = Color.White;
-                   
-                }
+                item.Color = Color.White;
+               
             }
         }
     }

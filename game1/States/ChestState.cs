@@ -3,86 +3,77 @@ using game1.View;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace game1.States
+namespace game1.States;
+
+public class ChestState : State
 {
-    public class ChestState : State
+    public AnimatedTexture PlayerTexture { get; set; }
+    public MoneyView Money { get; set; }
+    public ButtonView BackToMapButton { get; set; }
+    public ButtonView CombineItemsButton { get; set; }
+
+    public ChestGridView ChestGrid { get; set; }
+
+    public ChestState(BirdGame game, ContentManager content, GraphicsDevice graphicsDevice) 
+        : base(game, content, graphicsDevice)
     {
-        public AnimatedTexture PlayerTexture { get; set; }
+        Background = content.Load<Texture2D>("backgrounds/bgshop");
+        PlayerTexture = new AnimatedTexture(20, 24, "playershopsheet",
+            new Rectangle(160 * k, 40 * k, 40 * k, 40 * k));
 
-        public Money Money { get; set; }
-        public ButtonView BackToMapButton { get; set; }
-        public ButtonView CombineItemsButton { get; set; }
 
-        public ChestGridView ChestGrid { get; set; }
+        ChestGrid = new ChestGridView();
+        Money = new MoneyView();
 
-        public ChestState(BirdGame game, ContentManager content, GraphicsDevice graphicsDevice) 
-            : base(game, content, graphicsDevice)
+        CombineItemsButton = new ButtonView()
         {
-            Background = content.Load<Texture2D>("backgrounds/bgshop");
-            PlayerTexture = new AnimatedTexture(20, 24, "playershopsheet",
-                new Rectangle(160 * k, 40 * k, 40 * k, 40 * k));
-
-
-            ChestGrid = new ChestGridView();
-            Money = new Money();
-
-            CombineItemsButton = new ButtonView()
-            {
-                Box = new Rectangle(140 * k, 90 * k, 50 * k, 15 * k),
-                Text = "СОЕДИНИТЬ!",
-                OnClick = Button.CombineItems
-            };
-            BackToMapButton = new ButtonView()
-            {
-                Box = new Rectangle(140 * k, 130 * k, 50 * k, 15 * k),
-                Text = "НАЗАД!",
-                OnClick = Button.BackToMap
-            };
-
-            StateElements.Add(Money);
-            StateElements.Add(BackToMapButton);
-            StateElements.Add(PlayerTexture);
-            StateElements.Add(ChestGrid);
-            StateElements.Add(CombineItemsButton);
-
-            foreach (var e in StateElements)
-            {
-                e.LoadContent(content);
-            }
-        }
-
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+            Box = new Rectangle(140 * k, 90 * k, 50 * k, 15 * k),
+            Text = "СОЕДИНИТЬ!",
+            OnClick = Game.CombineItems
+        };
+        BackToMapButton = new ButtonView()
         {
-            Game.GraphicsDevice.Clear(Color.CornflowerBlue);
+            Box = new Rectangle(140 * k, 130 * k, 50 * k, 15 * k),
+            Text = "НАЗАД!",
+            OnClick = Game.BackToMap
+        };
 
-            spriteBatch.Begin();
+        StateElements.Add(Money);
+        StateElements.Add(BackToMapButton);
+        StateElements.Add(PlayerTexture);
+        StateElements.Add(ChestGrid);
+        StateElements.Add(CombineItemsButton);
 
-            spriteBatch.Draw(Background, new Rectangle(0, 0, 200 * k, 150 * k), 
-                Color.White);
-            
-            Game.gameState.PlayerArsenal.Draw(spriteBatch);
-
-            foreach (var e in StateElements)
-            {
-                e.Draw(spriteBatch);
-            }
-
-            spriteBatch.End();
-        }
-
-        public override void Update(GameTime gameTime, BirdGame game)
+        foreach (var e in StateElements)
         {
-            foreach (var e in StateElements)
-            {
-                e.Update(gameTime, game);
-            }
+            e.LoadContent(content);
         }
-
     }
+
+    public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+    {
+        spriteBatch.Begin();
+
+        spriteBatch.Draw(Background, new Rectangle(0, 0, 200 * k, 150 * k), 
+            Color.White);
+        
+        Game.gameState.PlayerArsenal.Draw(spriteBatch);
+
+        foreach (var e in StateElements)
+        {
+            e.Draw(spriteBatch);
+        }
+
+        spriteBatch.End();
+    }
+
+    public override void Update(GameTime gameTime, BirdGame game)
+    {
+        foreach (var e in StateElements)
+        {
+            e.Update(gameTime, game);
+        }
+    }
+
 }

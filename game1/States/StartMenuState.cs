@@ -21,13 +21,13 @@ public class StartMenuState : State
         {
             Box = new Rectangle(10 * k, 100 * k, 50 * k, 15 * k),
             Text = "НАЧАТЬ ИГРУ!",
-            OnClick = Button.StartGame
+            OnClick = Game.StartGame
         };
         ExitButton = new ButtonView()
         {
             Box = new Rectangle(10 * k, 120 * k, 50 * k, 15 * k),
             Text = "ВЫХОД!",
-            OnClick = Button.ExitGame
+            OnClick = Game.Exit
         };
 
         PlayButton.LoadContent(content);

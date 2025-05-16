@@ -24,7 +24,7 @@ public class MapState : State
         {
             Box = new Rectangle(140 * k, 60 * k, 50 * k, 15 * k),
             Text = "ОБНОВИТЬ!",
-            OnClick = Button.UpdateMap
+            OnClick = Game.UpdateMap
         };
 
         Map.LoadContent(content);

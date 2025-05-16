@@ -1,16 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using SharpDX.Direct3D9;
-using System.Collections.Generic;
 
 namespace game1.Model
 {
     public class GameObject
     {
-        public static int k { get; set; } = 10;
-        public static float tk { get; set; } = k / 10f;
+        public static int k = 10;
+        public static float tk = k / 10f;
         public Vector2 Position { get; set; }
         public Texture2D Texture { get; set; }
         public Rectangle Box { get; set; }

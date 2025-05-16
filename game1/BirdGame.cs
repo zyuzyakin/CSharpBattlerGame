@@ -1,6 +1,7 @@
 ﻿using game1.Controller;
 using game1.Model;
 using game1.States;
+using game1.View;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -24,16 +25,12 @@ public class BirdGame : Game
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
 
-    //public SpriteFont BaseFont;
-
-
     public BirdGame()
     {
         _graphics = new GraphicsDeviceManager(this);
 
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
-        
 
         _graphics.PreferredBackBufferWidth = 200 * GameObject.k;
         _graphics.PreferredBackBufferHeight = 150 * GameObject.k;
@@ -46,6 +43,27 @@ public class BirdGame : Game
     {
         nextState = state;
     }
+    public void ChangeStateToChest()
+    {
+        ChangeState(chestState);
+        chestState.ChestGrid = new ChestGridView();
+        chestState.ChestGrid.LoadContent(Content);
+    }
+    public void ChangeStateToGame(EnemyType enemyType)
+    {
+        ChangeState(gameState);
+        gameState.IsPaused = false;
+        gameState.PauseButton.IsEnabled = true;
+        gameState.BackToMapButton.IsEnabled = false;
+        gameState.CurrentEnemy = new EnemyView(enemyType);
+        gameState.CurrentEnemy.LoadContent(Content);
+    }
+    public void ChangeStateToShop()
+    {
+        ChangeState(shopState);
+        shopState.ShopGrid = new ShopGridView();
+        shopState.ShopGrid.LoadContent(Content);
+    }
     public void NewGame()
     {
         startMenuState = new StartMenuState(this, Content, _graphics.GraphicsDevice);
@@ -56,7 +74,6 @@ public class BirdGame : Game
     }
     protected override void LoadContent()
     {
-        
         NewGame();
 
         currentState = startMenuState;
@@ -83,5 +100,27 @@ public class BirdGame : Game
     {
         currentState.Draw(gameTime, _spriteBatch);
         base.Draw(gameTime);
+    }
+
+    public void StartGame()
+    {
+        NewGame();
+        ChangeState(mapState);
+    }
+    public void RestartGame()
+    {
+        NewGame();
+        ChangeState(startMenuState);
+    }
+    public  void CombineItems()
+        => gameState.PlayerArsenal.CombineItems(this);
+    public void BackToMap() => ChangeState(mapState);
+    public  void PauseUnpauseGame()
+        => gameState.IsPaused = !gameState.IsPaused;
+
+    public  void UpdateMap()
+    {
+        mapState.Map = new MapView();
+        mapState.Map.LoadContent(Content);
     }
 }

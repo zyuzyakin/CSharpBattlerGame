@@ -32,7 +32,7 @@ public class GameState : State
             Box = new Rectangle(70 * k, 90 * k, 70 * k, 40 * k),
             Text = "ВЫ ПРОИГРАЛИ!\n\n\nНОВАЯ ИГРА!",
             IsEnabled = false,
-            OnClick = Button.RestartGame
+            OnClick = Game.RestartGame
         };
 
         BackToMapButton = new ButtonView()
@@ -40,7 +40,7 @@ public class GameState : State
             Box = new Rectangle(140 * k, 30 * k, 50 * k, 15 * k),
             Text = "НАЗАД!",
             IsEnabled = false,
-            OnClick = Button.BackToMap
+            OnClick = Game.BackToMap
 
         };
 
@@ -48,7 +48,7 @@ public class GameState : State
         {
             Box = new Rectangle(140 * k, 10 * k, 50 * k, 15 * k),
             Text = "ПАУЗА!",
-            OnClick = Button.PauseUnpauseGame
+            OnClick = Game.PauseUnpauseGame
         };
 
         StateElements.Add(Player);

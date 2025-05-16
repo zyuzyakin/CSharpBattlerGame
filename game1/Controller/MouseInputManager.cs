@@ -13,7 +13,7 @@ public static class MouseInputManager
 
     private static MouseState ms = new MouseState(), oms;
 
-    public delegate void OnClicked(BirdGame game);
+    public delegate void OnClicked();
 
     public static void Update()
     {
