@@ -3,57 +3,52 @@ using game1.View;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace game1.States
+namespace game1.States;
+
+public class MapState : State
 {
-    public class MapState : State
+    public MapView Map { get; set; }
+    public ButtonView UpdateMapButton { get; set; }
+    private Texture2D Description;
+
+    public MapState(BirdGame game, ContentManager content, GraphicsDevice graphicsDevice) 
+        : base(game, content, graphicsDevice)
     {
-        public MapView Map { get; set; }
-        public ButtonView UpdateMapButton { get; set; }
-        private Texture2D Description;
+        Background = content.Load<Texture2D>("backgrounds/bgshop");
+        Description = content.Load<Texture2D>("mapIcons/legend");
 
-        public MapState(BirdGame game, ContentManager content, GraphicsDevice graphicsDevice) : base(game, content, graphicsDevice)
+        Map = new MapView();
+
+        UpdateMapButton = new ButtonView()
         {
-            Background = content.Load<Texture2D>("backgrounds/bgshop");
-            Description = content.Load<Texture2D>("mapIcons/legend");
+            Box = new Rectangle(140 * k, 60 * k, 50 * k, 15 * k),
+            Text = "ОБНОВИТЬ!",
+            OnClick = Button.UpdateMap
+        };
 
-            Map = new MapView();
+        Map.LoadContent(content);
+        UpdateMapButton.LoadContent(content);
+    }
 
-            UpdateMapButton = new ButtonView()
-            {
-                Box = new Rectangle(140 * k, 60 * k, 50 * k, 15 * k),
-                Text = "ОБНОВИТЬ!",
-                OnClick = Button.UpdateMap
-            };
+    public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+    {
+        spriteBatch.Begin();
 
-            Map.LoadContent(content);
-            UpdateMapButton.LoadContent(content);
-        }
-
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
-        {
-            spriteBatch.Begin();
-
-            spriteBatch.Draw(Background, new Rectangle(0, 0, 200 * k, 150 * k), Color.White);
-            spriteBatch.Draw(Description, new Rectangle(130 * k, 80 * k, 60 * k, 60 * k), Color.White);
-            
-            Map.Draw(spriteBatch);
-            UpdateMapButton.Draw(spriteBatch);
-            Game.shopState.Money.Draw(spriteBatch);
-
-            spriteBatch.End();
-        }
+        spriteBatch.Draw(Background, new Rectangle(0, 0, 200 * k, 150 * k), Color.White);
+        spriteBatch.Draw(Description, new Rectangle(130 * k, 80 * k, 60 * k, 60 * k), Color.White);
         
-        public override void Update(GameTime gameTime, BirdGame game)
-        {
-            Map.Update(gameTime, game);
-            UpdateMapButton.Update(gameTime, game);
-            Game.shopState.Money.Update(gameTime, game);
-        }
+        Map.Draw(spriteBatch);
+        UpdateMapButton.Draw(spriteBatch);
+        Game.shopState.Money.Draw(spriteBatch);
+
+        spriteBatch.End();
+    }
+    
+    public override void Update(GameTime gameTime, BirdGame game)
+    {
+        Map.Update(gameTime, game);
+        UpdateMapButton.Update(gameTime, game);
+        Game.shopState.Money.Update(gameTime, game);
     }
 }

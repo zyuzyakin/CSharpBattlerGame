@@ -4,28 +4,27 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
 
-namespace game1.View
+namespace game1.View;
+
+public class MoneyView : Money
 {
-    public class MoneyView : Money
+    public MoneyView()
     {
-        public MoneyView()
-        {
-            Box = new Rectangle(140 * k, 10 * k, 50 * k, 15 * k);
-        }
+        Box = new Rectangle(140 * k, 10 * k, 50 * k, 15 * k);
+    }
 
-        public SpriteFont Font { get; set; }
+    public SpriteFont Font { get; set; }
 
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(Texture, Box, Color);
-            spriteBatch.DrawString(Font, Text, new Vector2(Box.X + k, Box.Y + k), Color,
-                0f, new Vector2(0, 0), tk, SpriteEffects.None, 0f);
-        }
+    public override void Draw(SpriteBatch spriteBatch)
+    {
+        spriteBatch.Draw(Texture, Box, Color);
+        spriteBatch.DrawString(Font, Text, new Vector2(Box.X + k, Box.Y + k), Color,
+            0f, new Vector2(0, 0), tk, SpriteEffects.None, 0f);
+    }
 
-        public override void LoadContent(ContentManager content)
-        {
-            Texture = content.Load<Texture2D>("controls/longbutton");
-            Font = content.Load<SpriteFont>("fonts/Hud");
-        }
+    public override void LoadContent(ContentManager content)
+    {
+        Texture = content.Load<Texture2D>("controls/longbutton");
+        Font = content.Load<SpriteFont>("fonts/Hud");
     }
 }

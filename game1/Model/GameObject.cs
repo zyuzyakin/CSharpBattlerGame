@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using SharpDX.Direct3D9;
 using System.Collections.Generic;
 
-namespace game1.View
+namespace game1.Model
 {
     public class GameObject
     {

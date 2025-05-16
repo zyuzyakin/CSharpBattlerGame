@@ -21,7 +21,8 @@ namespace game1.States
 
         public ChestGridView ChestGrid { get; set; }
 
-        public ChestState(BirdGame game, ContentManager content, GraphicsDevice graphicsDevice) : base(game, content, graphicsDevice)
+        public ChestState(BirdGame game, ContentManager content, GraphicsDevice graphicsDevice) 
+            : base(game, content, graphicsDevice)
         {
             Background = content.Load<Texture2D>("backgrounds/bgshop");
             PlayerTexture = new AnimatedTexture(20, 24, "playershopsheet",

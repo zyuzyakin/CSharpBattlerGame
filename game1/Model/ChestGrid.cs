@@ -37,10 +37,10 @@ namespace game1.Model
             {
                 if (!item.IsEnabled) continue;
 
-                if (InputManager.Hover(item.Box))
+                if (MouseInputManager.Hover(item.Box))
                 {
                     item.Color = Color.ForestGreen;
-                    if (InputManager.LeftClicked)
+                    if (MouseInputManager.LeftClicked)
                     {
                         if (game.gameState.PlayerArsenal.IsItAbleToAddItem())
                         {

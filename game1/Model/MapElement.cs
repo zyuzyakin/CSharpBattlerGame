@@ -34,10 +34,10 @@ namespace game1.Model
             IsAvailable = curelem == null && LevelNumber == 1
                 || curelem != null && curelem.Next.Contains(this);
 
-            if (InputManager.Hover(Box))
+            if (MouseInputManager.Hover(Box))
             {
                 Color = Color.Green;
-                if (InputManager.LeftClicked && IsAvailable)
+                if (MouseInputManager.LeftClicked && IsAvailable)
                 {
                     game.mapState.Map.CurrentMapElem = this;
                     game.mapState.UpdateMapButton.IsEnabled = false;

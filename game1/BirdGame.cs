@@ -1,6 +1,6 @@
 ﻿using game1.Controller;
+using game1.Model;
 using game1.States;
-using game1.View;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -9,8 +9,8 @@ namespace game1;
 
 public class BirdGame : Game
 {
-    public State currentState;
-    public State nextState;
+    private State currentState;
+    private State nextState;
 
     public StartMenuState startMenuState { get; set; }
 
@@ -23,7 +23,8 @@ public class BirdGame : Game
 
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
-    public SpriteFont BaseFont;
+
+    //public SpriteFont BaseFont;
 
 
     public BirdGame()
@@ -47,6 +48,7 @@ public class BirdGame : Game
     }
     public void NewGame()
     {
+        startMenuState = new StartMenuState(this, Content, _graphics.GraphicsDevice);
         mapState = new MapState(this, Content, _graphics.GraphicsDevice);
         gameState = new GameState(this, Content, _graphics.GraphicsDevice);
         shopState = new ShopState(this, Content, _graphics.GraphicsDevice);
@@ -54,9 +56,8 @@ public class BirdGame : Game
     }
     protected override void LoadContent()
     {
-        startMenuState = new StartMenuState(this, Content, _graphics.GraphicsDevice);
+        
         NewGame();
-
 
         currentState = startMenuState;
 
@@ -65,7 +66,7 @@ public class BirdGame : Game
     
     protected override void Update(GameTime gameTime)
     {
-        InputManager.Update();
+        MouseInputManager.Update();
 
         if(nextState != null)
         {

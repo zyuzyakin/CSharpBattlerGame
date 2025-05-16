@@ -39,10 +39,10 @@ namespace game1.Model
         {   
             foreach (var item in Items)
             {
-                if (InputManager.Hover(item.Box))
+                if (MouseInputManager.Hover(item.Box))
                 {
                     item.Color = Color.ForestGreen;
-                    if (InputManager.LeftClicked)
+                    if (MouseInputManager.LeftClicked)
                     {
                         game.gameState.PlayerArsenal.AddItem(item,
                             game.shopState.Money);
