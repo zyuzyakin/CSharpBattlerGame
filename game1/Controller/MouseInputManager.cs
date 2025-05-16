@@ -1,7 +1,6 @@
 ﻿using game1.Model;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using SharpDX.Direct3D9;
 
 namespace game1.Controller;
 
@@ -24,7 +23,6 @@ public static class MouseInputManager
 
         RightClicked = ms.RightButton != ButtonState.Pressed 
             && oms.RightButton == ButtonState.Pressed;
-        // true On left release like Windows buttons
     }
     public static bool Hover(Rectangle r)
     {
@@ -36,3 +34,4 @@ public static class MouseInputManager
         
     }
 }
+
