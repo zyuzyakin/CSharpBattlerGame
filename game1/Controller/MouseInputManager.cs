@@ -1,4 +1,4 @@
-﻿using game1.Model;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
@@ -6,32 +6,52 @@ namespace game1.Controller;
 
 public static class MouseInputManager
 {
-    public static bool LeftClicked = false;
+    private static MouseState _prevState;
+    private static MouseState _currentState;
 
-    public static bool RightClicked = false;
-
-    private static MouseState ms = new MouseState(), oms;
-
-    public delegate void OnClicked();
+    // Список отслеживаемых объектов
+    private static readonly List<IClickable> ClickableObjects = new();
 
     public static void Update()
     {
-        oms = ms;
-        ms = Mouse.GetState();
-        LeftClicked = ms.LeftButton != ButtonState.Pressed 
-            && oms.LeftButton == ButtonState.Pressed;
+        _prevState = _currentState;
+        _currentState = Mouse.GetState();
 
-        RightClicked = ms.RightButton != ButtonState.Pressed 
-            && oms.RightButton == ButtonState.Pressed;
-    }
-    public static bool Hover(Rectangle r)
-    {
-        return r.Contains(new Vector2(ms.X, ms.Y));
+        foreach (var obj in ClickableObjects)
+        {
+            var isHovered = obj.Bounds.Contains(GetPosition());
+
+            // Обработка ховера
+            obj.OnHover(isHovered);
+
+            // Обработка кликов
+            if (isHovered)
+            {
+                if (IsLeftClicked()) obj.OnLeftClick();
+                if (IsRightClicked()) obj.OnRightClick();
+            }
+        }
     }
 
-    public static void OnLeftClicked(GameObject obj)
-    {
-        
-    }
+    // Регистрация объектов
+    public static void Register(IClickable obj) => ClickableObjects.Add(obj);
+    public static void Unregister(IClickable obj) => ClickableObjects.Remove(obj);
+    public static void UnregisterAll() => ClickableObjects.Clear();
+
+
+    // Вспомогательные методы
+    public static Point GetPosition() => _currentState.Position;
+    public static bool IsLeftClicked() => _prevState.LeftButton == ButtonState.Pressed &&
+                                        _currentState.LeftButton == ButtonState.Released;
+    public static bool IsRightClicked() => _prevState.RightButton == ButtonState.Pressed &&
+                                         _currentState.RightButton == ButtonState.Released;
 }
 
+// Интерфейс для кликабельных объектов
+public interface IClickable
+{
+    Rectangle Bounds { get; }
+    void OnLeftClick();
+    void OnRightClick();
+    void OnHover(bool isHovered);
+}

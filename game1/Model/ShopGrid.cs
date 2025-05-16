@@ -26,7 +26,7 @@ public class ShopGrid : GameObject
                 {
                     ItemType = (ItemType)Enum.GetValues(typeof(ItemType))
                                 .GetValue(i),
-                    IsAtShop = true,
+                    IsItOwned = false,
                     Cost = rnd.Next(1, 3)
                 });
         }
@@ -34,22 +34,22 @@ public class ShopGrid : GameObject
 
     public override void Update(GameTime gameTime, BirdGame game)
     {   
-        foreach (var item in Items)
-        {
-            if (MouseInputManager.Hover(item.Box))
-            {
-                item.Color = Color.ForestGreen;
-                if (MouseInputManager.LeftClicked)
-                {
-                    game.gameState.PlayerArsenal.AddItem(item,
-                        game.shopState.Money);
-                }
-            }
-            else
-            {
-                item.Color = Color.White;
+        //foreach (var item in Items)
+        //{
+        //    if (MouseInputManager.Hover(item.Box))
+        //    {
+        //        item.Color = Color.ForestGreen;
+        //        if (MouseInputManager.LeftClicked)
+        //        {
+        //            game.gameState.PlayerArsenal.AddItem(item,
+        //                game.shopState.Money);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        item.Color = Color.White;
                
-            }
-        }
+        //    }
+        //}
     }
 }
