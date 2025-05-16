@@ -6,9 +6,9 @@ namespace game1.Controller;
 
 public static class MouseInputManager
 {
-    public static bool LeftClicked = false;
+    public static bool leftClicked = false;
 
-    public static bool RightClicked = false;
+    public static bool rightClicked = false;
 
     private static MouseState ms = new MouseState(), oms;
 
@@ -18,10 +18,10 @@ public static class MouseInputManager
     {
         oms = ms;
         ms = Mouse.GetState();
-        LeftClicked = ms.LeftButton != ButtonState.Pressed 
+        leftClicked = ms.LeftButton != ButtonState.Pressed 
             && oms.LeftButton == ButtonState.Pressed;
 
-        RightClicked = ms.RightButton != ButtonState.Pressed 
+        rightClicked = ms.RightButton != ButtonState.Pressed 
             && oms.RightButton == ButtonState.Pressed;
     }
     public static bool OnHover(GameObject obj, Color highlightColor)
@@ -33,12 +33,12 @@ public static class MouseInputManager
 
     public static bool OnLeftClick(GameObject obj, Color highlightColor)
     {
-        return OnHover(obj, highlightColor) && LeftClicked;
+        return OnHover(obj, highlightColor) && leftClicked;
     }
 
     public static bool OnRightClick(GameObject obj, Color highlightColor)
     {
-        return OnHover(obj, highlightColor) && RightClicked;
+        return OnHover(obj, highlightColor) && rightClicked;
     }
 }
 

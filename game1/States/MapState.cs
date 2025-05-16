@@ -1,4 +1,4 @@
-﻿using game1.Model;
+﻿
 using game1.View;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -10,13 +10,13 @@ public class MapState : State
 {
     public MapView Map { get; set; }
     public ButtonView UpdateMapButton { get; set; }
-    private Texture2D Description;
+    private Texture2D description;
 
     public MapState(BirdGame game, ContentManager content, GraphicsDevice graphicsDevice) 
         : base(game, content, graphicsDevice)
     {
         Background = content.Load<Texture2D>("backgrounds/bgshop");
-        Description = content.Load<Texture2D>("mapIcons/legend");
+        description = content.Load<Texture2D>("mapIcons/legend");
 
         Map = new MapView();
 
@@ -36,7 +36,7 @@ public class MapState : State
         spriteBatch.Begin();
 
         spriteBatch.Draw(Background, new Rectangle(0, 0, 200 * k, 150 * k), Color.White);
-        spriteBatch.Draw(Description, new Rectangle(130 * k, 80 * k, 60 * k, 60 * k), Color.White);
+        spriteBatch.Draw(description, new Rectangle(130 * k, 80 * k, 60 * k, 60 * k), Color.White);
         
         Map.Draw(spriteBatch);
         UpdateMapButton.Draw(spriteBatch);
