@@ -24,14 +24,21 @@ public static class MouseInputManager
         RightClicked = ms.RightButton != ButtonState.Pressed 
             && oms.RightButton == ButtonState.Pressed;
     }
-    public static bool Hover(Rectangle r)
+    public static bool OnHover(GameObject obj, Color highlightColor)
     {
-        return r.Contains(new Vector2(ms.X, ms.Y));
+        var cond = obj.Box.Contains(new Vector2(ms.X, ms.Y));
+        obj.Color = cond ? highlightColor : Color.White;
+        return cond;
     }
 
-    public static void OnLeftClicked(GameObject obj)
+    public static bool OnLeftClick(GameObject obj, Color highlightColor)
     {
-        
+        return OnHover(obj, highlightColor) && LeftClicked;
+    }
+
+    public static bool OnRightClick(GameObject obj, Color highlightColor)
+    {
+        return OnHover(obj, highlightColor) && RightClicked;
     }
 }
 

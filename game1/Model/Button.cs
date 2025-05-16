@@ -15,20 +15,11 @@ public class Button : GameObject
 
     public override void Update(GameTime gameTime, BirdGame game)
     {
-        if (IsEnabled)
+        if (!IsEnabled) return;
+
+        if (OnLeftClick(this, Color.Green))
         {
-            if (Hover(Box))
-            {
-                Color = Color.Green;
-                if (LeftClicked)
-                {
-                    OnClick();
-                }
-            }
-            else
-            {
-                Color = Color.White;
-            } 
+            OnClick();
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using game1.Controller;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using static game1.Controller.MouseInputManager;
+
 
 namespace game1.Model;
 
@@ -17,6 +19,7 @@ public class MapElement : GameObject
     public List<MapElement> Previous { get; set; }
     public MapElement()
     {
+        Color = Color.Gray;
         Next = new List<MapElement>();
         Previous = new List<MapElement>();
     }
@@ -28,24 +31,18 @@ public class MapElement : GameObject
         IsAvailable = curelem == null && LevelNumber == 1
             || curelem != null && curelem.Next.Contains(this);
 
-        if (MouseInputManager.Hover(Box))
+        if (!IsAvailable)
         {
-            Color = Color.Green;
-            if (MouseInputManager.LeftClicked && IsAvailable)
-            {
-                game.mapState.Map.CurrentMapElem = this;
-                game.mapState.UpdateMapButton.IsEnabled = false;
-                CreateLevel(game);
-            }
+            Color = Color.Gray;
+            return;
         }
-        else
+
+        if (OnLeftClick(this, Color.Green))
         {
-            if (IsAvailable)
-                Color = Color.Yellow;
-            else
-                Color = Color.White;
+            game.mapState.Map.CurrentMapElem = this;
+            game.mapState.UpdateMapButton.IsEnabled = false;
+            CreateLevel(game);
         }
-        
     }
     public void CreateLevel(BirdGame game)
     {

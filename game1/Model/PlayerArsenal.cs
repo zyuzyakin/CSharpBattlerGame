@@ -29,22 +29,17 @@ namespace game1.Model
                 ItemsCount.Add((ItemType)elem, 0);
             }
         }
-        public void AddItem(ItemView item, Money money)
+        public bool AddItem(ItemView item, Money money)
         {
             if (money.MoneyValue >= item.Cost && Items.Count < MaxSize)
             {
                 money.MoneyValue -= item.Cost;
                 Items.Add(new ItemView(item));
+                return true;
             }
+            return false;
         }
-        public bool IsItAbleToAddItem() => Items.Count < MaxSize;
-        public void AddItem(ItemView item)
-        {
-            if (Items.Count < MaxSize)
-            {
-                Items.Add(new ItemView(item));
-            }
-        }
+        
         public void RefreshItems()
         {
             var result = new List<ItemView>();

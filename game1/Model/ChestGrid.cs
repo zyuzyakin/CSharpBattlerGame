@@ -1,8 +1,8 @@
-﻿using game1.Controller;
-using game1.View;
+﻿using game1.View;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using static game1.Controller.MouseInputManager;
 
 namespace game1.Model
 {
@@ -35,22 +35,14 @@ namespace game1.Model
             {
                 if (!item.IsEnabled) continue;
 
-                if (MouseInputManager.Hover(item.Box))
+                if (OnLeftClick(item, Color.ForestGreen))
                 {
-                    item.Color = Color.ForestGreen;
-                    if (MouseInputManager.LeftClicked)
+                    if (game.gameState.PlayerArsenal.AddItem(item,
+                        game.shopState.Money))
                     {
-                        if (game.gameState.PlayerArsenal.IsItAbleToAddItem())
-                        {
-                            game.gameState.PlayerArsenal.AddItem(item);
-                            item.IsEnabled = false;
-                            item.IsVisible = false;
-                        }
+                        item.IsEnabled = false;
+                        item.IsVisible = false;
                     }
-                }
-                else
-                {
-                    item.Color = Color.White;
                 }
             }
         }

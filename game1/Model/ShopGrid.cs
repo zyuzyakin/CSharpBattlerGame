@@ -3,6 +3,8 @@ using game1.View;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using static game1.Controller.MouseInputManager;
+
 
 namespace game1.Model;
 
@@ -36,19 +38,10 @@ public class ShopGrid : GameObject
     {   
         foreach (var item in Items)
         {
-            if (MouseInputManager.Hover(item.Box))
+            if (OnLeftClick(item, Color.Green))
             {
-                item.Color = Color.ForestGreen;
-                if (MouseInputManager.LeftClicked)
-                {
-                    game.gameState.PlayerArsenal.AddItem(item,
+                game.gameState.PlayerArsenal.AddItem(item,
                         game.shopState.Money);
-                }
-            }
-            else
-            {
-                item.Color = Color.White;
-               
             }
         }
     }

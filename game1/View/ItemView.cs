@@ -32,7 +32,7 @@ public class ItemView : Item
             new Vector2(Box.X, Box.Y + Box.Height + (int)(Box.Height * 0.25)), Color.White,
             0f, new Vector2(0, 0), 0.4f * tk, SpriteEffects.None, 0);
 
-        if (IsEnabled && IsAtShop)
+        if (IsEnabled && IsAtShop && Cost >= 0)
         {
             spriteBatch.DrawString(Font, Cost.ToString(),
             new Vector2(Box.X, Box.Y + k), Color.Yellow,
