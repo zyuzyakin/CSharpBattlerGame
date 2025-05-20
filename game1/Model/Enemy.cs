@@ -91,6 +91,7 @@ namespace game1.Model
         }
         public void AtackPlayer(BirdGame game)
         {
+
             game.gameState.Player.ShieldPoints -= Damage;
             Damage += AtackIteration / 10;
             if (game.gameState.Player.ShieldPoints < 0)

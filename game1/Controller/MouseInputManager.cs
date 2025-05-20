@@ -6,9 +6,9 @@ namespace game1.Controller;
 
 public static class MouseInputManager
 {
-    public static bool leftClicked = false;
+    private static bool leftClicked = false;
 
-    public static bool rightClicked = false;
+    private static bool rightClicked = false;
 
     private static MouseState ms = new MouseState(), oms;
 
