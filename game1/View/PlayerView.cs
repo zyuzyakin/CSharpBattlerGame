@@ -12,13 +12,13 @@ public class PlayerView : Player
     public override void Draw(SpriteBatch spriteBatch)
     {
         string hpDisplay = $"ЗДОРОВЬЕ:\n{HealthPoints}/{MaxHealthPoints}!";
-        string shieldDisplay = $"ЗАЩИТА:{ShieldPoints}!";
+        string shieldDisplay = $"ЗАЩИТА: {ShieldPoints}!";
 
         spriteBatch.DrawString(Font, hpDisplay,
-            new Vector2(Box.X, Box.Y + Box.Height + k), Color.White,
+            new Vector2(Box.X, Box.Y + Box.Height + k), Color.LightPink,
             0f, new Vector2(0, 0), tk, SpriteEffects.None, 0f);
         spriteBatch.DrawString(Font, shieldDisplay,
-            new Vector2(Box.X, Box.Y + Box.Height + 15 * k), Color.White,
+            new Vector2(Box.X, Box.Y + Box.Height + 15 * k), Color.LightGray,
             0f, new Vector2(0, 0), tk, SpriteEffects.None, 0f);
     }
 

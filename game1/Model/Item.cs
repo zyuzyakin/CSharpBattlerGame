@@ -41,6 +41,7 @@ namespace game1.Model
             Level = 1;
             Period = 50;
             ChargePerPeriod = 5;
+            
         }
 
         public Item(Item item)

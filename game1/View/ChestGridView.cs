@@ -7,11 +7,6 @@ namespace game1.View;
 
 public class ChestGridView : ChestGrid
 {
-    public ChestGridView()
-    {
-        Box = new Rectangle(40 * k, 40 * k, 1000 * k, 30 * k);
-    }
-
     public override void Draw(SpriteBatch spriteBatch)
     {
         var distance = k;

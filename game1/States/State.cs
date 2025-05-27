@@ -9,7 +9,6 @@ namespace game1.States;
 
 public class State : GameObject
 {
-    public List<GameObject> StateElements { get; set; }
     public Texture2D Background { get; set; }
     public BirdGame Game { get; set; }
     public ContentManager Content { get; set; }
@@ -18,7 +17,6 @@ public class State : GameObject
 
     public State(BirdGame game, ContentManager content, GraphicsDevice graphicsDevice)
     {
-        StateElements = new List<GameObject>();
         Game = game;
         Content = content;
         GraphicDevice = graphicsDevice;

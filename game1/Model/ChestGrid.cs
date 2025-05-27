@@ -11,6 +11,7 @@ namespace game1.Model
         public List<ItemView> Items { get; set; }
         public ChestGrid()
         {
+            Box = new Rectangle(40 * k, 40 * k, 1000 * k, 30 * k);
             RefreshChestGrid();
         }
         public void RefreshChestGrid()

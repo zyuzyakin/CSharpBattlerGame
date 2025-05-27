@@ -28,9 +28,9 @@ namespace game1.Model
             int totalLevels = 7;
 
             for (var levelNum = 1; levelNum <= totalLevels; levelNum++)
-            {   
-                //На этих уровнях генерируется только магазин
-                if (levelNum == 1 || levelNum == (totalLevels + 1) / 2  || levelNum == totalLevels-1)
+            {
+                //На этих уровнях генерируется только магазин || levelNum == (totalLevels + 1) / 2
+                if (levelNum == 1   || levelNum == totalLevels-1)
                 {
                     mapElems.Add(new MapElementView()
                     {

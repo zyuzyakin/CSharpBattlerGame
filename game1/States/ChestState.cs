@@ -39,16 +39,11 @@ public class ChestState : State
             OnClick = Game.BackToMap
         };
 
-        StateElements.Add(Money);
-        StateElements.Add(BackToMapButton);
-        StateElements.Add(PlayerTexture);
-        StateElements.Add(ChestGrid);
-        StateElements.Add(CombineItemsButton);
-
-        foreach (var e in StateElements)
-        {
-            e.LoadContent(content);
-        }
+        BackToMapButton.LoadContent(content);
+        PlayerTexture.LoadContent(content);
+        CombineItemsButton.LoadContent(content);
+        Money.LoadContent(content);
+        ChestGrid.LoadContent(content);
     }
 
     public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -60,20 +55,24 @@ public class ChestState : State
         
         Game.gameState.PlayerArsenal.Draw(spriteBatch);
 
-        foreach (var e in StateElements)
-        {
-            e.Draw(spriteBatch);
-        }
+        ChestGrid.Draw(spriteBatch);
+
+        BackToMapButton.Draw(spriteBatch);
+        PlayerTexture.Draw(spriteBatch);
+        CombineItemsButton.Draw(spriteBatch);
+        Money.Draw(spriteBatch);
 
         spriteBatch.End();
     }
 
     public override void Update(GameTime gameTime, BirdGame game)
     {
-        foreach (var e in StateElements)
-        {
-            e.Update(gameTime, game);
-        }
+        ChestGrid.Update(gameTime, game);
+
+        BackToMapButton.Update(gameTime, game);
+        PlayerTexture.Update(gameTime, game);
+        CombineItemsButton.Update(gameTime, game);
+        Money.Update(gameTime, game);
     }
 
 }

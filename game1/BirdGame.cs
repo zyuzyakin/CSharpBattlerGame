@@ -45,9 +45,10 @@ public class BirdGame : Game
     }
     public void ChangeStateToChest()
     {
-        ChangeState(chestState);
         chestState.ChestGrid = new ChestGridView();
         chestState.ChestGrid.LoadContent(Content);
+
+        ChangeState(chestState);
     }
     public void ChangeStateToGame(EnemyType enemyType)
     {
@@ -56,6 +57,7 @@ public class BirdGame : Game
         gameState.PauseButton.IsEnabled = true;
         gameState.BackToMapButton.IsEnabled = false;
         gameState.CurrentEnemy = new EnemyView(enemyType);
+        gameState.Player.ShieldPoints = 0;
         gameState.CurrentEnemy.LoadContent(Content);
     }
     public void ChangeStateToShop()

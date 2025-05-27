@@ -63,7 +63,6 @@ public class MapElement : GameObject
             case PointType.shop:
                 game.ChangeStateToShop();
                 break;
-            
         }
     }
 

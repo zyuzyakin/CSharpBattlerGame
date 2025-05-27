@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
+
 namespace game1.States;
 
 public class GameState : State
@@ -51,17 +52,15 @@ public class GameState : State
             OnClick = Game.PauseUnpauseGame
         };
 
-        StateElements.Add(Player);
-        StateElements.Add(PlayerArsenal);
-        StateElements.Add(BackToMapButton);
-        StateElements.Add(PauseButton);
-        StateElements.Add(RestartGameButton);
-        StateElements.Add(PlayerTexture);
+        
 
-        foreach (var e in StateElements)
-        {
-            e.LoadContent(content);
-        }
+        Player.LoadContent(content);
+        PlayerArsenal.LoadContent(content);
+        BackToMapButton.LoadContent(content);
+        PauseButton.LoadContent(content);
+        RestartGameButton.LoadContent(content);
+        PlayerTexture.LoadContent(content);
+        
     }
 
     public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -70,11 +69,12 @@ public class GameState : State
 
         spriteBatch.Draw(Background, new Rectangle(0, 0, 200 * k, 150 * k), Color.White);
 
-        foreach (var e in StateElements)
-        {
-            e.Draw(spriteBatch);
-        }
-
+        Player.Draw(spriteBatch);
+        PlayerArsenal.Draw(spriteBatch);
+        BackToMapButton.Draw(spriteBatch);
+        PauseButton.Draw(spriteBatch);
+        PlayerTexture.Draw(spriteBatch);
+        RestartGameButton.Draw(spriteBatch);
         CurrentEnemy.Draw(spriteBatch);
 
         spriteBatch.End();
@@ -84,9 +84,11 @@ public class GameState : State
     {
         CurrentEnemy.Update(gameTime, game);
 
-        foreach (var e in StateElements)
-        {
-            e.Update(gameTime, game);
-        }
+        Player.Update(gameTime, game);
+        PlayerArsenal.Update(gameTime, game);
+        BackToMapButton.Update(gameTime, game);
+        PauseButton.Update(gameTime, game);
+        PlayerTexture.Update(gameTime, game);
+        RestartGameButton.Update(gameTime, game);
     }
 }
