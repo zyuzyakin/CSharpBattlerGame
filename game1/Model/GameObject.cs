@@ -6,7 +6,7 @@ namespace game1.Model
 {
     public class GameObject
     {
-        public static int k = 10;
+        public static int k = 5;
         public static float tk = k / 10f;
         public Vector2 Position { get; set; }
         public Texture2D Texture { get; set; }
